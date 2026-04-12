@@ -1,6 +1,6 @@
 [build-system]
 requires = ["setuptools>=68.0", "wheel"]
-build-backend = "setuptools.backends._legacy:_Backend"
+build-backend = "setuptools.build_meta"
 
 [project]
 name = "medical-intervention-text-classification"
@@ -17,3 +17,6 @@ keywords = ["NLP", "text-classification", "systematic-review", "medical", "ontol
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 python_files = ["test_*.py"]
+
+[tool.setuptools.packages.find]
+include = ["src*"]
