@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.backends._legacy:_Backend"
+
+[project]
+name = "medical-intervention-text-classification"
+version = "2.0.0"
+description = "Automated screening of medical abstracts for systematic reviews using ML and ontology enrichment"
+readme = "README.md"
+requires-python = ">=3.9"
+license = {text = "MIT"}
+authors = [
+    {name = "Samuel Okoe-Mensah", email = "sammy.okmens@gmail.com"},
+]
+keywords = ["NLP", "text-classification", "systematic-review", "medical", "ontology", "SNOMED-CT"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
