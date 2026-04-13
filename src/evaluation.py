@@ -1,5 +1,4 @@
 """Evaluation: classification reports, confusion matrices, training plots."""
-
 from pathlib import Path
 from typing import Optional
 
@@ -7,12 +6,23 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import seaborn as sns
-from sklearn.metrics import classification_report, confusion_matrix
+from sklearn.metrics import classification_report, confusion_matrix, roc_auc_score
 
 
 def get_predictions(model, x_test, threshold=0.5):
     y_proba = model.predict(x_test, verbose=0)
     return (y_proba > threshold).astype("int32").flatten()
+
+
+def get_probabilities(model, x_test):
+    return model.predict(x_test, verbose=0).flatten()
+
+
+def compute_roc_auc(y_true, y_proba):
+    """ROC AUC with fallback for single-class folds."""
+    if len(np.unique(y_true)) < 2:
+        return float("nan")
+    return roc_auc_score(y_true, y_proba)
 
 
 def print_classification_report(y_true, y_pred):

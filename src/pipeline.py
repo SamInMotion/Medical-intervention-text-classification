@@ -19,6 +19,8 @@ from .features import build_vectorizer, vectorize
 from .models import build_logistic_model, build_regularized_model
 from .evaluation import (
     get_predictions,
+    get_probabilities,
+    compute_roc_auc,
     print_classification_report,
     plot_confusion_matrix,
     plot_training_history,
@@ -56,18 +58,20 @@ def _load_and_preprocess(workflow_id, data_dir):
 
 
 def _train_and_evaluate(x_train, y_train, x_test, y_test, epochs, batch_size):
-    """Train both models on one fold/split, return accuracies and f1 scores."""
+    """Train both models on one fold/split, return accuracies, f1 scores, and probabilities."""
     # baseline
     model = build_logistic_model(x_train.shape[1])
     model.fit(x_train, y_train, epochs=epochs, batch_size=batch_size, verbose=0)
     score = model.evaluate(x_test, y_test, verbose=0)
     y_pred = get_predictions(model, x_test)
+    y_proba = get_probabilities(model, x_test)
 
     # regularized
     model_reg = build_regularized_model(x_train.shape[1])
     model_reg.fit(x_train, y_train, epochs=epochs, batch_size=32, verbose=0)
     score_reg = model_reg.evaluate(x_test, y_test, verbose=0)
     y_pred_reg = get_predictions(model_reg, x_test)
+    y_proba_reg = get_probabilities(model_reg, x_test)
 
     return {
         "baseline_acc": score[1],
@@ -75,6 +79,8 @@ def _train_and_evaluate(x_train, y_train, x_test, y_test, epochs, batch_size):
         "y_test": y_test,
         "y_pred_baseline": y_pred,
         "y_pred_regularized": y_pred_reg,
+        "y_proba_baseline": y_proba,
+        "y_proba_regularized": y_proba_reg,
     }
 
 
@@ -103,6 +109,8 @@ def run_kfold(
 
     baseline_accs = []
     reg_accs = []
+    baseline_aucs = []
+    reg_aucs = []
 
     for fold_idx, (train_idx, test_idx) in enumerate(skf.split(processed_texts, labels)):
         train_texts = [processed_texts[i] for i in train_idx]
@@ -119,15 +127,28 @@ def run_kfold(
         baseline_accs.append(results["baseline_acc"])
         reg_accs.append(results["regularized_acc"])
 
-        print(f"  Fold {fold_idx + 1}: baseline={results['baseline_acc']:.3f}  regularized={results['regularized_acc']:.3f}")
+        b_auc = compute_roc_auc(y_test, results["y_proba_baseline"])
+        r_auc = compute_roc_auc(y_test, results["y_proba_regularized"])
+        baseline_aucs.append(b_auc)
+        reg_aucs.append(r_auc)
+
+        print(f"  Fold {fold_idx + 1}: baseline={results['baseline_acc']:.3f} (AUC {b_auc:.3f})  regularized={results['regularized_acc']:.3f} (AUC {r_auc:.3f})")
 
     baseline_mean = np.mean(baseline_accs)
     baseline_std = np.std(baseline_accs)
     reg_mean = np.mean(reg_accs)
     reg_std = np.std(reg_accs)
 
-    print(f"\nBaseline:     {baseline_mean:.3f} +/- {baseline_std:.3f}")
-    print(f"Regularized:  {reg_mean:.3f} +/- {reg_std:.3f}")
+    # filter NaN for AUC (shouldn't happen with stratified folds but just in case)
+    valid_b_aucs = [a for a in baseline_aucs if not np.isnan(a)]
+    valid_r_aucs = [a for a in reg_aucs if not np.isnan(a)]
+    b_auc_mean = np.mean(valid_b_aucs) if valid_b_aucs else float("nan")
+    b_auc_std = np.std(valid_b_aucs) if valid_b_aucs else float("nan")
+    r_auc_mean = np.mean(valid_r_aucs) if valid_r_aucs else float("nan")
+    r_auc_std = np.std(valid_r_aucs) if valid_r_aucs else float("nan")
+
+    print(f"\nBaseline:     {baseline_mean:.3f} +/- {baseline_std:.3f}  (AUC {b_auc_mean:.3f} +/- {b_auc_std:.3f})")
+    print(f"Regularized:  {reg_mean:.3f} +/- {reg_std:.3f}  (AUC {r_auc_mean:.3f} +/- {r_auc_std:.3f})")
 
     return {
         "workflow": workflow_id,
@@ -138,6 +159,12 @@ def run_kfold(
         "regularized_accs": reg_accs,
         "regularized_mean": reg_mean,
         "regularized_std": reg_std,
+        "baseline_aucs": baseline_aucs,
+        "baseline_auc_mean": b_auc_mean,
+        "baseline_auc_std": b_auc_std,
+        "regularized_aucs": reg_aucs,
+        "regularized_auc_mean": r_auc_mean,
+        "regularized_auc_std": r_auc_std,
     }
 
 
@@ -148,11 +175,11 @@ def run_all_workflows_kfold(n_folds=5, data_dir="data", epochs=42, batch_size=5)
         result = run_kfold(wf_id, n_folds, data_dir, epochs, batch_size)
         all_results.append(result)
 
-    print("\n" + "=" * 70)
+    print("\n" + "=" * 90)
     print(f"SUMMARY: {n_folds}-fold CV across all workflows")
-    print("=" * 70)
-    print(f"{'WF':>3}  {'Stop':>4}  {'Syn':>3}  {'Par':>3}  {'Ngr':>3}  {'Feat':>4}  {'Baseline':>12}  {'Regularized':>12}")
-    print("-" * 70)
+    print("=" * 90)
+    print(f"{'WF':>3}  {'Stop':>4}  {'Syn':>3}  {'Par':>3}  {'Ngr':>3}  {'Feat':>4}  {'Baseline':>12}  {'Regularized':>12}  {'BL AUC':>12}  {'Reg AUC':>12}")
+    print("-" * 90)
 
     for r in all_results:
         wf = WORKFLOWS[r["workflow"]]
@@ -164,7 +191,9 @@ def run_all_workflows_kfold(n_folds=5, data_dir="data", epochs=42, batch_size=5)
             f"{str(wf.ngrams):>3}  "
             f"{wf.nrfeats:>4}  "
             f"{r['baseline_mean']:.3f} +/- {r['baseline_std']:.3f}  "
-            f"{r['regularized_mean']:.3f} +/- {r['regularized_std']:.3f}"
+            f"{r['regularized_mean']:.3f} +/- {r['regularized_std']:.3f}  "
+            f"{r['baseline_auc_mean']:.3f} +/- {r['baseline_auc_std']:.3f}  "
+            f"{r['regularized_auc_mean']:.3f} +/- {r['regularized_auc_std']:.3f}"
         )
 
     return all_results
