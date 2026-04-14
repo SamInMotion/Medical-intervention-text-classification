@@ -33,3 +33,5 @@ outputs/
 data/*.tsv
 data/*.json
 data/*.txt
+data/cohen/cache/
+
