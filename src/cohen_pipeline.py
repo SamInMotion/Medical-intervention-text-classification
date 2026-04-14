@@ -2,8 +2,10 @@
 
 Usage:
     python -m src.cohen_pipeline --topic Statins --email you@example.com
-    python -m src.cohen_pipeline --topic Statins --email you@example.com --text-mode title_abstract_mesh
+    python -m src.cohen_pipeline --topic Statins --email you@example.com --text-mode auto_mesh
+    python -m src.cohen_pipeline --topic Statins --email you@example.com --compare-text-modes
     python -m src.cohen_pipeline --topic Statins --email you@example.com --all-workflows
+    python -m src.cohen_pipeline --topic Statins --email you@example.com --compare-text-modes --output-file outputs/text_mode_comparison.txt
     python -m src.cohen_pipeline --list-topics
 
 This is a separate entry point from pipeline.py rather than an extension
@@ -15,6 +17,7 @@ would make the code harder to read.
 
 import argparse
 import logging
+import sys
 
 import numpy as np
 from sklearn.model_selection import StratifiedKFold
@@ -34,6 +37,7 @@ from .benchmark_loader import (
     load_cohen_topic,
     list_topics_summary,
 )
+from .auto_mesh import build_mesh_vocabulary, prepare_auto_mesh_texts
 
 logger = logging.getLogger(__name__)
 
@@ -131,7 +135,11 @@ def run_cohen_kfold(
         logger.error("No data for topic '%s'. Aborting.", topic)
         return None
 
-    texts = _prepare_texts(df, text_mode)
+    if text_mode == "auto_mesh":
+        mesh_vocab = build_mesh_vocabulary(cache_dir)
+        texts = prepare_auto_mesh_texts(df, mesh_vocab)
+    else:
+        texts = _prepare_texts(df, text_mode)
     labels = np.array(df["labels"])
 
     # NEO enrichment won't match drug class vocabulary,
@@ -300,13 +308,13 @@ def run_text_mode_comparison(
     epochs=42,
     batch_size=5,
 ):
-    """Run one workflow across all three text modes for comparison.
+    """Run one workflow across all four text modes for comparison.
 
     Default workflow 8 (no stopwords, trigrams, no enrichment) chosen
     because it's the simplest trigram config — isolates the text mode
     effect without enrichment or stopword noise.
     """
-    modes = ["abstract", "title_abstract", "title_abstract_mesh"]
+    modes = ["abstract", "title_abstract", "title_abstract_mesh", "auto_mesh"]
     results = []
 
     for mode in modes:
@@ -371,8 +379,8 @@ def main():
     parser.add_argument("--api-key", type=str, default=None)
     parser.add_argument(
         "--text-mode", type=str, default="abstract",
-        choices=["abstract", "title_abstract", "title_abstract_mesh"],
-        help="What text to classify: abstract only, title+abstract, or title+abstract+MeSH",
+        choices=["abstract", "title_abstract", "title_abstract_mesh", "auto_mesh"],
+        help="What text to classify: abstract only, title+abstract, title+abstract+expert MeSH, or abstract+auto-looked-up MeSH",
     )
     parser.add_argument(
         "--workflow", type=int, default=8, choices=range(11),
@@ -387,11 +395,15 @@ def main():
     )
     parser.add_argument(
         "--compare-text-modes", action="store_true",
-        help="Run abstract vs title+abstract vs title+abstract+MeSH comparison",
+        help="Run abstract vs title+abstract vs expert MeSH vs auto MeSH comparison",
     )
     parser.add_argument(
         "--list-topics", action="store_true",
         help="Print topic summary and exit",
+    )
+    parser.add_argument(
+        "--output-file", type=str, default=None,
+        help="Save output to file (in addition to console)",
     )
 
     args = parser.parse_args()
@@ -400,6 +412,22 @@ def main():
         level=logging.INFO,
         format="%(levelname)s:%(name)s: %(message)s",
     )
+
+    # tee output to file if requested
+    original_stdout = sys.stdout
+    output_file = None
+    if args.output_file:
+        output_file = open(args.output_file, "w")
+        class Tee:
+            def __init__(self, *streams):
+                self.streams = streams
+            def write(self, data):
+                for s in self.streams:
+                    s.write(data)
+            def flush(self):
+                for s in self.streams:
+                    s.flush()
+        sys.stdout = Tee(original_stdout, output_file)
 
     if args.list_topics:
         summary = list_topics_summary(args.tsv_path)
@@ -443,6 +471,11 @@ def main():
             epochs=args.epochs,
             batch_size=args.batch_size,
         )
+
+    if output_file:
+        sys.stdout = original_stdout
+        output_file.close()
+        print(f"Output saved to {args.output_file}")
 
 
 if __name__ == "__main__":
