@@ -48,3 +48,7 @@ scripts/_*.txt
 # Data archives (regenerable via data/setup_instructions.md)
 cohen_data.zip
 data/cohen_data.zip
+
+# Earlier-draft analysis documents (consolidated into paper_draft_v2)
+cohen_benchmark_analysis_v2.md
+cohen_analysis_linguistic_addendum.md
