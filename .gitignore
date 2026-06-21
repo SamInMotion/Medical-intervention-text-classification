@@ -35,3 +35,16 @@ data/*.json
 data/*.txt
 data/cohen/cache/
 
+# Python venvs
+.venv/
+.venv312/
+venv/
+__pycache__/
+*.pyc
+
+# Session-state records (not reproducibility artifacts)
+scripts/_*.txt
+
+# Data archives (regenerable via data/setup_instructions.md)
+cohen_data.zip
+data/cohen_data.zip
