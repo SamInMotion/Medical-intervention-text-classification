@@ -11,6 +11,7 @@ build/
 # Virtual environments
 venv/
 .venv/
+.venv312/
 env/
 
 # IDE
@@ -26,29 +27,22 @@ env/
 .DS_Store
 Thumbs.db
 
-# Project outputs
-outputs/
+# Session-state records (not reproducibility artifacts)
+scripts/_*.txt
 
-# Data files (obtain separately, see data/README.md)
+# Colab checkpoint scratch (not paper artefacts)
+bert_runs/
+
+# Data files — raw downloads excluded; benchmark data regenerable via data/README.md
 data/*.tsv
 data/*.json
 data/*.txt
 data/cohen/cache/
-
-# Python venvs
-.venv/
-.venv312/
-venv/
-__pycache__/
-*.pyc
-
-# Session-state records (not reproducibility artifacts)
-scripts/_*.txt
-
-# Data archives (regenerable via data/setup_instructions.md)
 cohen_data.zip
 data/cohen_data.zip
 
-# Earlier-draft analysis documents (consolidated into paper_draft_v2)
-cohen_benchmark_analysis_v2.md
-cohen_analysis_linguistic_addendum.md
+# Active paper drafts (working state, not deliverable)
+# Drafts move to paper/archive/ once superseded.
+paper_draft_*.md
+Phase_0_Positioning_Note_*.md
+Cohen_BERT_Extension_Results_Consolidation_*.md
