@@ -1,0 +1,180 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1775998138.145794   10836 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1775998142.705760   10836 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+C:\Users\samue.KITAB\AppData\Local\Programs\Python\Python312\Lib\site-packages\keras\src\layers\core\dense.py:107: UserWarning: Do not pass an `input_shape`/`input_dim` argument to a layer. When using Sequential models, prefer using an `Input(shape)` object as the first layer in the model instead.
+  super().__init__(activity_regularizer=activity_regularizer, **kwargs)
+I0000 00:00:1775998145.068407   10836 cpu_feature_guard.cc:227] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE3 SSE4.1 SSE4.2 AVX AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+WARNING:tensorflow:TensorFlow GPU support is not available on native Windows for TensorFlow >= 2.11. Even if CUDA/cuDNN are installed, GPU will not be used. Please use WSL2 or the TensorFlow-DirectML plugin.
+WARNING:tensorflow:5 out of the last 5 calls to <function TensorFlowTrainer.make_predict_function.<locals>.one_step_on_data_distributed at 0x00000223A270E700> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+WARNING:tensorflow:6 out of the last 6 calls to <function TensorFlowTrainer.make_predict_function.<locals>.one_step_on_data_distributed at 0x000002239F66F240> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+C:\Users\samue.KITAB\AppData\Local\Programs\Python\Python312\Lib\site-packages\keras\src\layers\core\dense.py:107: UserWarning: Do not pass an `input_shape`/`input_dim` argument to a layer. When using Sequential models, prefer using an `Input(shape)` object as the first layer in the model instead.
+  super().__init__(activity_regularizer=activity_regularizer, **kwargs)
+C:\Users\samue.KITAB\AppData\Local\Programs\Python\Python312\Lib\site-packages\keras\src\layers\core\dense.py:107: UserWarning: Do not pass an `input_shape`/`input_dim` argument to a layer. When using Sequential models, prefer using an `Input(shape)` object as the first layer in the model instead.
+  super().__init__(activity_regularizer=activity_regularizer, **kwargs)
+C:\Users\samue.KITAB\AppData\Local\Programs\Python\Python312\Lib\site-packages\keras\src\layers\core\dense.py:107: UserWarning: Do not pass an `input_shape`/`input_dim` argument to a layer. When using Sequential models, prefer using an `Input(shape)` object as the first layer in the model instead.
+  super().__init__(activity_regularizer=activity_regularizer, **kwargs)
+C:\Users\samue.KITAB\AppData\Local\Programs\Python\Python312\Lib\site-packages\keras\src\layers\core\dense.py:107: UserWarning: Do not pass an `input_shape`/`input_dim` argument to a layer. When using Sequential models, prefer using an `Input(shape)` object as the first layer in the model instead.
+  super().__init__(activity_regularizer=activity_regularizer, **kwargs)
+C:\Users\samue.KITAB\AppData\Local\Programs\Python\Python312\Lib\site-packages\keras\src\layers\core\dense.py:107: UserWarning: Do not pass an `input_shape`/`input_dim` argument to a layer. When using Sequential models, prefer using an `Input(shape)` object as the first layer in the model instead.
+  super().__init__(activity_regularizer=activity_regularizer, **kwargs)
+C:\Users\samue.KITAB\AppData\Local\Programs\Python\Python312\Lib\site-packages\keras\src\layers\core\dense.py:107: UserWarning: Do not pass an `input_shape`/`input_dim` argument to a layer. When using Sequential models, prefer using an `Input(shape)` object as the first layer in the model instead.
+  super().__init__(activity_regularizer=activity_regularizer, **kwargs)
+C:\Users\samue.KITAB\AppData\Local\Programs\Python\Python312\Lib\site-packages\keras\src\layers\core\dense.py:107: UserWarning: Do not pass an `input_shape`/`input_dim` argument to a layer. When using Sequential models, prefer using an `Input(shape)` object as the first layer in the model instead.
+  super().__init__(activity_regularizer=activity_regularizer, **kwargs)
+C:\Users\samue.KITAB\AppData\Local\Programs\Python\Python312\Lib\site-packages\keras\src\layers\core\dense.py:107: UserWarning: Do not pass an `input_shape`/`input_dim` argument to a layer. When using Sequential models, prefer using an `Input(shape)` object as the first layer in the model instead.
+  super().__init__(activity_regularizer=activity_regularizer, **kwargs)
+C:\Users\samue.KITAB\AppData\Local\Programs\Python\Python312\Lib\site-packages\keras\src\layers\core\dense.py:107: UserWarning: Do not pass an `input_shape`/`input_dim` argument to a layer. When using Sequential models, prefer using an `Input(shape)` object as the first layer in the model instead.
+  super().__init__(activity_regularizer=activity_regularizer, **kwargs)
+C:\Users\samue.KITAB\AppData\Local\Programs\Python\Python312\Lib\site-packages\keras\src\layers\core\dense.py:107: UserWarning: Do not pass an `input_shape`/`input_dim` argument to a layer. When using Sequential models, prefer using an `Input(shape)` object as the first layer in the model instead.
+  super().__init__(activity_regularizer=activity_regularizer, **kwargs)
+
+Workflow 0: WorkflowConfig(dropstop=False, synonyms=False, parents=False, ngrams=False, nrfeats=1000)
+5-fold CV on 150 abstracts
+--------------------------------------------------
+  Fold 1: baseline=0.867  regularized=0.867
+  Fold 2: baseline=0.833  regularized=0.833
+  Fold 3: baseline=0.767  regularized=0.800
+  Fold 4: baseline=0.900  regularized=0.900
+  Fold 5: baseline=0.900  regularized=0.867
+
+Baseline:     0.853 +/- 0.050
+Regularized:  0.853 +/- 0.034
+
+Workflow 1: WorkflowConfig(dropstop=True, synonyms=False, parents=False, ngrams=False, nrfeats=1000)
+5-fold CV on 150 abstracts
+--------------------------------------------------
+  Fold 1: baseline=0.833  regularized=0.767
+  Fold 2: baseline=0.767  regularized=0.733
+  Fold 3: baseline=0.800  regularized=0.800
+  Fold 4: baseline=0.900  regularized=0.833
+  Fold 5: baseline=0.933  regularized=0.800
+
+Baseline:     0.847 +/- 0.062
+Regularized:  0.787 +/- 0.034
+
+Workflow 2: WorkflowConfig(dropstop=True, synonyms=True, parents=False, ngrams=False, nrfeats=1000)
+5-fold CV on 150 abstracts
+--------------------------------------------------
+  Fold 1: baseline=0.800  regularized=0.833
+  Fold 2: baseline=0.767  regularized=0.733
+  Fold 3: baseline=0.800  regularized=0.767
+  Fold 4: baseline=0.900  regularized=0.900
+  Fold 5: baseline=0.933  regularized=0.933
+
+Baseline:     0.840 +/- 0.065
+Regularized:  0.833 +/- 0.076
+
+Workflow 3: WorkflowConfig(dropstop=True, synonyms=True, parents=True, ngrams=False, nrfeats=1000)
+5-fold CV on 150 abstracts
+--------------------------------------------------
+  Fold 1: baseline=0.800  regularized=0.767
+  Fold 2: baseline=0.733  regularized=0.767
+  Fold 3: baseline=0.800  regularized=0.733
+  Fold 4: baseline=0.833  regularized=0.833
+  Fold 5: baseline=0.867  regularized=0.867
+
+Baseline:     0.807 +/- 0.044
+Regularized:  0.793 +/- 0.049
+
+Workflow 4: WorkflowConfig(dropstop=True, synonyms=False, parents=False, ngrams=3, nrfeats=1000)
+5-fold CV on 150 abstracts
+--------------------------------------------------
+  Fold 1: baseline=0.833  regularized=0.833
+  Fold 2: baseline=0.767  regularized=0.867
+  Fold 3: baseline=0.800  regularized=0.733
+  Fold 4: baseline=0.900  regularized=0.867
+  Fold 5: baseline=0.933  regularized=0.933
+
+Baseline:     0.847 +/- 0.062
+Regularized:  0.847 +/- 0.065
+
+Workflow 5: WorkflowConfig(dropstop=True, synonyms=True, parents=False, ngrams=3, nrfeats=1000)
+5-fold CV on 150 abstracts
+--------------------------------------------------
+  Fold 1: baseline=0.833  regularized=0.767
+  Fold 2: baseline=0.733  regularized=0.800
+  Fold 3: baseline=0.767  regularized=0.800
+  Fold 4: baseline=0.900  regularized=0.900
+  Fold 5: baseline=0.933  regularized=0.933
+
+Baseline:     0.833 +/- 0.076
+Regularized:  0.840 +/- 0.065
+
+Workflow 6: WorkflowConfig(dropstop=True, synonyms=True, parents=True, ngrams=3, nrfeats=1000)
+5-fold CV on 150 abstracts
+--------------------------------------------------
+  Fold 1: baseline=0.800  regularized=0.867
+  Fold 2: baseline=0.800  regularized=0.767
+  Fold 3: baseline=0.800  regularized=0.767
+  Fold 4: baseline=0.900  regularized=0.867
+  Fold 5: baseline=0.933  regularized=0.900
+
+Baseline:     0.847 +/- 0.058
+Regularized:  0.833 +/- 0.056
+
+Workflow 7: WorkflowConfig(dropstop=False, synonyms=True, parents=True, ngrams=3, nrfeats=1000)
+5-fold CV on 150 abstracts
+--------------------------------------------------
+  Fold 1: baseline=0.833  regularized=0.867
+  Fold 2: baseline=0.833  regularized=0.800
+  Fold 3: baseline=0.800  regularized=0.667
+  Fold 4: baseline=0.900  regularized=0.900
+  Fold 5: baseline=0.900  regularized=0.867
+
+Baseline:     0.853 +/- 0.040
+Regularized:  0.820 +/- 0.083
+
+Workflow 8: WorkflowConfig(dropstop=False, synonyms=False, parents=False, ngrams=3, nrfeats=1000)
+5-fold CV on 150 abstracts
+--------------------------------------------------
+  Fold 1: baseline=0.867  regularized=0.833
+  Fold 2: baseline=0.833  regularized=0.833
+  Fold 3: baseline=0.767  regularized=0.767
+  Fold 4: baseline=0.900  regularized=0.900
+  Fold 5: baseline=0.933  regularized=0.933
+
+Baseline:     0.860 +/- 0.057
+Regularized:  0.853 +/- 0.058
+
+Workflow 9: WorkflowConfig(dropstop=False, synonyms=False, parents=False, ngrams=3, nrfeats=2000)
+5-fold CV on 150 abstracts
+--------------------------------------------------
+  Fold 1: baseline=0.867  regularized=0.867
+  Fold 2: baseline=0.833  regularized=0.800
+  Fold 3: baseline=0.767  regularized=0.700
+  Fold 4: baseline=0.900  regularized=0.867
+  Fold 5: baseline=0.933  regularized=0.933
+
+Baseline:     0.860 +/- 0.057
+Regularized:  0.833 +/- 0.079
+
+Workflow 10: WorkflowConfig(dropstop=True, synonyms=True, parents=True, ngrams=3, nrfeats=2000)
+5-fold CV on 150 abstracts
+--------------------------------------------------
+  Fold 1: baseline=0.833  regularized=0.833
+  Fold 2: baseline=0.800  regularized=0.733
+  Fold 3: baseline=0.700  regularized=0.700
+  Fold 4: baseline=0.900  regularized=0.833
+  Fold 5: baseline=0.933  regularized=0.900
+
+Baseline:     0.833 +/- 0.082
+Regularized:  0.800 +/- 0.073
+
+======================================================================
+SUMMARY: 5-fold CV across all workflows
+======================================================================
+ WF  Stop  Syn  Par  Ngr  Feat      Baseline   Regularized
+----------------------------------------------------------------------
+  0     N    N    N  False  1000  0.853 +/- 0.050  0.853 +/- 0.034
+  1     Y    N    N  False  1000  0.847 +/- 0.062  0.787 +/- 0.034
+  2     Y    Y    N  False  1000  0.840 +/- 0.065  0.833 +/- 0.076
+  3     Y    Y    Y  False  1000  0.807 +/- 0.044  0.793 +/- 0.049
+  4     Y    N    N    3  1000  0.847 +/- 0.062  0.847 +/- 0.065
+  5     Y    Y    N    3  1000  0.833 +/- 0.076  0.840 +/- 0.065
+  6     Y    Y    Y    3  1000  0.847 +/- 0.058  0.833 +/- 0.056
+  7     N    Y    Y    3  1000  0.853 +/- 0.040  0.820 +/- 0.083
+  8     N    N    N    3  1000  0.860 +/- 0.057  0.853 +/- 0.058
+  9     N    N    N    3  2000  0.860 +/- 0.057  0.833 +/- 0.079
+ 10     Y    Y    Y    3  2000  0.833 +/- 0.082  0.800 +/- 0.073

@@ -1,0 +1,20 @@
+
+Cohen topic: Statins (abstract mode)
+BiomedBERT, 3-fold CV on 600 abstracts (33 included, 567 excluded)
+Epochs: 2, batch_size: 8, lr: 1e-05, max_length: 512, fp16: False, cuda: False
+Class weighting: balanced
+----------------------------------------------------------------------
+{'loss': '0.6524', 'grad_norm': '2.171', 'learning_rate': '5.667e-06', 'epoch': '1'}
+{'loss': '1.077', 'grad_norm': '0.3867', 'learning_rate': '1.111e-07', 'epoch': '2'}
+{'train_runtime': '2299', 'train_samples_per_second': '0.348', 'train_steps_per_second': '0.043', 'train_loss': '0.8649', 'epoch': '2'}
+  Fold 1: acc=0.945 AUC=0.637 WSS@95=-0.005 (train+pred 2417s)
+{'loss': '0.8308', 'grad_norm': '0.4472', 'learning_rate': '5.667e-06', 'epoch': '1'}
+{'loss': '1.12', 'grad_norm': '0.3313', 'learning_rate': '1.111e-07', 'epoch': '2'}
+{'train_runtime': '2449', 'train_samples_per_second': '0.327', 'train_steps_per_second': '0.041', 'train_loss': '0.9756', 'epoch': '2'}
+  Fold 2: acc=0.945 AUC=0.651 WSS@95=0.215 (train+pred 2567s)
+{'loss': '0.8081', 'grad_norm': '0.6645', 'learning_rate': '5.667e-06', 'epoch': '1'}
+{'loss': '1.176', 'grad_norm': '0.3743', 'learning_rate': '1.111e-07', 'epoch': '2'}
+{'train_runtime': '2464', 'train_samples_per_second': '0.325', 'train_steps_per_second': '0.041', 'train_loss': '0.9919', 'epoch': '2'}
+  Fold 3: acc=0.945 AUC=0.735 WSS@95=0.145 (train+pred 2583s)
+
+BiomedBERT:  acc=0.945+/-0.000  AUC=0.675+/-0.043  WSS@95=0.118+/-0.092  (7568s total across 3 folds)

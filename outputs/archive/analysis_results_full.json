@@ -1,0 +1,179 @@
+{
+  "expert_mode": "title_abstract_mesh",
+  "auto_mode": "auto_mesh",
+  "per_topic": [
+    {
+      "topic": "Statins",
+      "n_folds": 5,
+      "expert_mode": "title_abstract_mesh",
+      "auto_mode": "auto_mesh",
+      "expert_wss_per_fold": [
+        0.231,
+        0.391,
+        0.017,
+        0.209,
+        0.419
+      ],
+      "auto_wss_per_fold": [
+        0.363,
+        0.435,
+        0.108,
+        0.249,
+        0.351
+      ],
+      "diffs_per_fold": [
+        -0.13199999999999998,
+        -0.043999999999999984,
+        -0.091,
+        -0.04000000000000001,
+        0.068
+      ],
+      "expert_mean": 0.25339999999999996,
+      "auto_mean": 0.3012,
+      "diff_mean": -0.04779999999999999,
+      "bootstrap": {
+        "mean": -0.04779999999999999,
+        "ci_lo": -0.0992,
+        "ci_hi": 0.014600000000000002,
+        "n_boot": 10000,
+        "alpha": 0.05
+      },
+      "permutation": {
+        "p_value": 0.25,
+        "observed_mean": -0.04779999999999999,
+        "exact": true,
+        "n_perms": 32
+      },
+      "nadeau_bengio": {
+        "t_stat": -0.9512124253509741,
+        "p_value": 0.3953607880450265,
+        "df": 4,
+        "correction_factor": 0.45011389521640094,
+        "se_corrected": 0.050251656439793624
+      }
+    },
+    {
+      "topic": "Opiods",
+      "n_folds": 5,
+      "expert_mode": "title_abstract_mesh",
+      "auto_mode": "auto_mesh",
+      "expert_wss_per_fold": [
+        0.161,
+        0.361,
+        0.639,
+        0.651,
+        0.216
+      ],
+      "auto_wss_per_fold": [
+        0.099,
+        0.451,
+        0.732,
+        0.682,
+        0.168
+      ],
+      "diffs_per_fold": [
+        0.062,
+        -0.09000000000000002,
+        -0.09299999999999997,
+        -0.031000000000000028,
+        0.04799999999999999
+      ],
+      "expert_mean": 0.4056,
+      "auto_mean": 0.4264,
+      "diff_mean": -0.020800000000000006,
+      "bootstrap": {
+        "mean": -0.020800000000000006,
+        "ci_lo": -0.0794,
+        "ci_hi": 0.037799999999999986,
+        "n_boot": 10000,
+        "alpha": 0.05
+      },
+      "permutation": {
+        "p_value": 0.5625,
+        "observed_mean": -0.020800000000000006,
+        "exact": true,
+        "n_perms": 32
+      },
+      "nadeau_bengio": {
+        "t_stat": -0.42119137225266207,
+        "p_value": 0.6952624928323226,
+        "df": 4,
+        "correction_factor": 0.44964739069111426,
+        "se_corrected": 0.049383727612356244
+      }
+    },
+    {
+      "topic": "ADHD",
+      "n_folds": 5,
+      "expert_mode": "title_abstract_mesh",
+      "auto_mode": "auto_mesh",
+      "expert_wss_per_fold": [
+        0.646,
+        0.733,
+        0.757,
+        0.725,
+        0.219
+      ],
+      "auto_wss_per_fold": [
+        0.683,
+        0.726,
+        0.726,
+        0.75,
+        0.169
+      ],
+      "diffs_per_fold": [
+        -0.03700000000000003,
+        0.007000000000000006,
+        0.031000000000000028,
+        -0.025000000000000022,
+        0.04999999999999999
+      ],
+      "expert_mean": 0.616,
+      "auto_mean": 0.6108,
+      "diff_mean": 0.005199999999999994,
+      "bootstrap": {
+        "mean": 0.005199999999999994,
+        "ci_lo": -0.02340000000000002,
+        "ci_hi": 0.03380000000000001,
+        "n_boot": 10000,
+        "alpha": 0.05
+      },
+      "permutation": {
+        "p_value": 0.75,
+        "observed_mean": 0.005199999999999994,
+        "exact": true,
+        "n_perms": 32
+      },
+      "nadeau_bengio": {
+        "t_stat": 0.21140389127933376,
+        "p_value": 0.842906214514993,
+        "df": 4,
+        "correction_factor": 0.45077881619937693,
+        "se_corrected": 0.02459746586749953
+      }
+    }
+  ],
+  "pooled": {
+    "n_folds_pooled": 15,
+    "topics_included": [
+      "Statins",
+      "Opiods",
+      "ADHD"
+    ],
+    "diff_mean": -0.021133333333333334,
+    "bootstrap": {
+      "mean": -0.021133333333333334,
+      "ci_lo": -0.05206666666666668,
+      "ci_hi": 0.009533333333333331,
+      "n_boot": 10000,
+      "alpha": 0.05
+    },
+    "permutation": {
+      "p_value": 0.2176513671875,
+      "observed_mean": -0.021133333333333334,
+      "exact": true,
+      "n_perms": 32768
+    }
+  },
+  "coverage_notes": []
+}
