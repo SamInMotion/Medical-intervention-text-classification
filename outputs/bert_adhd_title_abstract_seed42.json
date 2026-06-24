@@ -1,0 +1,90 @@
+{
+  "cli_args": {
+    "topic": "ADHD",
+    "text_mode": "title_abstract",
+    "compare_text_modes": false,
+    "kfold": 5,
+    "epochs": 3,
+    "batch_size": 16,
+    "learning_rate": 2e-05,
+    "max_length": 512,
+    "fp16": true,
+    "class_weight": "balanced",
+    "seed": 42,
+    "subsample": null
+  },
+  "result": {
+    "topic": "ADHD",
+    "text_mode": "title_abstract",
+    "classifier": "BiomedBERT",
+    "seed": 42,
+    "n_samples": 803,
+    "n_included": 83,
+    "n_folds": 5,
+    "epochs": 3,
+    "batch_size": 16,
+    "learning_rate": 2e-05,
+    "max_length": 512,
+    "fp16": true,
+    "class_weight": "balanced",
+    "acc_mean": 0.8928804347826087,
+    "acc_std": 0.01225782928128359,
+    "auc_mean": 0.9441789215686274,
+    "auc_std": 0.032941431558434466,
+    "wss_mean": 0.5624456521739131,
+    "wss_std": 0.21889926691776548,
+    "total_seconds": 253.56586742401123,
+    "folds": [
+      {
+        "fold": 1,
+        "n_train": 642,
+        "n_test": 161,
+        "n_test_positives": 17,
+        "acc": 0.9130434782608695,
+        "auc": 0.9485294117647058,
+        "wss_at_95": 0.41583850931677013,
+        "elapsed_seconds": 50.654276847839355
+      },
+      {
+        "fold": 2,
+        "n_train": 642,
+        "n_test": 161,
+        "n_test_positives": 17,
+        "acc": 0.8881987577639752,
+        "auc": 0.9550653594771242,
+        "wss_at_95": 0.7326086956521739,
+        "elapsed_seconds": 50.3306827545166
+      },
+      {
+        "fold": 3,
+        "n_train": 642,
+        "n_test": 161,
+        "n_test_positives": 17,
+        "acc": 0.8944099378881988,
+        "auc": 0.9787581699346406,
+        "wss_at_95": 0.745031055900621,
+        "elapsed_seconds": 51.14803099632263
+      },
+      {
+        "fold": 4,
+        "n_train": 643,
+        "n_test": 160,
+        "n_test_positives": 16,
+        "acc": 0.89375,
+        "auc": 0.9570312500000001,
+        "wss_at_95": 0.71875,
+        "elapsed_seconds": 50.68676161766052
+      },
+      {
+        "fold": 5,
+        "n_train": 643,
+        "n_test": 160,
+        "n_test_positives": 16,
+        "acc": 0.875,
+        "auc": 0.8815104166666666,
+        "wss_at_95": 0.19999999999999996,
+        "elapsed_seconds": 50.74611520767212
+      }
+    ]
+  }
+}

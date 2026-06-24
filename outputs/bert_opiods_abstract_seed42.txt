@@ -1,0 +1,43 @@
+
+Cohen topic: Opiods (abstract mode)
+BiomedBERT, 5-fold CV on 1772 abstracts (43 included, 1729 excluded)
+Epochs: 3, batch_size: 16, lr: 2e-05, max_length: 512, fp16: True, cuda: True
+Class weighting: balanced
+----------------------------------------------------------------------
+{'loss': '0.9982', 'grad_norm': '0.3666', 'learning_rate': '1.809e-05', 'epoch': '0.5618'}
+{'loss': '0.8491', 'grad_norm': '55.62', 'learning_rate': '1.394e-05', 'epoch': '1.124'}
+{'loss': '1.055', 'grad_norm': '0.1394', 'learning_rate': '9.793e-06', 'epoch': '1.685'}
+{'loss': '0.8518', 'grad_norm': '0.7169', 'learning_rate': '5.643e-06', 'epoch': '2.247'}
+{'loss': '0.3194', 'grad_norm': '0.6891', 'learning_rate': '1.494e-06', 'epoch': '2.809'}
+{'train_runtime': '96.59', 'train_samples_per_second': '44.01', 'train_steps_per_second': '2.764', 'train_loss': '0.8301', 'epoch': '3'}
+  Fold 1: acc=0.975 AUC=0.878 WSS@95=0.246 (train+pred 103s)
+{'loss': '0.7703', 'grad_norm': '37.03', 'learning_rate': '1.809e-05', 'epoch': '0.5618'}
+{'loss': '1.007', 'grad_norm': '0.6255', 'learning_rate': '1.394e-05', 'epoch': '1.124'}
+{'loss': '1.177', 'grad_norm': '41.34', 'learning_rate': '9.793e-06', 'epoch': '1.685'}
+{'loss': '0.907', 'grad_norm': '0.7369', 'learning_rate': '5.643e-06', 'epoch': '2.247'}
+{'loss': '0.7989', 'grad_norm': '0.3995', 'learning_rate': '1.494e-06', 'epoch': '2.809'}
+{'train_runtime': '101.1', 'train_samples_per_second': '42.06', 'train_steps_per_second': '2.642', 'train_loss': '0.9125', 'epoch': '3'}
+  Fold 2: acc=0.975 AUC=0.861 WSS@95=0.451 (train+pred 107s)
+{'loss': '0.8148', 'grad_norm': '35.9', 'learning_rate': '1.809e-05', 'epoch': '0.5618'}
+{'loss': '1.382', 'grad_norm': '0.4127', 'learning_rate': '1.394e-05', 'epoch': '1.124'}
+{'loss': '0.9111', 'grad_norm': '0.3295', 'learning_rate': '9.793e-06', 'epoch': '1.685'}
+{'loss': '1.159', 'grad_norm': '0.4423', 'learning_rate': '5.643e-06', 'epoch': '2.247'}
+{'loss': '0.962', 'grad_norm': '0.4219', 'learning_rate': '1.494e-06', 'epoch': '2.809'}
+{'train_runtime': '102.7', 'train_samples_per_second': '41.44', 'train_steps_per_second': '2.601', 'train_loss': '1.017', 'epoch': '3'}
+  Fold 3: acc=0.977 AUC=0.931 WSS@95=0.721 (train+pred 108s)
+{'loss': '0.8068', 'grad_norm': '0.4578', 'learning_rate': '1.809e-05', 'epoch': '0.5618'}
+{'loss': '0.9004', 'grad_norm': '0.29', 'learning_rate': '1.394e-05', 'epoch': '1.124'}
+{'loss': '1.123', 'grad_norm': '0.3792', 'learning_rate': '9.793e-06', 'epoch': '1.685'}
+{'loss': '1.134', 'grad_norm': '1.089', 'learning_rate': '5.643e-06', 'epoch': '2.247'}
+{'loss': '0.7646', 'grad_norm': '0.2358', 'learning_rate': '1.494e-06', 'epoch': '2.809'}
+{'train_runtime': '103.2', 'train_samples_per_second': '41.21', 'train_steps_per_second': '2.587', 'train_loss': '0.9234', 'epoch': '3'}
+  Fold 4: acc=0.977 AUC=0.900 WSS@95=0.687 (train+pred 109s)
+{'loss': '1.004', 'grad_norm': '0.488', 'learning_rate': '1.809e-05', 'epoch': '0.5618'}
+{'loss': '0.9738', 'grad_norm': '0.2852', 'learning_rate': '1.394e-05', 'epoch': '1.124'}
+{'loss': '0.9771', 'grad_norm': '0.1544', 'learning_rate': '9.793e-06', 'epoch': '1.685'}
+{'loss': '0.9199', 'grad_norm': '56.79', 'learning_rate': '5.643e-06', 'epoch': '2.247'}
+{'loss': '0.8176', 'grad_norm': '0.1482', 'learning_rate': '1.494e-06', 'epoch': '2.809'}
+{'train_runtime': '103.1', 'train_samples_per_second': '41.25', 'train_steps_per_second': '2.589', 'train_loss': '0.8975', 'epoch': '3'}
+  Fold 5: acc=0.975 AUC=0.745 WSS@95=-0.016 (train+pred 109s)
+
+BiomedBERT:  acc=0.976+/-0.001  AUC=0.863+/-0.063  WSS@95=0.418+/-0.277  (536s total across 5 folds)

@@ -1,0 +1,28 @@
+
+Cohen topic: ADHD (title_abstract_mesh mode)
+BiomedBERT, 5-fold CV on 803 abstracts (83 included, 720 excluded)
+Epochs: 3, batch_size: 16, lr: 2e-05, max_length: 512, fp16: True, cuda: True
+Class weighting: balanced
+----------------------------------------------------------------------
+{'loss': '0.4737', 'grad_norm': '15.49', 'learning_rate': '1.333e-05', 'epoch': '1.22'}
+{'loss': '0.3745', 'grad_norm': '13.44', 'learning_rate': '4.324e-06', 'epoch': '2.439'}
+{'train_runtime': '47.38', 'train_samples_per_second': '40.65', 'train_steps_per_second': '2.596', 'train_loss': '0.3759', 'epoch': '3'}
+  Fold 1: acc=0.925 AUC=0.961 WSS@95=0.571 (train+pred 52s)
+{'loss': '0.4935', 'grad_norm': '5.258', 'learning_rate': '1.333e-05', 'epoch': '1.22'}
+{'loss': '0.3332', 'grad_norm': '45.97', 'learning_rate': '4.324e-06', 'epoch': '2.439'}
+{'train_runtime': '47.74', 'train_samples_per_second': '40.35', 'train_steps_per_second': '2.577', 'train_loss': '0.3823', 'epoch': '3'}
+  Fold 2: acc=0.888 AUC=0.935 WSS@95=0.733 (train+pred 51s)
+{'loss': '0.5377', 'grad_norm': '2.166', 'learning_rate': '1.333e-05', 'epoch': '1.22'}
+{'loss': '0.2841', 'grad_norm': '0.6376', 'learning_rate': '4.324e-06', 'epoch': '2.439'}
+{'train_runtime': '47.6', 'train_samples_per_second': '40.46', 'train_steps_per_second': '2.584', 'train_loss': '0.3774', 'epoch': '3'}
+  Fold 3: acc=0.919 AUC=0.964 WSS@95=0.757 (train+pred 51s)
+{'loss': '0.5563', 'grad_norm': '6.066', 'learning_rate': '1.333e-05', 'epoch': '1.22'}
+{'loss': '0.2995', 'grad_norm': '11.36', 'learning_rate': '4.324e-06', 'epoch': '2.439'}
+{'train_runtime': '47.61', 'train_samples_per_second': '40.52', 'train_steps_per_second': '2.584', 'train_loss': '0.3875', 'epoch': '3'}
+  Fold 4: acc=0.900 AUC=0.967 WSS@95=0.725 (train+pred 51s)
+{'loss': '0.5181', 'grad_norm': '8.138', 'learning_rate': '1.333e-05', 'epoch': '1.22'}
+{'loss': '0.2308', 'grad_norm': '0.9737', 'learning_rate': '4.324e-06', 'epoch': '2.439'}
+{'train_runtime': '47.73', 'train_samples_per_second': '40.42', 'train_steps_per_second': '2.577', 'train_loss': '0.3458', 'epoch': '3'}
+  Fold 5: acc=0.850 AUC=0.908 WSS@95=0.219 (train+pred 51s)
+
+BiomedBERT:  acc=0.897+/-0.027  AUC=0.947+/-0.023  WSS@95=0.601+/-0.202  (257s total across 5 folds)

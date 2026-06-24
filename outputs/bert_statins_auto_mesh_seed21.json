@@ -1,0 +1,90 @@
+{
+  "cli_args": {
+    "topic": "Statins",
+    "text_mode": "auto_mesh",
+    "compare_text_modes": false,
+    "kfold": 5,
+    "epochs": 3,
+    "batch_size": 16,
+    "learning_rate": 2e-05,
+    "max_length": 512,
+    "fp16": true,
+    "class_weight": "balanced",
+    "seed": 21,
+    "subsample": null
+  },
+  "result": {
+    "topic": "Statins",
+    "text_mode": "auto_mesh",
+    "classifier": "BiomedBERT",
+    "seed": 21,
+    "n_samples": 2744,
+    "n_included": 152,
+    "n_folds": 5,
+    "epochs": 3,
+    "batch_size": 16,
+    "learning_rate": 2e-05,
+    "max_length": 512,
+    "fp16": true,
+    "class_weight": "balanced",
+    "acc_mean": 0.9271136638613007,
+    "acc_std": 0.0193799433950753,
+    "auc_mean": 0.8326691561970325,
+    "auc_std": 0.032728224544353195,
+    "wss_mean": 0.28198449736082853,
+    "wss_std": 0.06885847681961033,
+    "total_seconds": 921.9034230709076,
+    "folds": [
+      {
+        "fold": 1,
+        "n_train": 2195,
+        "n_test": 549,
+        "n_test_positives": 30,
+        "acc": 0.9435336976320583,
+        "auc": 0.8098587026332691,
+        "wss_at_95": 0.19225865209471762,
+        "elapsed_seconds": 186.30356693267822
+      },
+      {
+        "fold": 2,
+        "n_train": 2195,
+        "n_test": 549,
+        "n_test_positives": 30,
+        "acc": 0.9435336976320583,
+        "auc": 0.8678869621066154,
+        "wss_at_95": 0.3780510018214936,
+        "elapsed_seconds": 184.04216527938843
+      },
+      {
+        "fold": 3,
+        "n_train": 2195,
+        "n_test": 549,
+        "n_test_positives": 31,
+        "acc": 0.930783242258652,
+        "auc": 0.8498256320836967,
+        "wss_at_95": 0.3452641165755919,
+        "elapsed_seconds": 183.97192311286926
+      },
+      {
+        "fold": 4,
+        "n_train": 2195,
+        "n_test": 549,
+        "n_test_positives": 31,
+        "acc": 0.8907103825136612,
+        "auc": 0.7800473284344253,
+        "wss_at_95": 0.246903460837887,
+        "elapsed_seconds": 183.73552322387695
+      },
+      {
+        "fold": 5,
+        "n_train": 2196,
+        "n_test": 548,
+        "n_test_positives": 30,
+        "acc": 0.927007299270073,
+        "auc": 0.8557271557271557,
+        "wss_at_95": 0.2474452554744525,
+        "elapsed_seconds": 183.85024452209473
+      }
+    ]
+  }
+}

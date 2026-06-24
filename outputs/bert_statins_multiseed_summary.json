@@ -1,0 +1,763 @@
+{
+  "topic": "Statins",
+  "seeds_run": [
+    42,
+    7,
+    13,
+    21,
+    31
+  ],
+  "expert_mode": "title_abstract_mesh",
+  "auto_mode": "auto_mesh",
+  "per_seed_gaps": {
+    "42": 0.0021784797840799786,
+    "7": 0.0036529589299721388,
+    "13": 0.04043782324864051,
+    "21": 0.06020102907742009,
+    "31": -0.006909044978926471
+  },
+  "expert_runs": {
+    "42": {
+      "topic": "Statins",
+      "text_mode": "title_abstract_mesh",
+      "classifier": "BiomedBERT",
+      "seed": 42,
+      "n_samples": 2744,
+      "n_included": 152,
+      "n_folds": 5,
+      "epochs": 3,
+      "batch_size": 16,
+      "learning_rate": 2e-05,
+      "max_length": 512,
+      "fp16": true,
+      "class_weight": "balanced",
+      "acc_mean": 0.9438800473322431,
+      "acc_std": 0.005049677697120345,
+      "auc_mean": 0.8108294570908778,
+      "auc_std": 0.05931205924626855,
+      "wss_mean": 0.2751299642349062,
+      "wss_std": 0.1367743093865453,
+      "total_seconds": 908.6319887638092,
+      "folds": [
+        {
+          "fold": 1,
+          "n_train": 2195,
+          "n_test": 549,
+          "n_test_positives": 30,
+          "acc": 0.9398907103825137,
+          "auc": 0.8265895953757225,
+          "wss_at_95": 0.25236794171220395,
+          "elapsed_seconds": 182.40339279174805
+        },
+        {
+          "fold": 2,
+          "n_train": 2195,
+          "n_test": 549,
+          "n_test_positives": 30,
+          "acc": 0.9489981785063752,
+          "auc": 0.8670520231213872,
+          "wss_at_95": 0.4108378870673952,
+          "elapsed_seconds": 182.95961332321167
+        },
+        {
+          "fold": 3,
+          "n_train": 2195,
+          "n_test": 549,
+          "n_test_positives": 31,
+          "acc": 0.9380692167577414,
+          "auc": 0.6959459459459459,
+          "wss_at_95": 0.05746812386156644,
+          "elapsed_seconds": 181.31424164772034
+        },
+        {
+          "fold": 4,
+          "n_train": 2195,
+          "n_test": 549,
+          "n_test_positives": 31,
+          "acc": 0.941712204007286,
+          "auc": 0.8267218831734962,
+          "wss_at_95": 0.22322404371584698,
+          "elapsed_seconds": 180.9785349369049
+        },
+        {
+          "fold": 5,
+          "n_train": 2196,
+          "n_test": 548,
+          "n_test_positives": 30,
+          "acc": 0.9507299270072993,
+          "auc": 0.8378378378378379,
+          "wss_at_95": 0.4317518248175182,
+          "elapsed_seconds": 180.97620606422424
+        }
+      ]
+    },
+    "7": {
+      "topic": "Statins",
+      "text_mode": "title_abstract_mesh",
+      "classifier": "BiomedBERT",
+      "seed": 7,
+      "n_samples": 2744,
+      "n_included": 152,
+      "n_folds": 5,
+      "epochs": 3,
+      "batch_size": 16,
+      "learning_rate": 2e-05,
+      "max_length": 512,
+      "fp16": true,
+      "class_weight": "balanced",
+      "acc_mean": 0.9420545650352998,
+      "acc_std": 0.0035458288572348547,
+      "auc_mean": 0.7950822968089424,
+      "auc_std": 0.06258138573240488,
+      "wss_mean": 0.2562256524802892,
+      "wss_std": 0.15875024287988784,
+      "total_seconds": 907.1596028804779,
+      "folds": [
+        {
+          "fold": 1,
+          "n_train": 2195,
+          "n_test": 549,
+          "n_test_positives": 30,
+          "acc": 0.9489981785063752,
+          "auc": 0.8187540141297367,
+          "wss_at_95": 0.08661202185792347,
+          "elapsed_seconds": 182.2659809589386
+        },
+        {
+          "fold": 2,
+          "n_train": 2195,
+          "n_test": 549,
+          "n_test_positives": 30,
+          "acc": 0.9398907103825137,
+          "auc": 0.7213230571612075,
+          "wss_at_95": 0.19590163934426225,
+          "elapsed_seconds": 182.20860719680786
+        },
+        {
+          "fold": 3,
+          "n_train": 2195,
+          "n_test": 549,
+          "n_test_positives": 31,
+          "acc": 0.9398907103825137,
+          "auc": 0.7721384979449495,
+          "wss_at_95": 0.30701275045537335,
+          "elapsed_seconds": 181.19391798973083
+        },
+        {
+          "fold": 4,
+          "n_train": 2195,
+          "n_test": 549,
+          "n_test_positives": 31,
+          "acc": 0.941712204007286,
+          "auc": 0.7595279611408643,
+          "wss_at_95": 0.15218579234972673,
+          "elapsed_seconds": 180.87786769866943
+        },
+        {
+          "fold": 5,
+          "n_train": 2196,
+          "n_test": 548,
+          "n_test_positives": 30,
+          "acc": 0.9397810218978102,
+          "auc": 0.9036679536679536,
+          "wss_at_95": 0.5394160583941605,
+          "elapsed_seconds": 180.61322903633118
+        }
+      ]
+    },
+    "13": {
+      "topic": "Statins",
+      "text_mode": "title_abstract_mesh",
+      "classifier": "BiomedBERT",
+      "seed": 13,
+      "n_samples": 2744,
+      "n_included": 152,
+      "n_folds": 5,
+      "epochs": 3,
+      "batch_size": 16,
+      "learning_rate": 2e-05,
+      "max_length": 512,
+      "fp16": true,
+      "class_weight": "balanced",
+      "acc_mean": 0.9449736082858016,
+      "acc_std": 0.009856393374216387,
+      "auc_mean": 0.8251754610154759,
+      "auc_std": 0.04643505986757792,
+      "wss_mean": 0.18465092470716493,
+      "wss_std": 0.08717203072007473,
+      "total_seconds": 905.6445362567902,
+      "folds": [
+        {
+          "fold": 1,
+          "n_train": 2195,
+          "n_test": 549,
+          "n_test_positives": 30,
+          "acc": 0.9289617486338798,
+          "auc": 0.7460179833012204,
+          "wss_at_95": 0.09571948998178503,
+          "elapsed_seconds": 182.09379076957703
+        },
+        {
+          "fold": 2,
+          "n_train": 2195,
+          "n_test": 549,
+          "n_test_positives": 30,
+          "acc": 0.9544626593806922,
+          "auc": 0.8903982016698779,
+          "wss_at_95": 0.27422586520947173,
+          "elapsed_seconds": 181.25479364395142
+        },
+        {
+          "fold": 3,
+          "n_train": 2195,
+          "n_test": 549,
+          "n_test_positives": 31,
+          "acc": 0.9380692167577414,
+          "auc": 0.835627101756134,
+          "wss_at_95": 0.2687613843351548,
+          "elapsed_seconds": 180.89652705192566
+        },
+        {
+          "fold": 4,
+          "n_train": 2195,
+          "n_test": 549,
+          "n_test_positives": 31,
+          "acc": 0.9508196721311475,
+          "auc": 0.8183771328932619,
+          "wss_at_95": 0.21775956284153003,
+          "elapsed_seconds": 180.7903139591217
+        },
+        {
+          "fold": 5,
+          "n_train": 2196,
+          "n_test": 548,
+          "n_test_positives": 30,
+          "acc": 0.9525547445255474,
+          "auc": 0.8354568854568853,
+          "wss_at_95": 0.06678832116788316,
+          "elapsed_seconds": 180.60911083221436
+        }
+      ]
+    },
+    "21": {
+      "topic": "Statins",
+      "text_mode": "title_abstract_mesh",
+      "classifier": "BiomedBERT",
+      "seed": 21,
+      "n_samples": 2744,
+      "n_included": 152,
+      "n_folds": 5,
+      "epochs": 3,
+      "batch_size": 16,
+      "learning_rate": 2e-05,
+      "max_length": 512,
+      "fp16": true,
+      "class_weight": "balanced",
+      "acc_mean": 0.9347632723066491,
+      "acc_std": 0.007081960669162119,
+      "auc_mean": 0.8246643945562461,
+      "auc_std": 0.029545216169551896,
+      "wss_mean": 0.3421855264382486,
+      "wss_std": 0.0996784692332604,
+      "total_seconds": 906.6255149841309,
+      "folds": [
+        {
+          "fold": 1,
+          "n_train": 2195,
+          "n_test": 549,
+          "n_test_positives": 30,
+          "acc": 0.9471766848816029,
+          "auc": 0.8386962106615286,
+          "wss_at_95": 0.33251366120218573,
+          "elapsed_seconds": 182.226012468338
+        },
+        {
+          "fold": 2,
+          "n_train": 2195,
+          "n_test": 549,
+          "n_test_positives": 30,
+          "acc": 0.9344262295081968,
+          "auc": 0.8272960822093771,
+          "wss_at_95": 0.3999089253187613,
+          "elapsed_seconds": 181.82868361473083
+        },
+        {
+          "fold": 3,
+          "n_train": 2195,
+          "n_test": 549,
+          "n_test_positives": 31,
+          "acc": 0.9344262295081968,
+          "auc": 0.8222692738821771,
+          "wss_at_95": 0.2560109289617486,
+          "elapsed_seconds": 180.834223985672
+        },
+        {
+          "fold": 4,
+          "n_train": 2195,
+          "n_test": 549,
+          "n_test_positives": 31,
+          "acc": 0.9326047358834244,
+          "auc": 0.7725121434798854,
+          "wss_at_95": 0.22322404371584698,
+          "elapsed_seconds": 181.2076117992401
+        },
+        {
+          "fold": 5,
+          "n_train": 2196,
+          "n_test": 548,
+          "n_test_positives": 30,
+          "acc": 0.9251824817518248,
+          "auc": 0.8625482625482626,
+          "wss_at_95": 0.49927007299270065,
+          "elapsed_seconds": 180.5289831161499
+        }
+      ]
+    },
+    "31": {
+      "topic": "Statins",
+      "text_mode": "title_abstract_mesh",
+      "classifier": "BiomedBERT",
+      "seed": 31,
+      "n_samples": 2744,
+      "n_included": 152,
+      "n_folds": 5,
+      "epochs": 3,
+      "batch_size": 16,
+      "learning_rate": 2e-05,
+      "max_length": 512,
+      "fp16": true,
+      "class_weight": "balanced",
+      "acc_mean": 0.9292994562110273,
+      "acc_std": 0.009672094951864718,
+      "auc_mean": 0.8158035606795628,
+      "auc_std": 0.03003649993126054,
+      "wss_mean": 0.30714304707962714,
+      "wss_std": 0.07481041890242654,
+      "total_seconds": 908.1739325523376,
+      "folds": [
+        {
+          "fold": 1,
+          "n_train": 2195,
+          "n_test": 549,
+          "n_test_positives": 30,
+          "acc": 0.941712204007286,
+          "auc": 0.8560693641618498,
+          "wss_at_95": 0.42905282331511835,
+          "elapsed_seconds": 182.5667805671692
+        },
+        {
+          "fold": 2,
+          "n_train": 2195,
+          "n_test": 549,
+          "n_test_positives": 30,
+          "acc": 0.930783242258652,
+          "auc": 0.8455041746949261,
+          "wss_at_95": 0.3379781420765027,
+          "elapsed_seconds": 181.57105565071106
+        },
+        {
+          "fold": 3,
+          "n_train": 2195,
+          "n_test": 549,
+          "n_test_positives": 31,
+          "acc": 0.9344262295081968,
+          "auc": 0.7817287333416366,
+          "wss_at_95": 0.2450819672131147,
+          "elapsed_seconds": 181.32148218154907
+        },
+        {
+          "fold": 4,
+          "n_train": 2195,
+          "n_test": 549,
+          "n_test_positives": 31,
+          "acc": 0.912568306010929,
+          "auc": 0.7878004732843443,
+          "wss_at_95": 0.21593806921675768,
+          "elapsed_seconds": 180.80058026313782
+        },
+        {
+          "fold": 5,
+          "n_train": 2196,
+          "n_test": 548,
+          "n_test_positives": 30,
+          "acc": 0.927007299270073,
+          "auc": 0.807915057915058,
+          "wss_at_95": 0.3076642335766423,
+          "elapsed_seconds": 181.9140338897705
+        }
+      ]
+    }
+  },
+  "auto_runs": {
+    "42": {
+      "topic": "Statins",
+      "text_mode": "auto_mesh",
+      "classifier": "BiomedBERT",
+      "seed": 42,
+      "n_samples": 2744,
+      "n_included": 152,
+      "n_folds": 5,
+      "epochs": 3,
+      "batch_size": 16,
+      "learning_rate": 2e-05,
+      "max_length": 512,
+      "fp16": true,
+      "class_weight": "balanced",
+      "acc_mean": 0.9435137542712031,
+      "acc_std": 0.004600337737798369,
+      "auc_mean": 0.8098927886891714,
+      "auc_std": 0.059801712407369936,
+      "wss_mean": 0.27295148445082623,
+      "wss_std": 0.14755932872259808,
+      "total_seconds": 918.7037816047668,
+      "folds": [
+        {
+          "fold": 1,
+          "n_train": 2195,
+          "n_test": 549,
+          "n_test_positives": 30,
+          "acc": 0.9344262295081968,
+          "auc": 0.8148362235067438,
+          "wss_at_95": 0.09936247723132965,
+          "elapsed_seconds": 182.4797043800354
+        },
+        {
+          "fold": 2,
+          "n_train": 2195,
+          "n_test": 549,
+          "n_test_positives": 30,
+          "acc": 0.9453551912568307,
+          "auc": 0.8709055876685935,
+          "wss_at_95": 0.44180327868852454,
+          "elapsed_seconds": 184.49523544311523
+        },
+        {
+          "fold": 3,
+          "n_train": 2195,
+          "n_test": 549,
+          "n_test_positives": 31,
+          "acc": 0.9453551912568307,
+          "auc": 0.6989662473533442,
+          "wss_at_95": 0.1467213114754098,
+          "elapsed_seconds": 183.67283034324646
+        },
+        {
+          "fold": 4,
+          "n_train": 2195,
+          "n_test": 549,
+          "n_test_positives": 31,
+          "acc": 0.9471766848816029,
+          "auc": 0.8121497073109977,
+          "wss_at_95": 0.22504553734061927,
+          "elapsed_seconds": 184.20748949050903
+        },
+        {
+          "fold": 5,
+          "n_train": 2196,
+          "n_test": 548,
+          "n_test_positives": 30,
+          "acc": 0.9452554744525548,
+          "auc": 0.8526061776061777,
+          "wss_at_95": 0.4518248175182481,
+          "elapsed_seconds": 183.84852194786072
+        }
+      ]
+    },
+    "7": {
+      "topic": "Statins",
+      "text_mode": "auto_mesh",
+      "classifier": "BiomedBERT",
+      "seed": 7,
+      "n_samples": 2744,
+      "n_included": 152,
+      "n_folds": 5,
+      "epochs": 3,
+      "batch_size": 16,
+      "learning_rate": 2e-05,
+      "max_length": 512,
+      "fp16": true,
+      "class_weight": "balanced",
+      "acc_mean": 0.9409616688604363,
+      "acc_std": 0.005105069466423284,
+      "auc_mean": 0.8204739830798008,
+      "auc_std": 0.05841572668264427,
+      "wss_mean": 0.2525726935503171,
+      "wss_std": 0.1515628783779038,
+      "total_seconds": 923.6218349933624,
+      "folds": [
+        {
+          "fold": 1,
+          "n_train": 2195,
+          "n_test": 549,
+          "n_test_positives": 30,
+          "acc": 0.9508196721311475,
+          "auc": 0.8383750802825948,
+          "wss_at_95": 0.29608378870673946,
+          "elapsed_seconds": 186.6770052909851
+        },
+        {
+          "fold": 2,
+          "n_train": 2195,
+          "n_test": 549,
+          "n_test_positives": 30,
+          "acc": 0.9380692167577414,
+          "auc": 0.7361592806679512,
+          "wss_at_95": 0.06839708561020032,
+          "elapsed_seconds": 183.89919590950012
+        },
+        {
+          "fold": 3,
+          "n_train": 2195,
+          "n_test": 549,
+          "n_test_positives": 31,
+          "acc": 0.9398907103825137,
+          "auc": 0.8344127537675924,
+          "wss_at_95": 0.1448998178506375,
+          "elapsed_seconds": 185.03496956825256
+        },
+        {
+          "fold": 4,
+          "n_train": 2195,
+          "n_test": 549,
+          "n_test_positives": 31,
+          "acc": 0.936247723132969,
+          "auc": 0.7832233154813799,
+          "wss_at_95": 0.2414389799635701,
+          "elapsed_seconds": 183.92269706726074
+        },
+        {
+          "fold": 5,
+          "n_train": 2196,
+          "n_test": 548,
+          "n_test_positives": 30,
+          "acc": 0.9397810218978102,
+          "auc": 0.9101994851994851,
+          "wss_at_95": 0.5120437956204379,
+          "elapsed_seconds": 184.0879671573639
+        }
+      ]
+    },
+    "13": {
+      "topic": "Statins",
+      "text_mode": "auto_mesh",
+      "classifier": "BiomedBERT",
+      "seed": 13,
+      "n_samples": 2744,
+      "n_included": 152,
+      "n_folds": 5,
+      "epochs": 3,
+      "batch_size": 16,
+      "learning_rate": 2e-05,
+      "max_length": 512,
+      "fp16": true,
+      "class_weight": "balanced",
+      "acc_mean": 0.9420552298139949,
+      "acc_std": 0.00645673041850679,
+      "auc_mean": 0.813990463519645,
+      "auc_std": 0.04967314497610197,
+      "wss_mean": 0.14421310145852442,
+      "wss_std": 0.11215191039678554,
+      "total_seconds": 920.8915867805481,
+      "folds": [
+        {
+          "fold": 1,
+          "n_train": 2195,
+          "n_test": 549,
+          "n_test_positives": 30,
+          "acc": 0.9326047358834244,
+          "auc": 0.7346820809248555,
+          "wss_at_95": 0.09571948998178503,
+          "elapsed_seconds": 185.12858819961548
+        },
+        {
+          "fold": 2,
+          "n_train": 2195,
+          "n_test": 549,
+          "n_test_positives": 30,
+          "acc": 0.9435336976320583,
+          "auc": 0.8794797687861272,
+          "wss_at_95": 0.09207650273224038,
+          "elapsed_seconds": 184.48348212242126
+        },
+        {
+          "fold": 3,
+          "n_train": 2195,
+          "n_test": 549,
+          "n_test_positives": 31,
+          "acc": 0.9398907103825137,
+          "auc": 0.852098642421223,
+          "wss_at_95": 0.3671220400728597,
+          "elapsed_seconds": 183.7005271911621
+        },
+        {
+          "fold": 4,
+          "n_train": 2195,
+          "n_test": 549,
+          "n_test_positives": 31,
+          "acc": 0.9526411657559198,
+          "auc": 0.7994768962510899,
+          "wss_at_95": 0.10118397085610195,
+          "elapsed_seconds": 183.8231818675995
+        },
+        {
+          "fold": 5,
+          "n_train": 2196,
+          "n_test": 548,
+          "n_test_positives": 30,
+          "acc": 0.9416058394160584,
+          "auc": 0.8042149292149292,
+          "wss_at_95": 0.06496350364963499,
+          "elapsed_seconds": 183.75580739974976
+        }
+      ]
+    },
+    "21": {
+      "topic": "Statins",
+      "text_mode": "auto_mesh",
+      "classifier": "BiomedBERT",
+      "seed": 21,
+      "n_samples": 2744,
+      "n_included": 152,
+      "n_folds": 5,
+      "epochs": 3,
+      "batch_size": 16,
+      "learning_rate": 2e-05,
+      "max_length": 512,
+      "fp16": true,
+      "class_weight": "balanced",
+      "acc_mean": 0.9271136638613007,
+      "acc_std": 0.0193799433950753,
+      "auc_mean": 0.8326691561970325,
+      "auc_std": 0.032728224544353195,
+      "wss_mean": 0.28198449736082853,
+      "wss_std": 0.06885847681961033,
+      "total_seconds": 921.9034230709076,
+      "folds": [
+        {
+          "fold": 1,
+          "n_train": 2195,
+          "n_test": 549,
+          "n_test_positives": 30,
+          "acc": 0.9435336976320583,
+          "auc": 0.8098587026332691,
+          "wss_at_95": 0.19225865209471762,
+          "elapsed_seconds": 186.30356693267822
+        },
+        {
+          "fold": 2,
+          "n_train": 2195,
+          "n_test": 549,
+          "n_test_positives": 30,
+          "acc": 0.9435336976320583,
+          "auc": 0.8678869621066154,
+          "wss_at_95": 0.3780510018214936,
+          "elapsed_seconds": 184.04216527938843
+        },
+        {
+          "fold": 3,
+          "n_train": 2195,
+          "n_test": 549,
+          "n_test_positives": 31,
+          "acc": 0.930783242258652,
+          "auc": 0.8498256320836967,
+          "wss_at_95": 0.3452641165755919,
+          "elapsed_seconds": 183.97192311286926
+        },
+        {
+          "fold": 4,
+          "n_train": 2195,
+          "n_test": 549,
+          "n_test_positives": 31,
+          "acc": 0.8907103825136612,
+          "auc": 0.7800473284344253,
+          "wss_at_95": 0.246903460837887,
+          "elapsed_seconds": 183.73552322387695
+        },
+        {
+          "fold": 5,
+          "n_train": 2196,
+          "n_test": 548,
+          "n_test_positives": 30,
+          "acc": 0.927007299270073,
+          "auc": 0.8557271557271557,
+          "wss_at_95": 0.2474452554744525,
+          "elapsed_seconds": 183.85024452209473
+        }
+      ]
+    },
+    "31": {
+      "topic": "Statins",
+      "text_mode": "auto_mesh",
+      "classifier": "BiomedBERT",
+      "seed": 31,
+      "n_samples": 2744,
+      "n_included": 152,
+      "n_folds": 5,
+      "epochs": 3,
+      "batch_size": 16,
+      "learning_rate": 2e-05,
+      "max_length": 512,
+      "fp16": true,
+      "class_weight": "balanced",
+      "acc_mean": 0.9336763591400421,
+      "acc_std": 0.009096126245203139,
+      "auc_mean": 0.8200531842942806,
+      "auc_std": 0.02019831670308958,
+      "wss_mean": 0.3140520920585536,
+      "wss_std": 0.04800010694678944,
+      "total_seconds": 920.545741558075,
+      "folds": [
+        {
+          "fold": 1,
+          "n_train": 2195,
+          "n_test": 549,
+          "n_test_positives": 30,
+          "acc": 0.9344262295081968,
+          "auc": 0.837893384714194,
+          "wss_at_95": 0.3452641165755919,
+          "elapsed_seconds": 184.99119067192078
+        },
+        {
+          "fold": 2,
+          "n_train": 2195,
+          "n_test": 549,
+          "n_test_positives": 30,
+          "acc": 0.9216757741347905,
+          "auc": 0.8442517662170842,
+          "wss_at_95": 0.3926229508196721,
+          "elapsed_seconds": 184.20433354377747
+        },
+        {
+          "fold": 3,
+          "n_train": 2195,
+          "n_test": 549,
+          "n_test_positives": 31,
+          "acc": 0.9453551912568307,
+          "auc": 0.7931249221571802,
+          "wss_at_95": 0.29244080145719487,
+          "elapsed_seconds": 183.86247658729553
+        },
+        {
+          "fold": 4,
+          "n_train": 2195,
+          "n_test": 549,
+          "n_test_positives": 31,
+          "acc": 0.9253187613843351,
+          "auc": 0.8003175987046954,
+          "wss_at_95": 0.2669398907103825,
+          "elapsed_seconds": 183.703786611557
+        },
+        {
+          "fold": 5,
+          "n_train": 2196,
+          "n_test": 548,
+          "n_test_positives": 30,
+          "acc": 0.9416058394160584,
+          "auc": 0.8246782496782497,
+          "wss_at_95": 0.272992700729927,
+          "elapsed_seconds": 183.78395414352417
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,58 @@
+
+Cohen topic: Statins (title_abstract mode)
+BiomedBERT, 5-fold CV on 2744 abstracts (152 included, 2592 excluded)
+Epochs: 3, batch_size: 16, lr: 2e-05, max_length: 512, fp16: True, cuda: True
+Class weighting: balanced
+----------------------------------------------------------------------
+{'loss': '0.6861', 'grad_norm': '30.82', 'learning_rate': '1.957e-05', 'epoch': '0.3623'}
+{'loss': '0.8496', 'grad_norm': '18.38', 'learning_rate': '1.689e-05', 'epoch': '0.7246'}
+{'loss': '0.8921', 'grad_norm': '4.84', 'learning_rate': '1.421e-05', 'epoch': '1.087'}
+{'loss': '0.5941', 'grad_norm': '22.55', 'learning_rate': '1.153e-05', 'epoch': '1.449'}
+{'loss': '0.4754', 'grad_norm': '2.444', 'learning_rate': '8.847e-06', 'epoch': '1.812'}
+{'loss': '0.8148', 'grad_norm': 'inf', 'learning_rate': '6.166e-06', 'epoch': '2.174'}
+{'loss': '0.7879', 'grad_norm': '53.35', 'learning_rate': '3.485e-06', 'epoch': '2.536'}
+{'loss': '0.4911', 'grad_norm': '6.525', 'learning_rate': '8.043e-07', 'epoch': '2.899'}
+{'train_runtime': '172.1', 'train_samples_per_second': '38.26', 'train_steps_per_second': '2.405', 'train_loss': '0.6865', 'epoch': '3'}
+  Fold 1: acc=0.933 AUC=0.835 WSS@95=0.287 (train+pred 181s)
+{'loss': '0.7167', 'grad_norm': '32.74', 'learning_rate': '1.957e-05', 'epoch': '0.3623'}
+{'loss': '0.7673', 'grad_norm': '18.36', 'learning_rate': '1.689e-05', 'epoch': '0.7246'}
+{'loss': '0.6058', 'grad_norm': '0.2867', 'learning_rate': '1.421e-05', 'epoch': '1.087'}
+{'loss': '0.9298', 'grad_norm': '5.657', 'learning_rate': '1.153e-05', 'epoch': '1.449'}
+{'loss': '0.8627', 'grad_norm': '18.12', 'learning_rate': '8.847e-06', 'epoch': '1.812'}
+{'loss': '0.5537', 'grad_norm': '77.41', 'learning_rate': '6.166e-06', 'epoch': '2.174'}
+{'loss': '0.691', 'grad_norm': '0.6505', 'learning_rate': '3.485e-06', 'epoch': '2.536'}
+{'loss': '0.8309', 'grad_norm': '49.12', 'learning_rate': '8.043e-07', 'epoch': '2.899'}
+{'train_runtime': '170.4', 'train_samples_per_second': '38.66', 'train_steps_per_second': '2.43', 'train_loss': '0.7349', 'epoch': '3'}
+  Fold 2: acc=0.949 AUC=0.873 WSS@95=0.486 (train+pred 179s)
+{'loss': '0.6866', 'grad_norm': '17.65', 'learning_rate': '1.957e-05', 'epoch': '0.3623'}
+{'loss': '1.072', 'grad_norm': '13.88', 'learning_rate': '1.689e-05', 'epoch': '0.7246'}
+{'loss': '0.634', 'grad_norm': '9.533', 'learning_rate': '1.421e-05', 'epoch': '1.087'}
+{'loss': '0.7186', 'grad_norm': '12.82', 'learning_rate': '1.153e-05', 'epoch': '1.449'}
+{'loss': '0.6121', 'grad_norm': '31.11', 'learning_rate': '8.847e-06', 'epoch': '1.812'}
+{'loss': '0.5003', 'grad_norm': '5.653', 'learning_rate': '6.166e-06', 'epoch': '2.174'}
+{'loss': '0.6017', 'grad_norm': '34.65', 'learning_rate': '3.485e-06', 'epoch': '2.536'}
+{'loss': '0.4171', 'grad_norm': '2.87', 'learning_rate': '8.043e-07', 'epoch': '2.899'}
+{'train_runtime': '170.4', 'train_samples_per_second': '38.64', 'train_steps_per_second': '2.429', 'train_loss': '0.6528', 'epoch': '3'}
+  Fold 3: acc=0.947 AUC=0.802 WSS@95=0.196 (train+pred 180s)
+{'loss': '0.6962', 'grad_norm': '16.05', 'learning_rate': '1.957e-05', 'epoch': '0.3623'}
+{'loss': '0.6971', 'grad_norm': '15.31', 'learning_rate': '1.689e-05', 'epoch': '0.7246'}
+{'loss': '0.5661', 'grad_norm': '0.5171', 'learning_rate': '1.421e-05', 'epoch': '1.087'}
+{'loss': '1.011', 'grad_norm': '16.26', 'learning_rate': '1.153e-05', 'epoch': '1.449'}
+{'loss': '0.8761', 'grad_norm': '28.82', 'learning_rate': '8.847e-06', 'epoch': '1.812'}
+{'loss': '0.5413', 'grad_norm': '51.5', 'learning_rate': '6.166e-06', 'epoch': '2.174'}
+{'loss': '0.5274', 'grad_norm': '30.48', 'learning_rate': '3.485e-06', 'epoch': '2.536'}
+{'loss': '0.5687', 'grad_norm': '30.42', 'learning_rate': '8.043e-07', 'epoch': '2.899'}
+{'train_runtime': '170.5', 'train_samples_per_second': '38.62', 'train_steps_per_second': '2.428', 'train_loss': '0.684', 'epoch': '3'}
+  Fold 4: acc=0.944 AUC=0.822 WSS@95=0.225 (train+pred 180s)
+{'loss': '0.7306', 'grad_norm': '3.603', 'learning_rate': '1.957e-05', 'epoch': '0.3623'}
+{'loss': '1.081', 'grad_norm': '6.815', 'learning_rate': '1.689e-05', 'epoch': '0.7246'}
+{'loss': '0.6677', 'grad_norm': '11.7', 'learning_rate': '1.421e-05', 'epoch': '1.087'}
+{'loss': '0.5501', 'grad_norm': '0.8176', 'learning_rate': '1.153e-05', 'epoch': '1.449'}
+{'loss': '0.994', 'grad_norm': '26.03', 'learning_rate': '8.847e-06', 'epoch': '1.812'}
+{'loss': '0.7811', 'grad_norm': '3.605', 'learning_rate': '6.166e-06', 'epoch': '2.174'}
+{'loss': '0.6801', 'grad_norm': '12.93', 'learning_rate': '3.485e-06', 'epoch': '2.536'}
+{'loss': '0.4889', 'grad_norm': '4.216', 'learning_rate': '8.043e-07', 'epoch': '2.899'}
+{'train_runtime': '169.9', 'train_samples_per_second': '38.77', 'train_steps_per_second': '2.436', 'train_loss': '0.7397', 'epoch': '3'}
+  Fold 5: acc=0.951 AUC=0.822 WSS@95=0.434 (train+pred 179s)
+
+BiomedBERT:  acc=0.945+/-0.006  AUC=0.831+/-0.024  WSS@95=0.325+/-0.115  (900s total across 5 folds)

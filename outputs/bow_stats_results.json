@@ -1,0 +1,120 @@
+{
+  "Statins": {
+    "expert_mean": 0.23500000000000001,
+    "auto_mean": 0.1102,
+    "diff_mean": 0.1248,
+    "diffs": [
+      0.062,
+      0.064,
+      0.21000000000000002,
+      0.18,
+      0.108
+    ],
+    "bootstrap": {
+      "mean": 0.1248,
+      "ci_lo": 0.072,
+      "ci_hi": 0.17760000000000004,
+      "n_boot": 10000,
+      "alpha": 0.05
+    },
+    "permutation": {
+      "p_value": 0.0625,
+      "observed_mean": 0.1248,
+      "exact": true,
+      "n_perms": 32
+    },
+    "nadeau_bengio": {
+      "t_stat": 1.8486961679207858,
+      "p_value": 0.13819812783436958,
+      "df": 4,
+      "correction_factor": 1.0,
+      "se_corrected": 0.06750703667026128
+    },
+    "sign_pos": 5,
+    "sign_neg": 0
+  },
+  "Opiods": {
+    "expert_mean": 0.2738,
+    "auto_mean": 0.2838,
+    "diff_mean": -0.01000000000000002,
+    "diffs": [
+      -0.259,
+      0.002,
+      -0.0030000000000000027,
+      0.06799999999999995,
+      0.14199999999999996
+    ],
+    "bootstrap": {
+      "mean": -0.01000000000000002,
+      "ci_lo": -0.14140000000000003,
+      "ci_hi": 0.08599999999999998,
+      "n_boot": 10000,
+      "alpha": 0.05
+    },
+    "permutation": {
+      "p_value": 0.875,
+      "observed_mean": -0.01000000000000002,
+      "exact": true,
+      "n_perms": 32
+    },
+    "nadeau_bengio": {
+      "t_stat": -0.06616063520972026,
+      "p_value": 0.9504247217062329,
+      "df": 4,
+      "correction_factor": 1.0,
+      "se_corrected": 0.1511472791683661
+    },
+    "sign_pos": 3,
+    "sign_neg": 2
+  },
+  "ADHD": {
+    "expert_mean": 0.41319999999999996,
+    "auto_mean": 0.44299999999999995,
+    "diff_mean": -0.029799999999999983,
+    "diffs": [
+      0.242,
+      -0.366,
+      0.019000000000000017,
+      0.07500000000000007,
+      -0.119
+    ],
+    "bootstrap": {
+      "mean": -0.029799999999999983,
+      "ci_lo": -0.2178,
+      "ci_hi": 0.13640000000000002,
+      "n_boot": 10000,
+      "alpha": 0.05
+    },
+    "permutation": {
+      "p_value": 0.75,
+      "observed_mean": -0.029799999999999983,
+      "exact": true,
+      "n_perms": 32
+    },
+    "nadeau_bengio": {
+      "t_stat": -0.13061045646098185,
+      "p_value": 0.9023887457249025,
+      "df": 4,
+      "correction_factor": 1.0,
+      "se_corrected": 0.22815937412256374
+    },
+    "sign_pos": 3,
+    "sign_neg": 2
+  },
+  "pooled": {
+    "diff_mean": 0.02833333333333333,
+    "bootstrap": {
+      "mean": 0.02833333333333333,
+      "ci_lo": -0.05880166666666667,
+      "ci_hi": 0.10420166666666664,
+      "n_boot": 10000,
+      "alpha": 0.05
+    },
+    "permutation": {
+      "p_value": 0.5201416015625,
+      "observed_mean": 0.02833333333333333,
+      "exact": true,
+      "n_perms": 32768
+    }
+  }
+}

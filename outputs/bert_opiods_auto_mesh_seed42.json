@@ -1,0 +1,90 @@
+{
+  "cli_args": {
+    "topic": "Opiods",
+    "text_mode": "auto_mesh",
+    "compare_text_modes": false,
+    "kfold": 5,
+    "epochs": 3,
+    "batch_size": 16,
+    "learning_rate": 2e-05,
+    "max_length": 512,
+    "fp16": true,
+    "class_weight": "balanced",
+    "seed": 42,
+    "subsample": null
+  },
+  "result": {
+    "topic": "Opiods",
+    "text_mode": "auto_mesh",
+    "classifier": "BiomedBERT",
+    "seed": 42,
+    "n_samples": 1772,
+    "n_included": 43,
+    "n_folds": 5,
+    "epochs": 3,
+    "batch_size": 16,
+    "learning_rate": 2e-05,
+    "max_length": 512,
+    "fp16": true,
+    "class_weight": "balanced",
+    "acc_mean": 0.9757348611442666,
+    "acc_std": 0.0013607540766153213,
+    "auc_mean": 0.8612661612353744,
+    "auc_std": 0.05803129598234727,
+    "wss_mean": 0.4405418954404392,
+    "wss_std": 0.23485217789589194,
+    "total_seconds": 546.9565396308899,
+    "folds": [
+      {
+        "fold": 1,
+        "n_train": 1417,
+        "n_test": 355,
+        "n_test_positives": 9,
+        "acc": 0.9746478873239437,
+        "auc": 0.8790944123314064,
+        "wss_at_95": 0.26549295774647885,
+        "elapsed_seconds": 109.78085732460022
+      },
+      {
+        "fold": 2,
+        "n_train": 1417,
+        "n_test": 355,
+        "n_test_positives": 9,
+        "acc": 0.9746478873239437,
+        "auc": 0.8044315992292871,
+        "wss_at_95": 0.3753521126760563,
+        "elapsed_seconds": 108.99420046806335
+      },
+      {
+        "fold": 3,
+        "n_train": 1418,
+        "n_test": 354,
+        "n_test_positives": 8,
+        "acc": 0.9774011299435028,
+        "auc": 0.9252167630057804,
+        "wss_at_95": 0.701412429378531,
+        "elapsed_seconds": 108.9181649684906
+      },
+      {
+        "fold": 4,
+        "n_train": 1418,
+        "n_test": 354,
+        "n_test_positives": 8,
+        "acc": 0.9774011299435028,
+        "auc": 0.9154624277456647,
+        "wss_at_95": 0.7240112994350282,
+        "elapsed_seconds": 109.24165630340576
+      },
+      {
+        "fold": 5,
+        "n_train": 1418,
+        "n_test": 354,
+        "n_test_positives": 9,
+        "acc": 0.9745762711864406,
+        "auc": 0.7821256038647344,
+        "wss_at_95": 0.13644067796610165,
+        "elapsed_seconds": 110.02166056632996
+      }
+    ]
+  }
+}
