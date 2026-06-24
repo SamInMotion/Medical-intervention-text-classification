@@ -65,7 +65,26 @@ The BiomedBERT pipeline writes per-fold WSS@95%, AUC, and accuracy values to `.j
 
 The bag-of-words pipeline exhibits residual non-determinism between identical-command reruns on the current Windows TensorFlow build, traced to Keras Dense layer initialisation in the BL Baseline component. The pipeline's existing `set_seeds()` function (which calls `np.random.seed()` and `tf.random.set_seed()`) does not fully control layer init. The methodological response is multi-run characterisation: seven reruns of the same configuration give a per-run mean and range for the central statistic, with the per-run variance reported alongside. The Statins multi-run analysis is complete. Multi-run characterisation of Opioids and ADHD is queued.
 
-The full statistical analysis script (`demo_statistical_analysis.py`) parses the JSON sibling outputs and reproduces all tables in the paper draft. The multi-run parser (`parse_bow_multirun.py`) characterises BoW Statins reruns from `.txt` outputs.
+The statistical analysis script `scripts/demo_statistical_analysis.py` parses the JSON sibling outputs and reproduces the per-topic and pooled bootstrap CIs, exact paired permutation tests, and Nadeau-Bengio corrected t-tests behind tables 3 and 4 of the paper draft. The paper-artifact pipeline `scripts/make_paper_artifacts.py` builds the LaTeX tables and figure 2. The multi-run parser `scripts/parse_bow_multirun.py` characterises BoW Statins reruns from `.txt` outputs. The audit-aware forest plot script `scripts/make_fig1_v2.py` produces figure 1 with the multi-run BoW Statins ribbon. Per-claim-to-data mapping with regeneration commands is in [REPRODUCING.md](REPRODUCING.md).
+
+## Repository layout
+
+```
+.
+├── README.md                          # this file
+├── REPRODUCING.md                     # paper claims mapped to data and commands
+├── data/                              # benchmark data (raw files gitignored, see data/README.md)
+├── src/                               # Python package
+├── tests/                             # pytest suite
+├── scripts/                           # standalone analysis and figure scripts
+├── notebooks/                         # Colab notebooks for BiomedBERT runs
+├── outputs/                           # paper-cited data files
+│   └── archive/                       # superseded outputs with provenance
+└── paper/
+    └── archive/                       # April analysis drafts, superseded
+```
+
+Active paper drafts live outside the repository as working state. They move into `paper/archive/` once superseded by the next version. Both archive directories contain a README documenting provenance of every file.
 
 ## Setup
 
@@ -80,6 +99,8 @@ pip install -r requirements.txt
 Place the original thesis data files (`abstracts.tsv`, `neo.json`, `med-stopwords.txt`) in the `data/` directory. See `data/README.md` for details.
 
 The Cohen benchmark loader fetches and caches abstracts on first run. An NCBI Entrez email address is required (passed via `--email` on the command line) to comply with the Entrez usage policy.
+
+For reproducing specific paper claims, see [REPRODUCING.md](REPRODUCING.md).
 
 ## Usage
 
@@ -156,7 +177,7 @@ The Cohen benchmark extension fixes Workflow 8 (the thesis-identified best) and 
 
 - **Multi-seed BiomedBERT for Opioids and ADHD.** The multi-seed Statins analysis exists (five seeds: 42, 7, 13, 21, 31). Extending it to the other two topics would tighten the null-finding CI. Approximately 5 hours T4 GPU. Not blocking the internal review.
 
-- **Forest-plot figure for the paper.** BoW vs BERT expert-vs-auto gap by topic, with multi-run ribbon on Statins. Queued.
+- **Audit-aware paper-artifact pipeline.** `scripts/make_paper_artifacts.py` and `scripts/demo_statistical_analysis.py` are preserved as pre-audit historical baselines and assume filenames without the `_seed42` suffix. The patch to read from `analysis_results_full_v2.json` and expose the multi-run BoW ribbon is specified but not yet executed.
 
 - **Extension to remaining Cohen topics.** Twelve more topics are available in the benchmark. Adding them would tighten the pooled CIs substantially and let the cross-classifier comparison rest on a wider topic base.
 
@@ -181,4 +202,4 @@ The original thesis work was supervised by Prof. Koenraad De Smedt (University o
 
 ## License
 
-[Specify license — MIT, Apache 2.0, or other]
+MIT License. See LICENSE file (to be added).
