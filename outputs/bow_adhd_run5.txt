@@ -1,0 +1,62 @@
+
+Cohen topic: ADHD (abstract mode)
+Workflow 8: WorkflowConfig(dropstop=False, synonyms=False, parents=False, ngrams=3, nrfeats=1000)
+5-fold CV on 803 abstracts (83 included, 720 excluded)
+------------------------------------------------------------
+  Fold 1: BL acc=0.919 AUC=0.920 WSS=0.316  Reg acc=0.913 AUC=0.915 WSS=0.273
+  Fold 2: BL acc=0.907 AUC=0.942 WSS=0.677  Reg acc=0.919 AUC=0.944 WSS=0.677
+  Fold 3: BL acc=0.901 AUC=0.928 WSS=0.497  Reg acc=0.913 AUC=0.955 WSS=0.521
+  Fold 4: BL acc=0.919 AUC=0.948 WSS=0.706  Reg acc=0.931 AUC=0.950 WSS=0.656
+  Fold 5: BL acc=0.925 AUC=0.897 WSS=0.062  Reg acc=0.913 AUC=0.888 WSS=0.087
+
+Baseline:     acc=0.914+/-0.009  AUC=0.927+/-0.018  WSS@95=0.452+/-0.240
+Regularized:  acc=0.918+/-0.007  AUC=0.930+/-0.025  WSS@95=0.443+/-0.229
+
+Cohen topic: ADHD (title_abstract mode)
+Workflow 8: WorkflowConfig(dropstop=False, synonyms=False, parents=False, ngrams=3, nrfeats=1000)
+5-fold CV on 803 abstracts (83 included, 720 excluded)
+------------------------------------------------------------
+  Fold 1: BL acc=0.925 AUC=0.910 WSS=0.285  Reg acc=0.919 AUC=0.920 WSS=0.341
+  Fold 2: BL acc=0.925 AUC=0.933 WSS=0.608  Reg acc=0.932 AUC=0.941 WSS=0.615
+  Fold 3: BL acc=0.907 AUC=0.932 WSS=0.459  Reg acc=0.907 AUC=0.938 WSS=0.410
+  Fold 4: BL acc=0.925 AUC=0.945 WSS=0.681  Reg acc=0.938 AUC=0.955 WSS=0.644
+  Fold 5: BL acc=0.913 AUC=0.896 WSS=0.087  Reg acc=0.913 AUC=0.886 WSS=0.087
+
+Baseline:     acc=0.919+/-0.008  AUC=0.923+/-0.018  WSS@95=0.424+/-0.216
+Regularized:  acc=0.922+/-0.011  AUC=0.928+/-0.024  WSS@95=0.419+/-0.202
+
+Cohen topic: ADHD (title_abstract_mesh mode)
+Workflow 8: WorkflowConfig(dropstop=False, synonyms=False, parents=False, ngrams=3, nrfeats=1000)
+5-fold CV on 803 abstracts (83 included, 720 excluded)
+------------------------------------------------------------
+  Fold 1: BL acc=0.925 AUC=0.927 WSS=0.459  Reg acc=0.925 AUC=0.934 WSS=0.391
+  Fold 2: BL acc=0.913 AUC=0.918 WSS=0.316  Reg acc=0.907 AUC=0.927 WSS=0.453
+  Fold 3: BL acc=0.925 AUC=0.943 WSS=0.447  Reg acc=0.925 AUC=0.943 WSS=0.490
+  Fold 4: BL acc=0.925 AUC=0.963 WSS=0.750  Reg acc=0.925 AUC=0.958 WSS=0.725
+  Fold 5: BL acc=0.894 AUC=0.888 WSS=-0.025  Reg acc=0.906 AUC=0.889 WSS=-0.019
+
+Baseline:     acc=0.917+/-0.012  AUC=0.928+/-0.025  WSS@95=0.390+/-0.251
+Regularized:  acc=0.918+/-0.009  AUC=0.930+/-0.023  WSS@95=0.408+/-0.242
+
+Cohen topic: ADHD (auto_mesh mode)
+Workflow 8: WorkflowConfig(dropstop=False, synonyms=False, parents=False, ngrams=3, nrfeats=1000)
+5-fold CV on 803 abstracts (83 included, 720 excluded)
+------------------------------------------------------------
+  Fold 1: BL acc=0.925 AUC=0.903 WSS=0.348  Reg acc=0.913 AUC=0.901 WSS=0.248
+  Fold 2: BL acc=0.894 AUC=0.937 WSS=0.577  Reg acc=0.913 AUC=0.941 WSS=0.627
+  Fold 3: BL acc=0.913 AUC=0.935 WSS=0.497  Reg acc=0.907 AUC=0.944 WSS=0.503
+  Fold 4: BL acc=0.925 AUC=0.952 WSS=0.675  Reg acc=0.925 AUC=0.955 WSS=0.675
+  Fold 5: BL acc=0.906 AUC=0.892 WSS=0.037  Reg acc=0.919 AUC=0.901 WSS=0.125
+
+Baseline:     acc=0.913+/-0.012  AUC=0.924+/-0.022  WSS@95=0.427+/-0.222
+Regularized:  acc=0.915+/-0.006  AUC=0.929+/-0.023  WSS@95=0.436+/-0.215
+
+==========================================================================================
+TEXT MODE COMPARISON: ADHD, workflow 8, 5-fold CV
+==========================================================================================
+Mode                             BL Acc        BL AUC     BL WSS@95       Reg Acc       Reg AUC    Reg WSS@95
+------------------------------------------------------------------------------------------
+abstract                   0.914+/-0.009  0.927+/-0.018  0.452+/-0.240  0.918+/-0.007  0.930+/-0.025  0.443+/-0.229
+title_abstract             0.919+/-0.008  0.923+/-0.018  0.424+/-0.216  0.922+/-0.011  0.928+/-0.024  0.419+/-0.202
+title_abstract_mesh        0.917+/-0.012  0.928+/-0.025  0.390+/-0.251  0.918+/-0.009  0.930+/-0.023  0.408+/-0.242
+auto_mesh                  0.913+/-0.012  0.924+/-0.022  0.427+/-0.222  0.915+/-0.006  0.929+/-0.023  0.436+/-0.215

@@ -1,0 +1,62 @@
+
+Cohen topic: Opiods (abstract mode)
+Workflow 8: WorkflowConfig(dropstop=False, synonyms=False, parents=False, ngrams=3, nrfeats=1000)
+5-fold CV on 1772 abstracts (43 included, 1729 excluded)
+------------------------------------------------------------
+  Fold 1: BL acc=0.972 AUC=0.875 WSS=0.333  Reg acc=0.975 AUC=0.865 WSS=0.280
+  Fold 2: BL acc=0.975 AUC=0.751 WSS=-0.025  Reg acc=0.975 AUC=0.756 WSS=-0.008
+  Fold 3: BL acc=0.986 AUC=0.839 WSS=0.343  Reg acc=0.983 AUC=0.816 WSS=0.249
+  Fold 4: BL acc=0.977 AUC=0.830 WSS=0.467  Reg acc=0.977 AUC=0.853 WSS=0.532
+  Fold 5: BL acc=0.972 AUC=0.682 WSS=0.329  Reg acc=0.972 AUC=0.720 WSS=0.297
+
+Baseline:     acc=0.976+/-0.005  AUC=0.795+/-0.070  WSS@95=0.289+/-0.165
+Regularized:  acc=0.976+/-0.004  AUC=0.802+/-0.056  WSS@95=0.270+/-0.171
+
+Cohen topic: Opiods (title_abstract mode)
+Workflow 8: WorkflowConfig(dropstop=False, synonyms=False, parents=False, ngrams=3, nrfeats=1000)
+5-fold CV on 1772 abstracts (43 included, 1729 excluded)
+------------------------------------------------------------
+  Fold 1: BL acc=0.972 AUC=0.875 WSS=0.316  Reg acc=0.975 AUC=0.882 WSS=0.392
+  Fold 2: BL acc=0.975 AUC=0.763 WSS=-0.013  Reg acc=0.975 AUC=0.774 WSS=-0.027
+  Fold 3: BL acc=0.986 AUC=0.874 WSS=0.453  Reg acc=0.983 AUC=0.851 WSS=0.281
+  Fold 4: BL acc=0.975 AUC=0.837 WSS=0.433  Reg acc=0.977 AUC=0.867 WSS=0.447
+  Fold 5: BL acc=0.975 AUC=0.710 WSS=0.394  Reg acc=0.975 AUC=0.736 WSS=0.388
+
+Baseline:     acc=0.976+/-0.005  AUC=0.812+/-0.065  WSS@95=0.316+/-0.171
+Regularized:  acc=0.977+/-0.003  AUC=0.822+/-0.057  WSS@95=0.296+/-0.171
+
+Cohen topic: Opiods (title_abstract_mesh mode)
+Workflow 8: WorkflowConfig(dropstop=False, synonyms=False, parents=False, ngrams=3, nrfeats=1000)
+5-fold CV on 1772 abstracts (43 included, 1729 excluded)
+------------------------------------------------------------
+  Fold 1: BL acc=0.975 AUC=0.856 WSS=0.060  Reg acc=0.975 AUC=0.861 WSS=0.035
+  Fold 2: BL acc=0.975 AUC=0.736 WSS=0.029  Reg acc=0.975 AUC=0.747 WSS=0.006
+  Fold 3: BL acc=0.986 AUC=0.900 WSS=0.442  Reg acc=0.983 AUC=0.890 WSS=0.405
+  Fold 4: BL acc=0.977 AUC=0.840 WSS=0.560  Reg acc=0.975 AUC=0.883 WSS=0.673
+  Fold 5: BL acc=0.975 AUC=0.697 WSS=0.405  Reg acc=0.975 AUC=0.718 WSS=0.357
+
+Baseline:     acc=0.977+/-0.004  AUC=0.806+/-0.077  WSS@95=0.299+/-0.214
+Regularized:  acc=0.976+/-0.003  AUC=0.820+/-0.072  WSS@95=0.295+/-0.249
+
+Cohen topic: Opiods (auto_mesh mode)
+Workflow 8: WorkflowConfig(dropstop=False, synonyms=False, parents=False, ngrams=3, nrfeats=1000)
+5-fold CV on 1772 abstracts (43 included, 1729 excluded)
+------------------------------------------------------------
+  Fold 1: BL acc=0.975 AUC=0.860 WSS=0.296  Reg acc=0.975 AUC=0.863 WSS=0.249
+  Fold 2: BL acc=0.975 AUC=0.750 WSS=-0.027  Reg acc=0.975 AUC=0.740 WSS=-0.016
+  Fold 3: BL acc=0.986 AUC=0.863 WSS=0.399  Reg acc=0.980 AUC=0.849 WSS=0.348
+  Fold 4: BL acc=0.977 AUC=0.837 WSS=0.456  Reg acc=0.977 AUC=0.870 WSS=0.473
+  Fold 5: BL acc=0.972 AUC=0.703 WSS=0.357  Reg acc=0.975 AUC=0.686 WSS=0.232
+
+Baseline:     acc=0.977+/-0.005  AUC=0.803+/-0.064  WSS@95=0.296+/-0.170
+Regularized:  acc=0.976+/-0.002  AUC=0.802+/-0.075  WSS@95=0.257+/-0.161
+
+==========================================================================================
+TEXT MODE COMPARISON: Opiods, workflow 8, 5-fold CV
+==========================================================================================
+Mode                             BL Acc        BL AUC     BL WSS@95       Reg Acc       Reg AUC    Reg WSS@95
+------------------------------------------------------------------------------------------
+abstract                   0.976+/-0.005  0.795+/-0.070  0.289+/-0.165  0.976+/-0.004  0.802+/-0.056  0.270+/-0.171
+title_abstract             0.976+/-0.005  0.812+/-0.065  0.316+/-0.171  0.977+/-0.003  0.822+/-0.057  0.296+/-0.171
+title_abstract_mesh        0.977+/-0.004  0.806+/-0.077  0.299+/-0.214  0.976+/-0.003  0.820+/-0.072  0.295+/-0.249
+auto_mesh                  0.977+/-0.005  0.803+/-0.064  0.296+/-0.170  0.976+/-0.002  0.802+/-0.075  0.257+/-0.161
