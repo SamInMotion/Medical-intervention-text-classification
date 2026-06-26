@@ -1,0 +1,763 @@
+{
+  "topic": "ADHD",
+  "seeds_run": [
+    42,
+    7,
+    13,
+    21,
+    31
+  ],
+  "expert_mode": "title_abstract_mesh",
+  "auto_mode": "auto_mesh",
+  "per_seed_gaps": {
+    "42": -0.05498447204968926,
+    "7": 0.03093944099378887,
+    "13": 0.062360248447205,
+    "21": 0.00756987577639745,
+    "31": -0.028555900621118013
+  },
+  "expert_runs": {
+    "42": {
+      "topic": "ADHD",
+      "text_mode": "title_abstract_mesh",
+      "classifier": "BiomedBERT",
+      "seed": 42,
+      "n_samples": 803,
+      "n_included": 83,
+      "n_folds": 5,
+      "epochs": 3,
+      "batch_size": 16,
+      "learning_rate": 2e-05,
+      "max_length": 512,
+      "fp16": true,
+      "class_weight": "balanced",
+      "acc_mean": 0.896583850931677,
+      "acc_std": 0.026833448330535362,
+      "auc_mean": 0.9470537173202613,
+      "auc_std": 0.02273673095597583,
+      "wss_mean": 0.6009860248447205,
+      "wss_std": 0.20208043690622082,
+      "total_seconds": 256.82269954681396,
+      "folds": [
+        {
+          "fold": 1,
+          "n_train": 642,
+          "n_test": 161,
+          "n_test_positives": 17,
+          "acc": 0.9254658385093167,
+          "auc": 0.9607843137254902,
+          "wss_at_95": 0.5711180124223602,
+          "elapsed_seconds": 51.919353008270264
+        },
+        {
+          "fold": 2,
+          "n_train": 642,
+          "n_test": 161,
+          "n_test_positives": 17,
+          "acc": 0.8881987577639752,
+          "auc": 0.9354575163398693,
+          "wss_at_95": 0.7326086956521739,
+          "elapsed_seconds": 51.29220914840698
+        },
+        {
+          "fold": 3,
+          "n_train": 642,
+          "n_test": 161,
+          "n_test_positives": 17,
+          "acc": 0.9192546583850931,
+          "auc": 0.9644607843137255,
+          "wss_at_95": 0.7574534161490682,
+          "elapsed_seconds": 51.1752393245697
+        },
+        {
+          "fold": 4,
+          "n_train": 643,
+          "n_test": 160,
+          "n_test_positives": 16,
+          "acc": 0.9,
+          "auc": 0.9670138888888888,
+          "wss_at_95": 0.725,
+          "elapsed_seconds": 51.2360405921936
+        },
+        {
+          "fold": 5,
+          "n_train": 643,
+          "n_test": 160,
+          "n_test_positives": 16,
+          "acc": 0.85,
+          "auc": 0.9075520833333334,
+          "wss_at_95": 0.21874999999999994,
+          "elapsed_seconds": 51.19985747337341
+        }
+      ]
+    },
+    "7": {
+      "topic": "ADHD",
+      "text_mode": "title_abstract_mesh",
+      "classifier": "BiomedBERT",
+      "seed": 7,
+      "n_samples": 803,
+      "n_included": 83,
+      "n_folds": 5,
+      "epochs": 3,
+      "batch_size": 16,
+      "learning_rate": 2e-05,
+      "max_length": 512,
+      "fp16": true,
+      "class_weight": "balanced",
+      "acc_mean": 0.9016381987577639,
+      "acc_std": 0.016780614137767165,
+      "auc_mean": 0.9462060866013072,
+      "auc_std": 0.011233985066601814,
+      "wss_mean": 0.5779347826086956,
+      "wss_std": 0.20368909281729858,
+      "total_seconds": 296.0922420024872,
+      "folds": [
+        {
+          "fold": 1,
+          "n_train": 642,
+          "n_test": 161,
+          "n_test_positives": 17,
+          "acc": 0.8757763975155279,
+          "auc": 0.9546568627450981,
+          "wss_at_95": 0.7015527950310558,
+          "elapsed_seconds": 61.18915271759033
+        },
+        {
+          "fold": 2,
+          "n_train": 642,
+          "n_test": 161,
+          "n_test_positives": 17,
+          "acc": 0.9130434782608695,
+          "auc": 0.9246323529411765,
+          "wss_at_95": 0.17981366459627324,
+          "elapsed_seconds": 58.619818687438965
+        },
+        {
+          "fold": 3,
+          "n_train": 642,
+          "n_test": 161,
+          "n_test_positives": 17,
+          "acc": 0.9006211180124224,
+          "auc": 0.9554738562091503,
+          "wss_at_95": 0.6208074534161491,
+          "elapsed_seconds": 57.687516927719116
+        },
+        {
+          "fold": 4,
+          "n_train": 643,
+          "n_test": 160,
+          "n_test_positives": 16,
+          "acc": 0.925,
+          "auc": 0.947482638888889,
+          "wss_at_95": 0.6437499999999999,
+          "elapsed_seconds": 59.50322675704956
+        },
+        {
+          "fold": 5,
+          "n_train": 643,
+          "n_test": 160,
+          "n_test_positives": 16,
+          "acc": 0.89375,
+          "auc": 0.9487847222222223,
+          "wss_at_95": 0.7437499999999999,
+          "elapsed_seconds": 59.09252691268921
+        }
+      ]
+    },
+    "13": {
+      "topic": "ADHD",
+      "text_mode": "title_abstract_mesh",
+      "classifier": "BiomedBERT",
+      "seed": 13,
+      "n_samples": 803,
+      "n_included": 83,
+      "n_folds": 5,
+      "epochs": 3,
+      "batch_size": 16,
+      "learning_rate": 2e-05,
+      "max_length": 512,
+      "fp16": true,
+      "class_weight": "balanced",
+      "acc_mean": 0.9103183229813665,
+      "acc_std": 0.010279057429681134,
+      "auc_mean": 0.9484170751633988,
+      "auc_std": 0.017774042942035245,
+      "wss_mean": 0.6059239130434783,
+      "wss_std": 0.1955483734559086,
+      "total_seconds": 295.04354786872864,
+      "folds": [
+        {
+          "fold": 1,
+          "n_train": 642,
+          "n_test": 161,
+          "n_test_positives": 17,
+          "acc": 0.9130434782608695,
+          "auc": 0.9624183006535948,
+          "wss_at_95": 0.7077639751552794,
+          "elapsed_seconds": 60.9754581451416
+        },
+        {
+          "fold": 2,
+          "n_train": 642,
+          "n_test": 161,
+          "n_test_positives": 17,
+          "acc": 0.906832298136646,
+          "auc": 0.9579248366013072,
+          "wss_at_95": 0.6580745341614906,
+          "elapsed_seconds": 58.20045256614685
+        },
+        {
+          "fold": 3,
+          "n_train": 642,
+          "n_test": 161,
+          "n_test_positives": 17,
+          "acc": 0.9254658385093167,
+          "auc": 0.9632352941176471,
+          "wss_at_95": 0.745031055900621,
+          "elapsed_seconds": 58.29512882232666
+        },
+        {
+          "fold": 4,
+          "n_train": 643,
+          "n_test": 160,
+          "n_test_positives": 16,
+          "acc": 0.89375,
+          "auc": 0.916232638888889,
+          "wss_at_95": 0.21874999999999994,
+          "elapsed_seconds": 59.32727575302124
+        },
+        {
+          "fold": 5,
+          "n_train": 643,
+          "n_test": 160,
+          "n_test_positives": 16,
+          "acc": 0.9125,
+          "auc": 0.9422743055555555,
+          "wss_at_95": 0.7,
+          "elapsed_seconds": 58.245232582092285
+        }
+      ]
+    },
+    "21": {
+      "topic": "ADHD",
+      "text_mode": "title_abstract_mesh",
+      "classifier": "BiomedBERT",
+      "seed": 21,
+      "n_samples": 803,
+      "n_included": 83,
+      "n_folds": 5,
+      "epochs": 3,
+      "batch_size": 16,
+      "learning_rate": 2e-05,
+      "max_length": 512,
+      "fp16": true,
+      "class_weight": "balanced",
+      "acc_mean": 0.901583850931677,
+      "acc_std": 0.03076986286085888,
+      "auc_mean": 0.9462775735294118,
+      "auc_std": 0.02269984445364203,
+      "wss_mean": 0.6178493788819875,
+      "wss_std": 0.21956040795684945,
+      "total_seconds": 295.36193776130676,
+      "folds": [
+        {
+          "fold": 1,
+          "n_train": 642,
+          "n_test": 161,
+          "n_test_positives": 17,
+          "acc": 0.906832298136646,
+          "auc": 0.917892156862745,
+          "wss_at_95": 0.18602484472049685,
+          "elapsed_seconds": 60.96568536758423
+        },
+        {
+          "fold": 2,
+          "n_train": 642,
+          "n_test": 161,
+          "n_test_positives": 17,
+          "acc": 0.8881987577639752,
+          "auc": 0.9272875816993463,
+          "wss_at_95": 0.651863354037267,
+          "elapsed_seconds": 58.53806161880493
+        },
+        {
+          "fold": 3,
+          "n_train": 642,
+          "n_test": 161,
+          "n_test_positives": 17,
+          "acc": 0.937888198757764,
+          "auc": 0.9803921568627451,
+          "wss_at_95": 0.7326086956521739,
+          "elapsed_seconds": 57.87825560569763
+        },
+        {
+          "fold": 4,
+          "n_train": 643,
+          "n_test": 160,
+          "n_test_positives": 16,
+          "acc": 0.925,
+          "auc": 0.9618055555555555,
+          "wss_at_95": 0.7687499999999999,
+          "elapsed_seconds": 59.43568205833435
+        },
+        {
+          "fold": 5,
+          "n_train": 643,
+          "n_test": 160,
+          "n_test_positives": 16,
+          "acc": 0.85,
+          "auc": 0.9440104166666666,
+          "wss_at_95": 0.75,
+          "elapsed_seconds": 58.54425311088562
+        }
+      ]
+    },
+    "31": {
+      "topic": "ADHD",
+      "text_mode": "title_abstract_mesh",
+      "classifier": "BiomedBERT",
+      "seed": 31,
+      "n_samples": 803,
+      "n_included": 83,
+      "n_folds": 5,
+      "epochs": 3,
+      "batch_size": 16,
+      "learning_rate": 2e-05,
+      "max_length": 512,
+      "fp16": true,
+      "class_weight": "balanced",
+      "acc_mean": 0.9028726708074533,
+      "acc_std": 0.013947176962592787,
+      "auc_mean": 0.9454197303921568,
+      "auc_std": 0.01875463005918184,
+      "wss_mean": 0.638889751552795,
+      "wss_std": 0.16956066417111582,
+      "total_seconds": 294.7757444381714,
+      "folds": [
+        {
+          "fold": 1,
+          "n_train": 642,
+          "n_test": 161,
+          "n_test_positives": 17,
+          "acc": 0.9130434782608695,
+          "auc": 0.9652777777777778,
+          "wss_at_95": 0.7263975155279503,
+          "elapsed_seconds": 60.94293236732483
+        },
+        {
+          "fold": 2,
+          "n_train": 642,
+          "n_test": 161,
+          "n_test_positives": 17,
+          "acc": 0.8944099378881988,
+          "auc": 0.9150326797385621,
+          "wss_at_95": 0.3040372670807453,
+          "elapsed_seconds": 58.13151669502258
+        },
+        {
+          "fold": 3,
+          "n_train": 642,
+          "n_test": 161,
+          "n_test_positives": 17,
+          "acc": 0.8944099378881988,
+          "auc": 0.9444444444444444,
+          "wss_at_95": 0.7077639751552794,
+          "elapsed_seconds": 57.86770439147949
+        },
+        {
+          "fold": 4,
+          "n_train": 643,
+          "n_test": 160,
+          "n_test_positives": 16,
+          "acc": 0.8875,
+          "auc": 0.9375,
+          "wss_at_95": 0.6875,
+          "elapsed_seconds": 59.46004390716553
+        },
+        {
+          "fold": 5,
+          "n_train": 643,
+          "n_test": 160,
+          "n_test_positives": 16,
+          "acc": 0.925,
+          "auc": 0.96484375,
+          "wss_at_95": 0.7687499999999999,
+          "elapsed_seconds": 58.373547077178955
+        }
+      ]
+    }
+  },
+  "auto_runs": {
+    "42": {
+      "topic": "ADHD",
+      "text_mode": "auto_mesh",
+      "classifier": "BiomedBERT",
+      "seed": 42,
+      "n_samples": 803,
+      "n_included": 83,
+      "n_folds": 5,
+      "epochs": 3,
+      "batch_size": 16,
+      "learning_rate": 2e-05,
+      "max_length": 512,
+      "fp16": true,
+      "class_weight": "balanced",
+      "acc_mean": 0.8940838509316771,
+      "acc_std": 0.03102453384906332,
+      "auc_mean": 0.9427440767973856,
+      "auc_std": 0.02565660303018807,
+      "wss_mean": 0.6559704968944098,
+      "wss_std": 0.11403949243589798,
+      "total_seconds": 253.95383548736572,
+      "folds": [
+        {
+          "fold": 1,
+          "n_train": 642,
+          "n_test": 161,
+          "n_test_positives": 17,
+          "acc": 0.9316770186335404,
+          "auc": 0.9603758169934641,
+          "wss_at_95": 0.6145962732919255,
+          "elapsed_seconds": 50.74154734611511
+        },
+        {
+          "fold": 2,
+          "n_train": 642,
+          "n_test": 161,
+          "n_test_positives": 17,
+          "acc": 0.8944099378881988,
+          "auc": 0.94281045751634,
+          "wss_at_95": 0.7326086956521739,
+          "elapsed_seconds": 51.10826015472412
+        },
+        {
+          "fold": 3,
+          "n_train": 642,
+          "n_test": 161,
+          "n_test_positives": 17,
+          "acc": 0.906832298136646,
+          "auc": 0.9620098039215687,
+          "wss_at_95": 0.7263975155279503,
+          "elapsed_seconds": 50.72143483161926
+        },
+        {
+          "fold": 4,
+          "n_train": 643,
+          "n_test": 160,
+          "n_test_positives": 16,
+          "acc": 0.9,
+          "auc": 0.955295138888889,
+          "wss_at_95": 0.75625,
+          "elapsed_seconds": 50.59193015098572
+        },
+        {
+          "fold": 5,
+          "n_train": 643,
+          "n_test": 160,
+          "n_test_positives": 16,
+          "acc": 0.8375,
+          "auc": 0.8932291666666667,
+          "wss_at_95": 0.44999999999999996,
+          "elapsed_seconds": 50.79066300392151
+        }
+      ]
+    },
+    "7": {
+      "topic": "ADHD",
+      "text_mode": "auto_mesh",
+      "classifier": "BiomedBERT",
+      "seed": 7,
+      "n_samples": 803,
+      "n_included": 83,
+      "n_folds": 5,
+      "epochs": 3,
+      "batch_size": 16,
+      "learning_rate": 2e-05,
+      "max_length": 512,
+      "fp16": true,
+      "class_weight": "balanced",
+      "acc_mean": 0.9041226708074535,
+      "acc_std": 0.01779486168390882,
+      "auc_mean": 0.9479166666666667,
+      "auc_std": 0.02330723559282694,
+      "wss_mean": 0.5469953416149067,
+      "wss_std": 0.23824786920730623,
+      "total_seconds": 290.34194326400757,
+      "folds": [
+        {
+          "fold": 1,
+          "n_train": 642,
+          "n_test": 161,
+          "n_test_positives": 17,
+          "acc": 0.9254658385093167,
+          "auc": 0.9673202614379085,
+          "wss_at_95": 0.6767080745341615,
+          "elapsed_seconds": 60.45286583900452
+        },
+        {
+          "fold": 2,
+          "n_train": 642,
+          "n_test": 161,
+          "n_test_positives": 17,
+          "acc": 0.8944099378881988,
+          "auc": 0.9162581699346405,
+          "wss_at_95": 0.11770186335403723,
+          "elapsed_seconds": 57.74733304977417
+        },
+        {
+          "fold": 3,
+          "n_train": 642,
+          "n_test": 161,
+          "n_test_positives": 17,
+          "acc": 0.8819875776397516,
+          "auc": 0.928921568627451,
+          "wss_at_95": 0.4593167701863353,
+          "elapsed_seconds": 57.2989239692688
+        },
+        {
+          "fold": 4,
+          "n_train": 643,
+          "n_test": 160,
+          "n_test_positives": 16,
+          "acc": 0.925,
+          "auc": 0.9791666666666667,
+          "wss_at_95": 0.7374999999999999,
+          "elapsed_seconds": 57.61159658432007
+        },
+        {
+          "fold": 5,
+          "n_train": 643,
+          "n_test": 160,
+          "n_test_positives": 16,
+          "acc": 0.89375,
+          "auc": 0.9479166666666666,
+          "wss_at_95": 0.7437499999999999,
+          "elapsed_seconds": 57.231223821640015
+        }
+      ]
+    },
+    "13": {
+      "topic": "ADHD",
+      "text_mode": "auto_mesh",
+      "classifier": "BiomedBERT",
+      "seed": 13,
+      "n_samples": 803,
+      "n_included": 83,
+      "n_folds": 5,
+      "epochs": 3,
+      "batch_size": 16,
+      "learning_rate": 2e-05,
+      "max_length": 512,
+      "fp16": true,
+      "class_weight": "balanced",
+      "acc_mean": 0.9078183229813664,
+      "acc_std": 0.014611660978462225,
+      "auc_mean": 0.9467243668300653,
+      "auc_std": 0.026582659029917046,
+      "wss_mean": 0.5435636645962733,
+      "wss_std": 0.24191195126062953,
+      "total_seconds": 290.172358751297,
+      "folds": [
+        {
+          "fold": 1,
+          "n_train": 642,
+          "n_test": 161,
+          "n_test_positives": 17,
+          "acc": 0.9130434782608695,
+          "auc": 0.9571078431372549,
+          "wss_at_95": 0.6953416149068322,
+          "elapsed_seconds": 60.00513005256653
+        },
+        {
+          "fold": 2,
+          "n_train": 642,
+          "n_test": 161,
+          "n_test_positives": 17,
+          "acc": 0.906832298136646,
+          "auc": 0.9665032679738562,
+          "wss_at_95": 0.5835403726708074,
+          "elapsed_seconds": 57.45099377632141
+        },
+        {
+          "fold": 3,
+          "n_train": 642,
+          "n_test": 161,
+          "n_test_positives": 17,
+          "acc": 0.9254658385093167,
+          "auc": 0.9738562091503268,
+          "wss_at_95": 0.7201863354037267,
+          "elapsed_seconds": 57.5189471244812
+        },
+        {
+          "fold": 4,
+          "n_train": 643,
+          "n_test": 160,
+          "n_test_positives": 16,
+          "acc": 0.88125,
+          "auc": 0.8999565972222223,
+          "wss_at_95": 0.06874999999999995,
+          "elapsed_seconds": 57.742257595062256
+        },
+        {
+          "fold": 5,
+          "n_train": 643,
+          "n_test": 160,
+          "n_test_positives": 16,
+          "acc": 0.9125,
+          "auc": 0.9361979166666666,
+          "wss_at_95": 0.6499999999999999,
+          "elapsed_seconds": 57.4550302028656
+        }
+      ]
+    },
+    "21": {
+      "topic": "ADHD",
+      "text_mode": "auto_mesh",
+      "classifier": "BiomedBERT",
+      "seed": 21,
+      "n_samples": 803,
+      "n_included": 83,
+      "n_folds": 5,
+      "epochs": 3,
+      "batch_size": 16,
+      "learning_rate": 2e-05,
+      "max_length": 512,
+      "fp16": true,
+      "class_weight": "balanced",
+      "acc_mean": 0.8928804347826086,
+      "acc_std": 0.023598545969204413,
+      "auc_mean": 0.9393127042483661,
+      "auc_std": 0.012758065632306222,
+      "wss_mean": 0.6102795031055901,
+      "wss_std": 0.10167090556432615,
+      "total_seconds": 289.47643661499023,
+      "folds": [
+        {
+          "fold": 1,
+          "n_train": 642,
+          "n_test": 161,
+          "n_test_positives": 17,
+          "acc": 0.8881987577639752,
+          "auc": 0.9366830065359478,
+          "wss_at_95": 0.4841614906832298,
+          "elapsed_seconds": 59.90454363822937
+        },
+        {
+          "fold": 2,
+          "n_train": 642,
+          "n_test": 161,
+          "n_test_positives": 17,
+          "acc": 0.9006211180124224,
+          "auc": 0.923611111111111,
+          "wss_at_95": 0.496583850931677,
+          "elapsed_seconds": 57.708280086517334
+        },
+        {
+          "fold": 3,
+          "n_train": 642,
+          "n_test": 161,
+          "n_test_positives": 17,
+          "acc": 0.906832298136646,
+          "auc": 0.9495506535947712,
+          "wss_at_95": 0.6456521739130434,
+          "elapsed_seconds": 56.563130617141724
+        },
+        {
+          "fold": 4,
+          "n_train": 643,
+          "n_test": 160,
+          "n_test_positives": 16,
+          "acc": 0.91875,
+          "auc": 0.9578993055555556,
+          "wss_at_95": 0.73125,
+          "elapsed_seconds": 57.826935052871704
+        },
+        {
+          "fold": 5,
+          "n_train": 643,
+          "n_test": 160,
+          "n_test_positives": 16,
+          "acc": 0.85,
+          "auc": 0.9288194444444444,
+          "wss_at_95": 0.69375,
+          "elapsed_seconds": 57.4735472202301
+        }
+      ]
+    },
+    "31": {
+      "topic": "ADHD",
+      "text_mode": "auto_mesh",
+      "classifier": "BiomedBERT",
+      "seed": 31,
+      "n_samples": 803,
+      "n_included": 83,
+      "n_folds": 5,
+      "epochs": 3,
+      "batch_size": 16,
+      "learning_rate": 2e-05,
+      "max_length": 512,
+      "fp16": true,
+      "class_weight": "balanced",
+      "acc_mean": 0.8966304347826087,
+      "acc_std": 0.017034777218696718,
+      "auc_mean": 0.9460529003267976,
+      "auc_std": 0.02259236453748861,
+      "wss_mean": 0.667445652173913,
+      "wss_std": 0.11254579652453828,
+      "total_seconds": 290.6795537471771,
+      "folds": [
+        {
+          "fold": 1,
+          "n_train": 642,
+          "n_test": 161,
+          "n_test_positives": 17,
+          "acc": 0.9192546583850931,
+          "auc": 0.9791666666666667,
+          "wss_at_95": 0.745031055900621,
+          "elapsed_seconds": 60.17505121231079
+        },
+        {
+          "fold": 2,
+          "n_train": 642,
+          "n_test": 161,
+          "n_test_positives": 17,
+          "acc": 0.8944099378881988,
+          "auc": 0.914624183006536,
+          "wss_at_95": 0.44689440993788815,
+          "elapsed_seconds": 57.70187544822693
+        },
+        {
+          "fold": 3,
+          "n_train": 642,
+          "n_test": 161,
+          "n_test_positives": 17,
+          "acc": 0.8819875776397516,
+          "auc": 0.9358660130718954,
+          "wss_at_95": 0.7015527950310558,
+          "elapsed_seconds": 56.633503437042236
+        },
+        {
+          "fold": 4,
+          "n_train": 643,
+          "n_test": 160,
+          "n_test_positives": 16,
+          "acc": 0.875,
+          "auc": 0.9375,
+          "wss_at_95": 0.69375,
+          "elapsed_seconds": 57.903714656829834
+        },
+        {
+          "fold": 5,
+          "n_train": 643,
+          "n_test": 160,
+          "n_test_positives": 16,
+          "acc": 0.9125,
+          "auc": 0.9631076388888888,
+          "wss_at_95": 0.75,
+          "elapsed_seconds": 58.265408992767334
+        }
+      ]
+    }
+  }
+}

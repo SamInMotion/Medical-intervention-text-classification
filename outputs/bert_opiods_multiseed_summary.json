@@ -1,0 +1,763 @@
+{
+  "topic": "Opiods",
+  "seeds_run": [
+    42,
+    7,
+    13,
+    21,
+    31
+  ],
+  "expert_mode": "title_abstract_mesh",
+  "auto_mode": "auto_mesh",
+  "per_seed_gaps": {
+    "42": -0.0732776318930532,
+    "7": -0.058749104798281215,
+    "13": 0.0817537996339619,
+    "21": -0.127120235537519,
+    "31": -0.06325614705180232
+  },
+  "expert_runs": {
+    "42": {
+      "topic": "Opiods",
+      "text_mode": "title_abstract_mesh",
+      "classifier": "BiomedBERT",
+      "seed": 42,
+      "n_samples": 1772,
+      "n_included": 43,
+      "n_folds": 5,
+      "epochs": 3,
+      "batch_size": 16,
+      "learning_rate": 2e-05,
+      "max_length": 512,
+      "fp16": true,
+      "class_weight": "balanced",
+      "acc_mean": 0.9757348611442666,
+      "acc_std": 0.0013607540766153213,
+      "auc_mean": 0.8613388577066635,
+      "auc_std": 0.038092530145160654,
+      "wss_mean": 0.367264263547386,
+      "wss_std": 0.2530760967816276,
+      "total_seconds": 551.8603258132935,
+      "folds": [
+        {
+          "fold": 1,
+          "n_train": 1417,
+          "n_test": 355,
+          "n_test_positives": 9,
+          "acc": 0.9746478873239437,
+          "auc": 0.8187219010918432,
+          "wss_at_95": -0.019014084507042298,
+          "elapsed_seconds": 110.5848822593689
+        },
+        {
+          "fold": 2,
+          "n_train": 1417,
+          "n_test": 355,
+          "n_test_positives": 9,
+          "acc": 0.9746478873239437,
+          "auc": 0.8368657675016057,
+          "wss_at_95": 0.3612676056338028,
+          "elapsed_seconds": 110.22245812416077
+        },
+        {
+          "fold": 3,
+          "n_train": 1418,
+          "n_test": 354,
+          "n_test_positives": 8,
+          "acc": 0.9774011299435028,
+          "auc": 0.9299132947976878,
+          "wss_at_95": 0.6392655367231638,
+          "elapsed_seconds": 109.73952627182007
+        },
+        {
+          "fold": 4,
+          "n_train": 1418,
+          "n_test": 354,
+          "n_test_positives": 8,
+          "acc": 0.9774011299435028,
+          "auc": 0.8688583815028902,
+          "wss_at_95": 0.6392655367231638,
+          "elapsed_seconds": 110.21025323867798
+        },
+        {
+          "fold": 5,
+          "n_train": 1418,
+          "n_test": 354,
+          "n_test_positives": 9,
+          "acc": 0.9745762711864406,
+          "auc": 0.8523349436392914,
+          "wss_at_95": 0.21553672316384176,
+          "elapsed_seconds": 111.10320591926575
+        }
+      ]
+    },
+    "7": {
+      "topic": "Opiods",
+      "text_mode": "title_abstract_mesh",
+      "classifier": "BiomedBERT",
+      "seed": 7,
+      "n_samples": 1772,
+      "n_included": 43,
+      "n_folds": 5,
+      "epochs": 3,
+      "batch_size": 16,
+      "learning_rate": 2e-05,
+      "max_length": 512,
+      "fp16": true,
+      "class_weight": "balanced",
+      "acc_mean": 0.9757348611442666,
+      "acc_std": 0.0013607540766153213,
+      "auc_mean": 0.8515518858265152,
+      "auc_std": 0.046412382967346205,
+      "wss_mean": 0.3623195671202355,
+      "wss_std": 0.21195103447311245,
+      "total_seconds": 619.2624781131744,
+      "folds": [
+        {
+          "fold": 1,
+          "n_train": 1417,
+          "n_test": 355,
+          "n_test_positives": 9,
+          "acc": 0.9746478873239437,
+          "auc": 0.9104046242774566,
+          "wss_at_95": 0.5528169014084506,
+          "elapsed_seconds": 124.24192142486572
+        },
+        {
+          "fold": 2,
+          "n_train": 1417,
+          "n_test": 355,
+          "n_test_positives": 9,
+          "acc": 0.9746478873239437,
+          "auc": 0.873795761078998,
+          "wss_at_95": 0.5415492957746478,
+          "elapsed_seconds": 123.72982120513916
+        },
+        {
+          "fold": 3,
+          "n_train": 1418,
+          "n_test": 354,
+          "n_test_positives": 8,
+          "acc": 0.9774011299435028,
+          "auc": 0.8274927745664741,
+          "wss_at_95": 0.29463276836158186,
+          "elapsed_seconds": 124.42617893218994
+        },
+        {
+          "fold": 4,
+          "n_train": 1418,
+          "n_test": 354,
+          "n_test_positives": 8,
+          "acc": 0.9774011299435028,
+          "auc": 0.8710260115606936,
+          "wss_at_95": 0.44152542372881354,
+          "elapsed_seconds": 123.6258659362793
+        },
+        {
+          "fold": 5,
+          "n_train": 1418,
+          "n_test": 354,
+          "n_test_positives": 9,
+          "acc": 0.9745762711864406,
+          "auc": 0.7750402576489533,
+          "wss_at_95": -0.018926553672316427,
+          "elapsed_seconds": 123.23869061470032
+        }
+      ]
+    },
+    "13": {
+      "topic": "Opiods",
+      "text_mode": "title_abstract_mesh",
+      "classifier": "BiomedBERT",
+      "seed": 13,
+      "n_samples": 1772,
+      "n_included": 43,
+      "n_folds": 5,
+      "epochs": 3,
+      "batch_size": 16,
+      "learning_rate": 2e-05,
+      "max_length": 512,
+      "fp16": true,
+      "class_weight": "balanced",
+      "acc_mean": 0.9757348611442666,
+      "acc_std": 0.0013607540766153213,
+      "auc_mean": 0.8921658033378943,
+      "auc_std": 0.035655536583544985,
+      "wss_mean": 0.43835999045118157,
+      "wss_std": 0.24008134830367056,
+      "total_seconds": 621.5990591049194,
+      "folds": [
+        {
+          "fold": 1,
+          "n_train": 1417,
+          "n_test": 355,
+          "n_test_positives": 9,
+          "acc": 0.9746478873239437,
+          "auc": 0.8749197174052665,
+          "wss_at_95": 0.3274647887323943,
+          "elapsed_seconds": 126.6560480594635
+        },
+        {
+          "fold": 2,
+          "n_train": 1417,
+          "n_test": 355,
+          "n_test_positives": 9,
+          "acc": 0.9746478873239437,
+          "auc": 0.8381502890173411,
+          "wss_at_95": 0.1753521126760563,
+          "elapsed_seconds": 122.66417002677917
+        },
+        {
+          "fold": 3,
+          "n_train": 1418,
+          "n_test": 354,
+          "n_test_positives": 8,
+          "acc": 0.9774011299435028,
+          "auc": 0.9026372832369943,
+          "wss_at_95": 0.24661016949152537,
+          "elapsed_seconds": 124.18392944335938
+        },
+        {
+          "fold": 4,
+          "n_train": 1418,
+          "n_test": 354,
+          "n_test_positives": 8,
+          "acc": 0.9774011299435028,
+          "auc": 0.946893063583815,
+          "wss_at_95": 0.7918079096045197,
+          "elapsed_seconds": 124.60400629043579
+        },
+        {
+          "fold": 5,
+          "n_train": 1418,
+          "n_test": 354,
+          "n_test_positives": 9,
+          "acc": 0.9745762711864406,
+          "auc": 0.8982286634460547,
+          "wss_at_95": 0.6505649717514124,
+          "elapsed_seconds": 123.49090528488159
+        }
+      ]
+    },
+    "21": {
+      "topic": "Opiods",
+      "text_mode": "title_abstract_mesh",
+      "classifier": "BiomedBERT",
+      "seed": 21,
+      "n_samples": 1772,
+      "n_included": 43,
+      "n_folds": 5,
+      "epochs": 3,
+      "batch_size": 16,
+      "learning_rate": 2e-05,
+      "max_length": 512,
+      "fp16": true,
+      "class_weight": "balanced",
+      "acc_mean": 0.9751698893928543,
+      "acc_std": 0.0011160799133327081,
+      "auc_mean": 0.8718226243333055,
+      "auc_std": 0.06606967372205781,
+      "wss_mean": 0.40161772897270626,
+      "wss_std": 0.32163875433149475,
+      "total_seconds": 621.2347025871277,
+      "folds": [
+        {
+          "fold": 1,
+          "n_train": 1417,
+          "n_test": 355,
+          "n_test_positives": 9,
+          "acc": 0.9746478873239437,
+          "auc": 0.9129736673089274,
+          "wss_at_95": 0.6823943661971831,
+          "elapsed_seconds": 127.9842746257782
+        },
+        {
+          "fold": 2,
+          "n_train": 1417,
+          "n_test": 355,
+          "n_test_positives": 9,
+          "acc": 0.9746478873239437,
+          "auc": 0.968368657675016,
+          "wss_at_95": 0.854225352112676,
+          "elapsed_seconds": 122.63880324363708
+        },
+        {
+          "fold": 3,
+          "n_train": 1418,
+          "n_test": 354,
+          "n_test_positives": 8,
+          "acc": 0.9774011299435028,
+          "auc": 0.8795158959537572,
+          "wss_at_95": 0.24943502824858754,
+          "elapsed_seconds": 124.09174752235413
+        },
+        {
+          "fold": 4,
+          "n_train": 1418,
+          "n_test": 354,
+          "n_test_positives": 8,
+          "acc": 0.9745762711864406,
+          "auc": 0.7895592485549133,
+          "wss_at_95": -0.03305084745762717,
+          "elapsed_seconds": 122.84306073188782
+        },
+        {
+          "fold": 5,
+          "n_train": 1418,
+          "n_test": 354,
+          "n_test_positives": 9,
+          "acc": 0.9745762711864406,
+          "auc": 0.808695652173913,
+          "wss_at_95": 0.25508474576271184,
+          "elapsed_seconds": 123.67681646347046
+        }
+      ]
+    },
+    "31": {
+      "topic": "Opiods",
+      "text_mode": "title_abstract_mesh",
+      "classifier": "BiomedBERT",
+      "seed": 31,
+      "n_samples": 1772,
+      "n_included": 43,
+      "n_folds": 5,
+      "epochs": 3,
+      "batch_size": 16,
+      "learning_rate": 2e-05,
+      "max_length": 512,
+      "fp16": true,
+      "class_weight": "balanced",
+      "acc_mean": 0.9751714808625765,
+      "acc_std": 0.002084706276284757,
+      "auc_mean": 0.8507681299042194,
+      "auc_std": 0.025060236735661878,
+      "wss_mean": 0.2762910798122065,
+      "wss_std": 0.18792514259317958,
+      "total_seconds": 621.4681282043457,
+      "folds": [
+        {
+          "fold": 1,
+          "n_train": 1417,
+          "n_test": 355,
+          "n_test_positives": 9,
+          "acc": 0.9746478873239437,
+          "auc": 0.8086062941554271,
+          "wss_at_95": 0.07676056338028164,
+          "elapsed_seconds": 126.52658224105835
+        },
+        {
+          "fold": 2,
+          "n_train": 1417,
+          "n_test": 355,
+          "n_test_positives": 9,
+          "acc": 0.971830985915493,
+          "auc": 0.8807000642260757,
+          "wss_at_95": 0.28802816901408446,
+          "elapsed_seconds": 123.18900394439697
+        },
+        {
+          "fold": 3,
+          "n_train": 1418,
+          "n_test": 354,
+          "n_test_positives": 8,
+          "acc": 0.9774011299435028,
+          "auc": 0.8421242774566473,
+          "wss_at_95": 0.5064971751412429,
+          "elapsed_seconds": 124.02763080596924
+        },
+        {
+          "fold": 4,
+          "n_train": 1418,
+          "n_test": 354,
+          "n_test_positives": 8,
+          "acc": 0.9774011299435028,
+          "auc": 0.851878612716763,
+          "wss_at_95": 0.05169491525423725,
+          "elapsed_seconds": 123.39198446273804
+        },
+        {
+          "fold": 5,
+          "n_train": 1418,
+          "n_test": 354,
+          "n_test_positives": 9,
+          "acc": 0.9745762711864406,
+          "auc": 0.8705314009661835,
+          "wss_at_95": 0.4584745762711864,
+          "elapsed_seconds": 124.3329267501831
+        }
+      ]
+    }
+  },
+  "auto_runs": {
+    "42": {
+      "topic": "Opiods",
+      "text_mode": "auto_mesh",
+      "classifier": "BiomedBERT",
+      "seed": 42,
+      "n_samples": 1772,
+      "n_included": 43,
+      "n_folds": 5,
+      "epochs": 3,
+      "batch_size": 16,
+      "learning_rate": 2e-05,
+      "max_length": 512,
+      "fp16": true,
+      "class_weight": "balanced",
+      "acc_mean": 0.9757348611442666,
+      "acc_std": 0.0013607540766153213,
+      "auc_mean": 0.8612661612353744,
+      "auc_std": 0.05803129598234727,
+      "wss_mean": 0.4405418954404392,
+      "wss_std": 0.23485217789589194,
+      "total_seconds": 546.9565396308899,
+      "folds": [
+        {
+          "fold": 1,
+          "n_train": 1417,
+          "n_test": 355,
+          "n_test_positives": 9,
+          "acc": 0.9746478873239437,
+          "auc": 0.8790944123314064,
+          "wss_at_95": 0.26549295774647885,
+          "elapsed_seconds": 109.78085732460022
+        },
+        {
+          "fold": 2,
+          "n_train": 1417,
+          "n_test": 355,
+          "n_test_positives": 9,
+          "acc": 0.9746478873239437,
+          "auc": 0.8044315992292871,
+          "wss_at_95": 0.3753521126760563,
+          "elapsed_seconds": 108.99420046806335
+        },
+        {
+          "fold": 3,
+          "n_train": 1418,
+          "n_test": 354,
+          "n_test_positives": 8,
+          "acc": 0.9774011299435028,
+          "auc": 0.9252167630057804,
+          "wss_at_95": 0.701412429378531,
+          "elapsed_seconds": 108.9181649684906
+        },
+        {
+          "fold": 4,
+          "n_train": 1418,
+          "n_test": 354,
+          "n_test_positives": 8,
+          "acc": 0.9774011299435028,
+          "auc": 0.9154624277456647,
+          "wss_at_95": 0.7240112994350282,
+          "elapsed_seconds": 109.24165630340576
+        },
+        {
+          "fold": 5,
+          "n_train": 1418,
+          "n_test": 354,
+          "n_test_positives": 9,
+          "acc": 0.9745762711864406,
+          "auc": 0.7821256038647344,
+          "wss_at_95": 0.13644067796610165,
+          "elapsed_seconds": 110.02166056632996
+        }
+      ]
+    },
+    "7": {
+      "topic": "Opiods",
+      "text_mode": "auto_mesh",
+      "classifier": "BiomedBERT",
+      "seed": 7,
+      "n_samples": 1772,
+      "n_included": 43,
+      "n_folds": 5,
+      "epochs": 3,
+      "batch_size": 16,
+      "learning_rate": 2e-05,
+      "max_length": 512,
+      "fp16": true,
+      "class_weight": "balanced",
+      "acc_mean": 0.9757348611442666,
+      "acc_std": 0.0013607540766153213,
+      "auc_mean": 0.8530043492223062,
+      "auc_std": 0.05233899885818718,
+      "wss_mean": 0.4210686719185167,
+      "wss_std": 0.18710983618767593,
+      "total_seconds": 612.3262906074524,
+      "folds": [
+        {
+          "fold": 1,
+          "n_train": 1417,
+          "n_test": 355,
+          "n_test_positives": 9,
+          "acc": 0.9746478873239437,
+          "auc": 0.9367373153500321,
+          "wss_at_95": 0.702112676056338,
+          "elapsed_seconds": 125.85507011413574
+        },
+        {
+          "fold": 2,
+          "n_train": 1417,
+          "n_test": 355,
+          "n_test_positives": 9,
+          "acc": 0.9746478873239437,
+          "auc": 0.8511560693641619,
+          "wss_at_95": 0.40633802816901404,
+          "elapsed_seconds": 121.14688777923584
+        },
+        {
+          "fold": 3,
+          "n_train": 1418,
+          "n_test": 354,
+          "n_test_positives": 8,
+          "acc": 0.9774011299435028,
+          "auc": 0.8370664739884394,
+          "wss_at_95": 0.36525423728813555,
+          "elapsed_seconds": 122.32643795013428
+        },
+        {
+          "fold": 4,
+          "n_train": 1418,
+          "n_test": 354,
+          "n_test_positives": 8,
+          "acc": 0.9774011299435028,
+          "auc": 0.8661488439306357,
+          "wss_at_95": 0.5036723163841808,
+          "elapsed_seconds": 121.44096422195435
+        },
+        {
+          "fold": 5,
+          "n_train": 1418,
+          "n_test": 354,
+          "n_test_positives": 9,
+          "acc": 0.9745762711864406,
+          "auc": 0.7739130434782608,
+          "wss_at_95": 0.1279661016949152,
+          "elapsed_seconds": 121.55693054199219
+        }
+      ]
+    },
+    "13": {
+      "topic": "Opiods",
+      "text_mode": "auto_mesh",
+      "classifier": "BiomedBERT",
+      "seed": 13,
+      "n_samples": 1772,
+      "n_included": 43,
+      "n_folds": 5,
+      "epochs": 3,
+      "batch_size": 16,
+      "learning_rate": 2e-05,
+      "max_length": 512,
+      "fp16": true,
+      "class_weight": "balanced",
+      "acc_mean": 0.9757348611442666,
+      "acc_std": 0.0013607540766153213,
+      "auc_mean": 0.8669608267478335,
+      "auc_std": 0.046989628964850066,
+      "wss_mean": 0.35660619081721967,
+      "wss_std": 0.2590328804579243,
+      "total_seconds": 613.4332904815674,
+      "folds": [
+        {
+          "fold": 1,
+          "n_train": 1417,
+          "n_test": 355,
+          "n_test_positives": 9,
+          "acc": 0.9746478873239437,
+          "auc": 0.819203596660244,
+          "wss_at_95": 0.05985915492957743,
+          "elapsed_seconds": 124.802250623703
+        },
+        {
+          "fold": 2,
+          "n_train": 1417,
+          "n_test": 355,
+          "n_test_positives": 9,
+          "acc": 0.9746478873239437,
+          "auc": 0.8429672447013487,
+          "wss_at_95": 0.14718309859154924,
+          "elapsed_seconds": 121.34426665306091
+        },
+        {
+          "fold": 3,
+          "n_train": 1418,
+          "n_test": 354,
+          "n_test_positives": 8,
+          "acc": 0.9774011299435028,
+          "auc": 0.9048049132947977,
+          "wss_at_95": 0.277683615819209,
+          "elapsed_seconds": 122.102046251297
+        },
+        {
+          "fold": 4,
+          "n_train": 1418,
+          "n_test": 354,
+          "n_test_positives": 8,
+          "acc": 0.9774011299435028,
+          "auc": 0.9394869942196532,
+          "wss_at_95": 0.7635593220338983,
+          "elapsed_seconds": 122.1151180267334
+        },
+        {
+          "fold": 5,
+          "n_train": 1418,
+          "n_test": 354,
+          "n_test_positives": 9,
+          "acc": 0.9745762711864406,
+          "auc": 0.8283413848631239,
+          "wss_at_95": 0.5347457627118644,
+          "elapsed_seconds": 123.06960892677307
+        }
+      ]
+    },
+    "21": {
+      "topic": "Opiods",
+      "text_mode": "auto_mesh",
+      "classifier": "BiomedBERT",
+      "seed": 21,
+      "n_samples": 1772,
+      "n_included": 43,
+      "n_folds": 5,
+      "epochs": 3,
+      "batch_size": 16,
+      "learning_rate": 2e-05,
+      "max_length": 512,
+      "fp16": true,
+      "class_weight": "balanced",
+      "acc_mean": 0.9751698893928543,
+      "acc_std": 0.0011160799133327081,
+      "auc_mean": 0.8804139091340648,
+      "auc_std": 0.057883963929022564,
+      "wss_mean": 0.5287379645102253,
+      "wss_std": 0.26014904089793334,
+      "total_seconds": 612.4679760932922,
+      "folds": [
+        {
+          "fold": 1,
+          "n_train": 1417,
+          "n_test": 355,
+          "n_test_positives": 9,
+          "acc": 0.9746478873239437,
+          "auc": 0.9271034039820167,
+          "wss_at_95": 0.7387323943661971,
+          "elapsed_seconds": 124.9515860080719
+        },
+        {
+          "fold": 2,
+          "n_train": 1417,
+          "n_test": 355,
+          "n_test_positives": 9,
+          "acc": 0.9746478873239437,
+          "auc": 0.9497430956968529,
+          "wss_at_95": 0.7950704225352112,
+          "elapsed_seconds": 122.26921939849854
+        },
+        {
+          "fold": 3,
+          "n_train": 1418,
+          "n_test": 354,
+          "n_test_positives": 8,
+          "acc": 0.9774011299435028,
+          "auc": 0.8871026011560693,
+          "wss_at_95": 0.4669491525423728,
+          "elapsed_seconds": 121.65667676925659
+        },
+        {
+          "fold": 4,
+          "n_train": 1418,
+          "n_test": 354,
+          "n_test_positives": 8,
+          "acc": 0.9745762711864406,
+          "auc": 0.7859465317919074,
+          "wss_at_95": 0.06299435028248583,
+          "elapsed_seconds": 122.25563526153564
+        },
+        {
+          "fold": 5,
+          "n_train": 1418,
+          "n_test": 354,
+          "n_test_positives": 9,
+          "acc": 0.9745762711864406,
+          "auc": 0.8521739130434782,
+          "wss_at_95": 0.5799435028248587,
+          "elapsed_seconds": 121.33485865592957
+        }
+      ]
+    },
+    "31": {
+      "topic": "Opiods",
+      "text_mode": "auto_mesh",
+      "classifier": "BiomedBERT",
+      "seed": 31,
+      "n_samples": 1772,
+      "n_included": 43,
+      "n_folds": 5,
+      "epochs": 3,
+      "batch_size": 16,
+      "learning_rate": 2e-05,
+      "max_length": 512,
+      "fp16": true,
+      "class_weight": "balanced",
+      "acc_mean": 0.9757348611442666,
+      "acc_std": 0.0013607540766153213,
+      "auc_mean": 0.8637799954390177,
+      "auc_std": 0.047510140650539164,
+      "wss_mean": 0.33954722686400884,
+      "wss_std": 0.26778537627807136,
+      "total_seconds": 611.0271742343903,
+      "folds": [
+        {
+          "fold": 1,
+          "n_train": 1417,
+          "n_test": 355,
+          "n_test_positives": 9,
+          "acc": 0.9746478873239437,
+          "auc": 0.7907835581245986,
+          "wss_at_95": 0.10211267605633798,
+          "elapsed_seconds": 124.90029621124268
+        },
+        {
+          "fold": 2,
+          "n_train": 1417,
+          "n_test": 355,
+          "n_test_positives": 9,
+          "acc": 0.9746478873239437,
+          "auc": 0.8426461143224149,
+          "wss_at_95": 0.29929577464788726,
+          "elapsed_seconds": 120.83543968200684
+        },
+        {
+          "fold": 3,
+          "n_train": 1418,
+          "n_test": 354,
+          "n_test_positives": 8,
+          "acc": 0.9774011299435028,
+          "auc": 0.9158236994219653,
+          "wss_at_95": 0.6844632768361582,
+          "elapsed_seconds": 122.27100133895874
+        },
+        {
+          "fold": 4,
+          "n_train": 1418,
+          "n_test": 354,
+          "n_test_positives": 8,
+          "acc": 0.9774011299435028,
+          "auc": 0.8538656069364162,
+          "wss_at_95": 0.006497175141242893,
+          "elapsed_seconds": 121.44115209579468
+        },
+        {
+          "fold": 5,
+          "n_train": 1418,
+          "n_test": 354,
+          "n_test_positives": 9,
+          "acc": 0.9745762711864406,
+          "auc": 0.9157809983896941,
+          "wss_at_95": 0.605367231638418,
+          "elapsed_seconds": 121.57928490638733
+        }
+      ]
+    }
+  }
+}
