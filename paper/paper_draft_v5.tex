@@ -1,0 +1,491 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[a4paper,top=2.5cm,bottom=2.5cm,left=2.5cm,right=2.5cm]{geometry}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{graphicx}
+
+\hypersetup{colorlinks=true, linkcolor=blue!50!black, urlcolor=blue!50!black, citecolor=blue!50!black}
+
+\titleformat*{\section}{\large\bfseries}
+\titleformat*{\subsection}{\normalsize\bfseries}
+\titlespacing*{\section}{0pt}{12pt}{4pt}
+\titlespacing*{\subsection}{0pt}{8pt}{2pt}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+
+\title{\vspace{-2em}When mechanical concept linking matches expert annotation:\\
+a controlled comparison of MeSH augmentation for systematic review screening with bag-of-words and biomedical transformers}
+
+\author{Samuel Okoe-Mensah\\
+\small University of Bergen\\
+\small \texttt{sammy.okmens@gmail.com}}
+
+\date{Manuscript v5, \textbar{} June 2026}
+
+\begin{document}
+\maketitle
+
+\vspace{-1em}
+
+\begin{abstract}
+\noindent Systematic review screening commonly augments article abstracts with controlled-vocabulary terms drawn from the Medical Subject Headings (MeSH) thesaurus. Two assignment mechanisms produce these terms in practice: expert annotation by professional indexers, and mechanical lookup against a vocabulary of candidate MeSH headings. Whether the two are interchangeable as classifier features has not been tested in a controlled comparison. We use the Cohen et al.\ (2006) drug-class benchmark to isolate this question across two classifier families, with multi-run characterisation that treats each topic-classifier combination as a distribution rather than a point estimate. Under the canonical Cohen evaluation design (5-fold stratified cross-validation at native corpus size), the bag-of-words pipeline shows a robust expert-vs-auto MeSH advantage on Statins (per-run mean $+0.096$ WSS@95\% across seven reruns, all run-level means positive) and no detectable advantage on Opioids ($+0.007$) or ADHD ($+0.006$). A robustness analysis reveals that the Statins finding is conditional on this specific evaluation design: under stratified subsampling to the matched-size of ADHD (n=803), the Statins gap collapses to $+0.033$ (95\% bootstrap CI $[-0.022, +0.092]$, includes zero); under 10-fold instead of 5-fold cross-validation at full corpus size, it shrinks to $+0.021$ (CI $[+0.001, +0.041]$). A power analysis on the same per-fold variance estimates shows that a Statins-sized effect ($+0.125$) would not have been detectable at Opioids' or ADHD's per-topic variance with the present 5-fold design ($\text{MDE}_{\text{Opioids}} = 0.189$, $\text{MDE}_{\text{ADHD}} = 0.286$); the cross-topic null at those topics is therefore design-limited rather than informative. Multi-seed characterisation of BiomedBERT under the canonical evaluation produces a Statins pooled gap of $+0.020$ across 25 fold values, substantially below the canonical 5-fold bag-of-words reference of $+0.096$ but comparable to the bag-of-words 10-fold result ($+0.021$) at the same corpus size. We interpret this as evidence that the expert-vs-auto MeSH gap is real at the canonical Cohen evaluation but evaluation-design-conditional; that transformer-based screening pipelines achieve under standard evaluation a gap comparable to bag-of-words pipelines under designs that increase per-fold training data; and that the Cohen benchmark provides too few included articles per fold at Opioids and ADHD for the mechanism question to be settled at those topics.
+\end{abstract}
+
+\section{Introduction}
+
+Systematic reviews assemble all published evidence relevant to a clinical question and rely on screening reviewers reading thousands of titles and abstracts to identify the small subset relevant to the review. The work is expensive and slow. Automated screening tools have been studied since at least Cohen et al.\ (2006), whose drug-class benchmark established a 15-topic testbed and an evaluation metric, work saved over sampling at 95\% recall or WSS@95\%, that the field continues to use. The standard input representation for screening classifiers has been an article's title and abstract, often augmented with MeSH headings from the National Library of Medicine's controlled vocabulary. The augmentation captures topic information that the abstract text may not state explicitly, such as the indication that an article is about a specific drug class even when no specific drug name appears in the title.
+
+MeSH terms are produced by two mechanisms in different parts of the pipeline. Professional indexers at the National Library of Medicine assign MeSH headings to each PubMed-indexed article based on its full content. These expert annotations are the canonical reference. Separately, automated tools assign MeSH terms mechanically through string matching, concept linking, or model-based prediction. Whether the two annotation sources are interchangeable as classifier features has practical importance: expert annotation is delayed by weeks or months after publication, while mechanical assignment is instantaneous and can be applied to preprints or recently-published articles that lack expert indexing. If the two produce comparable downstream classifier performance, then mechanical assignment is a viable substitute. If they do not, then systematic review screening depends on annotation latency in a way that limits coverage of recent literature.
+
+The literature on automated systematic review screening does not address this question directly. Existing work treats expert MeSH as ground truth and auto-MeSH prediction as an algorithmic problem in its own right (Mao and Lu 2017, Jin and Szolovits 2018). Studies that augment classifier inputs with MeSH features typically use the expert-assigned version without varying the assignment mechanism (Cohen 2008, Matwin et al.\ 2010). The closest relevant question that has been asked concerns features more broadly: Scott and Matwin (1999) compared phrases, synonyms, and hypernyms as features for Reuters text classification without finding a consistent advantage. The specific question of whether substituting mechanical for expert assignment of the same vocabulary leaves downstream performance intact has not been isolated, and the question of how that interchangeability interacts with evaluation design choices has not been raised at all.
+
+This paper takes up that question through a controlled experiment on three Cohen et al.\ (2006) topics. We hold the MeSH vocabulary constant and vary only the assignment mechanism. Two classifier families serve as the test platform: a bag-of-words logistic regression classifier and BiomedBERT (formerly PubMedBERT; Gu et al.\ 2021), a domain-pretrained contextual transformer. The choice of two classifiers is deliberate. The mechanism question and the classifier-architecture question are entangled in the existing literature, and separating them requires a comparison that has not been performed cleanly. We characterise each topic-classifier combination as a distribution rather than a point estimate, using seven-rerun multi-run characterisation for the bag-of-words pipeline and five-seed multi-seed characterisation for BiomedBERT. Beyond the main comparison, we run two robustness analyses on the Statins finding: a stratified subsampling experiment matching Statins to ADHD's corpus size, and a 10-fold sensitivity analysis at full corpus size. Our research questions are: (RQ1) does mechanical MeSH assignment produce comparable WSS@95\% to expert MeSH assignment as classifier features, holding the vocabulary and the classifier constant; (RQ2) does the answer to RQ1 depend on the classifier; and (RQ3) does the answer to RQ1 depend on the evaluation design (per-fold training volume, per-topic corpus size). The results support a design-conditional answer: the expert-vs-auto MeSH gap is robust at the canonical 5-fold full-corpus evaluation on Statins, attenuates substantially under design changes that increase per-fold training volume or match corpus size, is not detectable at Opioids or ADHD under any tested evaluation, and is roughly absorbed by BiomedBERT under the canonical evaluation.
+
+We make three contributions.
+
+\begin{itemize}
+\setlength{\itemsep}{2pt}
+\item We isolate the assignment-mechanism question from the classifier-architecture question through a controlled comparison that holds the MeSH vocabulary constant and varies only the source of assignment, across two classifier families applied to the same three Cohen drug-class topics.
+\item We characterise every topic-classifier combination as a distribution rather than a point estimate, using seven-rerun multi-run characterisation for bag-of-words and five-seed multi-seed characterisation for BiomedBERT, with non-determinism sources disclosed in advance and per-fold values archived for re-analysis.
+\item We provide a robustness analysis that decomposes the canonical Statins finding into a corpus-size component and an evaluation-fold-count component, showing that both contribute substantially to the observed effect magnitude, and a power analysis that bounds what the cross-topic null at Opioids and ADHD can and cannot establish.
+\end{itemize}
+
+\section{Related work}
+
+Cohen et al.\ (2006) introduced the drug-class benchmark of 15 systematic review topics and reported WSS@95\% values for a voting perceptron classifier with binary bag-of-words features. Their cross-topic average was approximately 18.5\%, with four topics showing WSS@95\% below 5\%. Subsequent work has continued to use this benchmark. Cohen (2008) reported SVM-based results with n-gram features and MeSH terms, reporting AUC rather than WSS@95\%. Matwin et al.\ (2010) used factorised complement naive Bayes and reported WSS@95\% improvements over the Cohen baseline on several topics. Across this body of work, MeSH augmentation appears as a feature source but its assignment mechanism is treated as fixed, and the evaluation design (5-fold cross-validation at native topic size) is treated as a methodological default rather than an experimental variable.
+
+Recent screening work has shifted toward large language models, with reported performance for GPT-class systems on systematic review tasks that often exceeds earlier statistical baselines. This shift creates a positioning question for any new work using simpler classifiers: why study bag-of-words when the state of the art has moved on? Our answer treats bag-of-words as a controlled testbed for isolating a mechanism rather than a competing system for screening practice. The mechanism question we investigate is independent of which classifier currently performs best, because the question concerns whether two annotation sources are interchangeable as inputs, not which input pipeline produces the highest screening performance overall.
+
+MeSH-based feature augmentation appears in the broader text classification literature as one instance of ontology-driven feature engineering. The semasiological versus onomasiological distinction in lexical semantics (Baldinger 1980, Geeraerts 2010, with origins in Saussure 1916/1959) describes two directions of vocabulary access: starting from a form to find related forms (semasiological), or starting from a concept to find appropriate expressions (onomasiological). Distributional semantics (Harris 1954, Sahlgren 2008, Lenci 2018) provides the theoretical underpinning for bag-of-words methods. The distinction is relevant here because mechanical MeSH lookup operates semasiologically (start from words in the text, look up MeSH terms that match), while expert MeSH annotation operates onomasiologically (start from the article's topic, assign MeSH terms that express it). The canonical-evaluation Statins bag-of-words result is consistent with this distinction predicting different classifier outcomes for the two mechanisms; the robustness analyses reported in Section~4.4 add a layer of nuance to this interpretation that we take up in the discussion.
+
+Biomedical transformer models, of which BiomedBERT (Gu et al.\ 2021) is one example, are pretrained on PubMed abstracts and have produced state-of-the-art results on biomedical NLP benchmarks including the BLURB suite. Their use for systematic review screening has been less studied than their use for biomedical question answering or named entity recognition. We do not claim transformer-based screening is novel. We use BiomedBERT as a bridge from the controlled bag-of-words experiment to representations that are closer to current screening practice.
+
+\section{Methods}
+
+\subsection{Benchmark and topic selection}
+
+We use three drug-class topics from the Cohen et al.\ (2006) benchmark: Statins, Opioids, and ADHD. The benchmark provides PubMed identifiers and inclusion labels from completed systematic reviews. Article texts and MeSH terms were retrieved through the NCBI Entrez API and cached locally to ensure reproducibility. Table~\ref{tab:topics} summarises topic characteristics.
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{lrrr}
+\toprule
+Topic & Total articles & Included & Inclusion rate \\
+\midrule
+Statins & 2,744 & 152 & 5.5\% \\
+Opioids & 1,772 & 43 & 2.4\% \\
+ADHD & 803 & 83 & 10.3\% \\
+\bottomrule
+\end{tabular}
+\caption{Cohen drug-class topics used in this study.}
+\label{tab:topics}
+\end{table}
+
+The three topics span different inclusion rates and different clinical domains (cardiovascular, analgesic, behavioural). The Statins topic is the most studied in the screening literature and has been used as the primary reference in several follow-up papers. Opioids and ADHD differ from Statins in both corpus size and inclusion rate, providing cross-topic variation on dimensions that prior work has shown to affect classifier performance (Cohen 2008, Matwin et al.\ 2010). The Cohen benchmark structure assigns each topic its native size, and the literature has retained this convention; we follow it in the main comparison and explicitly relax it in the robustness analysis (Section~3.6).
+
+\subsection{Text modes}
+
+Each article is represented in four alternative input forms:
+
+\begin{enumerate}
+\item \texttt{abstract}: the abstract text alone.
+\item \texttt{title\_abstract}: the article title concatenated with the abstract.
+\item \texttt{title\_abstract\_mesh}: title plus abstract plus expert-assigned MeSH terms from the PubMed indexer, concatenated as space-separated tokens.
+\item \texttt{auto\_mesh}: abstract plus mechanically-assigned MeSH terms, where the assignment uses case-insensitive substring matching of MeSH headings against a topic-wide vocabulary built from the union of all MeSH terms observed in the topic's cached records.
+\end{enumerate}
+
+Modes 1 and 2 establish baseline performance without MeSH augmentation. Modes 3 and 4 instantiate the central manipulation: both augment the text with MeSH vocabulary, but mode 3 uses the expert assignment and mode 4 uses the mechanical assignment. The MeSH vocabulary in mode 4 is built from the topic-specific cache rather than the full MeSH thesaurus, which is the construction that makes the comparison fair. Both modes draw from the same set of available MeSH terms with different assignment mechanisms.
+
+\subsection{Classifiers}
+
+The bag-of-words pipeline uses a regularised L2 logistic regression classifier with binary unigram features and stop-word removal. This pipeline was developed for the original thesis work and applies a TF-IDF transformation followed by L2 regularisation chosen by cross-validation on the training folds. We report the regularised variant throughout. Full pipeline implementation appears in the project repository.
+
+The BiomedBERT pipeline uses \texttt{microsoft/BiomedNLP-BiomedBERT-base-uncased-abstract}, the abstract-pretrained variant of BiomedBERT (formerly PubMedBERT; Gu et al.\ 2021). Hyperparameters were chosen as BERT-fine-tuning defaults rather than topic-tuned: learning rate 2e-5, batch size 16, 3 fine-tuning epochs, maximum sequence length 512 tokens. Class weights followed sklearn's balanced formulation, which is necessary at the inclusion rates the Cohen topics present. Without balanced weighting, BiomedBERT produced near-random discrimination (AUC $\approx$ 0.43) on the most imbalanced topic in pilot validation runs. Mixed-precision training (fp16) was used on T4 GPUs to make the full four-mode comparison feasible within Google Colab's free-tier budget. The stratified fold splits and the \texttt{BertConfig.seed} are seeded explicitly through the \texttt{--seed} pipeline argument, and per-fold WSS values are written to \texttt{.json} sibling files alongside the standard \texttt{.txt} outputs for downstream parsing.
+
+\subsection{Evaluation}
+
+We report WSS@95\%, the work saved over sampling at 95\% recall (Cohen et al.\ 2006), as the primary metric. WSS@95\% measures the fraction of the corpus a reviewer would not have to read after triaging by classifier-ranked probability, conditional on achieving 95\% recall of included articles. This metric is operational rather than statistical: it reflects the workload reduction a systematic review team would achieve if they used the classifier output to prioritise screening. We also report accuracy and ROC AUC, but these are less informative for the screening application because they treat the two error directions symmetrically while screening practice does not.
+
+Five-fold stratified cross-validation was applied to each topic in the main comparison. Stratification preserves the inclusion rate across folds, which matters at the 2.4\% inclusion rate of Opioids where a non-stratified split would risk folds with no positive examples.
+
+\subsection{Statistical analysis and reproducibility characterisation}
+
+The per-fold WSS@95\% values from each topic-mode combination form the unit of analysis. For each topic and each classifier, the per-fold paired difference between expert mode and auto mode (\texttt{title\_abstract\_mesh} minus \texttt{auto\_mesh}) gives the observation set. Bag-of-words observations under the main protocol comprise seven reruns of five folds each, producing 35 paired differences per topic and 105 pooled across the three topics. BiomedBERT observations comprise five seeds of five folds each, producing 25 paired differences per topic and 75 pooled across the three topics.
+
+Bootstrap percentile confidence intervals were computed with 10,000 resamples of the per-fold differences with replacement. The 2.5th and 97.5th percentiles of the resampled means give the 95\% CI. Paired permutation tests on the per-fold differences enumerate sign-flip patterns exactly for small samples and approximate by sampling for larger ones. The Nadeau and Bengio (2003) corrected resampled $t$-test addresses the variance under-estimation that affects naive paired $t$-tests on $k$-fold CV data when training folds overlap.
+
+A reproducibility audit conducted earlier in this work surfaced two non-determinism findings that motivated the multi-run and multi-seed protocols this paper uses. First, the bag-of-words pipeline produces different per-fold WSS values across identical-command reruns under the current TensorFlow build on Windows, with run-to-run drift of up to 0.03 WSS@95\% per fold. The hypothesis that this drift is caused by oneDNN runtime optimisations was tested by running with \texttt{TF\_ENABLE\_ONEDNN\_OPTS=0} and falsified: two consecutive identical-command runs with oneDNN disabled still produced different per-fold values. The source is Keras layer initialisation under the current TensorFlow build, which the pipeline's existing \texttt{set\_seeds()} function does not fully control. Rather than chase this further into the TensorFlow stack, the multi-run characterisation in Section~4.1 discloses the run-to-run distribution explicitly and treats the gap as a distribution rather than a point estimate. Second, two BiomedBERT analyses on Statins, one with implicit numpy RNG state and one with explicit \texttt{--seed 42}, gave per-fold values that drifted by up to 0.28 WSS@95\% across the two runs. This was the empirical motivation for moving from single-seed to multi-seed characterisation across all three topics, reported in Section~4.2.
+
+\subsection{Robustness analyses on the Statins finding}
+
+The main comparison adopts the canonical Cohen evaluation design (5-fold stratified cross-validation at each topic's native corpus size). The Statins canonical result --- a robust expert-vs-auto MeSH gap that does not arise on Opioids or ADHD --- raises two questions that the main design cannot answer. First, is the Statins effect a function of the larger corpus that Statins has relative to Opioids ($1.6\times$) and ADHD ($3.4\times$), rather than a topic-intrinsic property? Second, does the 5-fold fold count interact with the effect? The 5-fold design trains each model on 80\% of the topic's articles; the alternative 10-fold design trains on 90\%. We ran two robustness analyses to address each question separately.
+
+The \textbf{matched-corpus-size analysis} stratified-subsampled Statins to $n=803$ articles, matching the ADHD corpus size. Seven subsample seeds were drawn, each preserving the Statins inclusion rate (5.5\%); each subsample was then run through the standard 5-fold pipeline with all four text modes, producing $7 \times 5 = 35$ per-fold paired differences on the subsampled Statins.
+
+The \textbf{10-fold sensitivity analysis} retained Statins at full $n = 2{,}744$ but switched the cross-validation design from 5-fold to 10-fold, with seven reruns to match the existing multi-run protocol structure. This produces $7 \times 10 = 70$ per-fold paired differences. We did not run 10-fold on Opioids or ADHD because per-fold included-article counts at those topics under 10-fold ($\approx 4$ for Opioids, $\approx 8$ for ADHD) are too low for WSS@95\% to behave stably.
+
+We also computed an \textbf{empirical power analysis} on the main-comparison per-fold variances: at the per-topic standard deviations observed under the canonical 5-fold design, what is the minimum detectable effect (MDE) at 80\% power for the present per-topic fold counts? This answers a question complementary to the subsampling: even if a Statins-sized effect existed at Opioids or ADHD, would the present sample size and variance allow detection?
+
+\section{Results}
+
+\subsection{Bag-of-words results: topic-stratified multi-run characterisation}
+
+Tables~\ref{tab:bow_statins_multirun}, \ref{tab:bow_opiods_multirun}, and \ref{tab:bow_adhd_multirun} report per-fold expert-vs-auto MeSH WSS@95\% differences for the bag-of-words logistic regression classifier across all three topics, each characterised across seven reruns of the same pipeline configuration. The seven reruns per topic use identical command-line arguments, identical code, identical input data, and identical fold-splitting seeds. The run-to-run variation reflects residual non-determinism in Keras Dense layer initialisation that the pipeline's explicit seeding does not fully control, documented in Section~3.5.
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{rrrlr}
+\toprule
+Run & Expert WSS mean & Auto WSS mean & Per-fold gaps & Run gap \\
+\midrule
+1 & 0.204 & 0.126 & [+0.089, +0.027, +0.155, +0.000, +0.120] & +0.078 \\
+2 & 0.198 & 0.109 & [+0.082, +0.004, +0.155, +0.073, +0.131] & +0.089 \\
+3 & 0.218 & 0.142 & [+0.089, $-$0.053, +0.206, $-$0.022, +0.164] & +0.077 \\
+4 & 0.200 & 0.098 & [+0.022, +0.024, +0.191, +0.148, +0.124] & +0.102 \\
+5 & 0.213 & 0.115 & [+0.080, +0.027, +0.180, +0.062, +0.144] & +0.099 \\
+6 & 0.216 & 0.105 & [+0.086, +0.055, +0.158, +0.111, +0.144] & +0.111 \\
+7 & 0.227 & 0.113 & [+0.054, +0.127, +0.160, +0.100, +0.131] & +0.114 \\
+\midrule
+\textbf{Mean} & \textbf{0.211} & \textbf{0.115} & --- & \textbf{+0.096} \\
+\bottomrule
+\end{tabular}
+\caption{BoW Statins multi-run characterisation, canonical 5-fold full-corpus design. Seven reruns of identical pipeline configuration.}
+\label{tab:bow_statins_multirun}
+\end{table}
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{rrrlr}
+\toprule
+Run & Expert WSS mean & Auto WSS mean & Per-fold gaps & Run gap \\
+\midrule
+1 & 0.277 & 0.279 & [$-$0.296, +0.025, $-$0.077, +0.274, +0.065] & $-$0.002 \\
+2 & 0.267 & 0.267 & [$-$0.262, +0.023, +0.087, $-$0.048, +0.201] & +0.000 \\
+3 & 0.310 & 0.303 & [$-$0.304, +0.098, $-$0.070, +0.156, +0.155] & +0.007 \\
+4 & 0.295 & 0.288 & [$-$0.183, +0.031, $-$0.045, +0.139, +0.090] & +0.006 \\
+5 & 0.295 & 0.257 & [$-$0.214, +0.022, +0.057, +0.200, +0.125] & +0.038 \\
+6 & 0.318 & 0.302 & [$-$0.313, +0.073, +0.026, +0.082, +0.212] & +0.016 \\
+7 & 0.306 & 0.325 & [$-$0.411, +0.040, $-$0.051, +0.184, +0.141] & $-$0.019 \\
+\midrule
+\textbf{Mean} & \textbf{0.295} & \textbf{0.289} & --- & \textbf{+0.007} \\
+\bottomrule
+\end{tabular}
+\caption{BoW Opioids multi-run characterisation, canonical 5-fold full-corpus design.}
+\label{tab:bow_opiods_multirun}
+\end{table}
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{rrrlr}
+\toprule
+Run & Expert WSS mean & Auto WSS mean & Per-fold gaps & Run gap \\
+\midrule
+1 & 0.429 & 0.406 & [+0.168, $-$0.174, +0.180, +0.081, $-$0.138] & +0.023 \\
+2 & 0.442 & 0.407 & [+0.254, $-$0.249, +0.075, +0.100, $-$0.006] & +0.035 \\
+3 & 0.469 & 0.461 & [+0.354, $-$0.199, $-$0.006, +0.013, $-$0.119] & +0.009 \\
+4 & 0.387 & 0.393 & [+0.180, $-$0.255, +0.081, +0.037, $-$0.075] & $-$0.006 \\
+5 & 0.408 & 0.436 & [+0.143, $-$0.174, $-$0.013, +0.050, $-$0.144] & $-$0.028 \\
+6 & 0.434 & 0.391 & [+0.267, $-$0.162, +0.099, +0.057, $-$0.044] & +0.043 \\
+7 & 0.360 & 0.395 & [+0.217, $-$0.310, $-$0.056, +0.062, $-$0.087] & $-$0.035 \\
+\midrule
+\textbf{Mean} & \textbf{0.418} & \textbf{0.413} & --- & \textbf{+0.006} \\
+\bottomrule
+\end{tabular}
+\caption{BoW ADHD multi-run characterisation, canonical 5-fold full-corpus design.}
+\label{tab:bow_adhd_multirun}
+\end{table}
+
+Under the canonical evaluation design, the expert-vs-auto MeSH gap is topic-dependent. The Statins distribution is tight and positive: per-run mean $+0.096$, standard deviation 0.015, range $[+0.077, +0.114]$, all seven run-level gaps positive, 32 of 35 fold-level paired differences strictly positive. The two negative folds at Statins (Run 3 fold 2 at $-0.053$, Run 3 fold 4 at $-0.022$) are small in magnitude relative to the per-fold WSS standard deviation of approximately 0.07 across Statins folds. The originally published value of $+0.121$ lies above the observed multi-run range upper bound of $+0.114$, consistent with being a single realisation from the same underlying distribution.
+
+The Opioids and ADHD distributions are not positive and not tight. On Opioids the per-run mean is $+0.007$ with per-run range $[-0.019, +0.038]$, five of seven runs positive, 23 of 35 folds positive. On ADHD the per-run mean is $+0.006$ with per-run range $[-0.035, +0.043]$, four of seven runs positive, 18 of 35 folds positive. The per-fold gaps span both signs widely: Opioids fold gaps range from $-0.411$ to $+0.274$, ADHD fold gaps range from $-0.310$ to $+0.354$. Per-fold standard deviations within topic are 0.17 (Opioids) and 0.16 (ADHD), which is approximately 25 times the magnitudes of the run-level mean gaps. Under the canonical design, the gap is not detectable in either direction at these two topics.
+
+The cross-mode pattern within a single Statins run replicates the original finding: expert MeSH produces the highest regularised WSS@95\% across the four modes, auto MeSH produces the lowest of the four, and the abstract-only baseline lies between them. This ordering does not transfer to Opioids or ADHD. At Opioids the four mode means cluster within approximately 0.04 of each other and the rank order varies across runs. At ADHD the four mode means cluster within approximately 0.05 and the rank order also varies across runs.
+
+\subsection{BiomedBERT results: multi-seed characterisation across three topics}
+
+BiomedBERT was characterised across five seeds (42, 7, 13, 21, 31) for each of the two H-Pub2-critical modes (\texttt{title\_abstract\_mesh} and \texttt{auto\_mesh}) on each of the three topics. This produces 25 per-fold WSS@95\% values per topic per mode (5 seeds $\times$ 5 folds), and 75 pooled across the three topics per mode. Tables~\ref{tab:bert_statins}, \ref{tab:bert_opiods}, and \ref{tab:bert_adhd} report the per-seed expert and auto WSS@95\% means and the per-seed expert-vs-auto gap for each topic.
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{rrrr}
+\toprule
+Seed & Expert WSS mean & Auto WSS mean & Gap \\
+\midrule
+42 & 0.273 & 0.271 & +0.002 \\
+7  & 0.262 & 0.253 & +0.009 \\
+13 & 0.290 & 0.230 & +0.060 \\
+21 & 0.272 & 0.279 & $-$0.007 \\
+31 & 0.270 & 0.232 & +0.038 \\
+\midrule
+\textbf{Pooled (25 folds)} & \textbf{0.273} & \textbf{0.253} & \textbf{+0.020} \\
+\bottomrule
+\end{tabular}
+\caption{BiomedBERT Statins multi-seed characterisation. Five seeds, five folds each.}
+\label{tab:bert_statins}
+\end{table}
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{rrrr}
+\toprule
+Seed & Expert WSS mean & Auto WSS mean & Gap \\
+\midrule
+42 & 0.367 & 0.441 & $-$0.073 \\
+7  & 0.362 & 0.421 & $-$0.059 \\
+13 & 0.438 & 0.357 & \textbf{+0.082} \\
+21 & 0.402 & 0.529 & $-$0.127 \\
+31 & 0.276 & 0.340 & $-$0.063 \\
+\midrule
+\textbf{Pooled (25 folds)} & \textbf{0.369} & \textbf{0.417} & \textbf{$-$0.048} \\
+\bottomrule
+\end{tabular}
+\caption{BiomedBERT Opioids multi-seed characterisation. Five seeds, five folds each. Seed 13 produces a gap of $+0.082$ against the other four seeds' range of $[-0.127, -0.059]$. The outlier is retained without exclusion.}
+\label{tab:bert_opiods}
+\end{table}
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{rrrr}
+\toprule
+Seed & Expert WSS mean & Auto WSS mean & Gap \\
+\midrule
+42 & 0.601 & 0.656 & $-$0.055 \\
+7  & 0.578 & 0.547 & +0.031 \\
+13 & 0.606 & 0.544 & +0.062 \\
+21 & 0.618 & 0.610 & +0.008 \\
+31 & 0.639 & 0.667 & $-$0.029 \\
+\midrule
+\textbf{Pooled (25 folds)} & \textbf{0.608} & \textbf{0.605} & \textbf{+0.003} \\
+\bottomrule
+\end{tabular}
+\caption{BiomedBERT ADHD multi-seed characterisation. Five seeds, five folds each.}
+\label{tab:bert_adhd}
+\end{table}
+
+Under the canonical 5-fold full-corpus evaluation, the BiomedBERT Statins per-seed gap distribution centres above zero (pooled $+0.020$, per-seed range $[-0.007, +0.060]$), but the central tendency is substantially below the bag-of-words Statins multi-run mean of $+0.096$. The Opioids per-seed gap distribution has a negative central tendency ($-0.048$ pooled, four of five seeds negative) with one seed-level outlier (seed 13 at $+0.082$) that we report rather than exclude. The ADHD per-seed gap distribution is centred near zero (pooled $+0.003$, signs split 2 positive, 2 negative, 1 near zero).
+
+The seed 13 Opioids result deserves explicit comment. Across five seeds with identical hyperparameters, identical fold splits, and identical training data, the per-seed gap ranges from $-0.127$ (seed 21) to $+0.082$ (seed 13), a swing of 0.21 WSS@95\% attributable to random initialisation alone. The four-seed mean excluding seed 13 would be $-0.081$. The five-seed pooled mean retaining seed 13 is $-0.048$. We retain seed 13 because excluding it would amount to picking the result from a five-seed distribution post-hoc, and the wider distribution itself is part of the methodological observation: at this corpus size and inclusion rate (Opioids has 43 included articles in 1,772), per-seed fluctuation is substantial enough that single-seed characterisation can mislead about both magnitude and direction.
+
+\subsection{Statistical tests}
+
+Table~\ref{tab:stats} reports the bootstrap CIs and exact paired permutation $p$-values for the expert-minus-auto difference, per topic and pooled, separately for each classifier family, under the canonical 5-fold full-corpus design.
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{llrrcr}
+\toprule
+Classifier & Topic & $n$ folds & Mean diff & 95\% bootstrap CI & Perm $p$ \\
+\midrule
+BoW (multi-run)  & Statins         & 35  & $+0.0957$ & $[+0.075, +0.116]$ & $< 0.001$ \\
+                 & Opioids         & 35  & $+0.0066$ & $[-0.050, +0.061]$ & $0.82$ \\
+                 & ADHD            & 35  & $+0.0059$ & $[-0.046, +0.060]$ & $0.83$ \\
+                 & \textbf{Pooled} & \textbf{105} & \textbf{$+0.0361$} & \textbf{$[+0.009, +0.063]$} & \textbf{$0.013$} \\
+\midrule
+BERT (multi-seed) & Statins        & 25  & $+0.020$  & $[-0.011, +0.052]$ & $0.19$ \\
+                 & Opioids         & 25  & $-0.048$  & $[-0.116, +0.020]$ & $0.31$ \\
+                 & ADHD            & 25  & $+0.003$  & $[-0.040, +0.046]$ & $0.81$ \\
+                 & \textbf{Pooled} & \textbf{75} & \textbf{$-0.008$} & \textbf{$[-0.039, +0.024]$} & \textbf{$0.60$} \\
+\bottomrule
+\end{tabular}
+\caption{Statistical analysis of the expert$-$auto WSS@95\% difference by classifier and topic under the canonical 5-fold full-corpus design. Bootstrap CIs from 10,000-resample percentile bootstrap. Permutation $p$-values from exact sign-flip enumeration where feasible and approximate sampling at 100,000 permutations otherwise.}
+\label{tab:stats}
+\end{table}
+
+The bag-of-words Statins gap is statistically detectable at the conventional $\alpha = 0.05$ threshold (CI excludes zero, permutation $p < 0.001$). The bag-of-words Opioids and ADHD gaps are not (both CIs include zero, permutation $p > 0.8$). The bag-of-words pooled across the three topics retains a small positive central tendency that is dominated by the Statins contribution and just excludes zero on the lower bound of the CI; the pooled permutation $p$-value of $0.013$ reflects the Statins component rather than a consistent cross-topic effect.
+
+The BiomedBERT per-topic gaps are not statistically detectable at any topic. The Statins per-seed CI includes zero on the lower bound. The Opioids per-seed CI includes zero on the upper bound. The ADHD per-seed CI is centred on zero. The three-topic pooled BiomedBERT CI of $[-0.039, +0.024]$ is centred essentially on zero and does not overlap the bag-of-words Statins distribution under the canonical design.
+
+\subsection{Evaluation design sensitivity}
+
+Two robustness analyses interrogate the Statins canonical finding by varying the evaluation design while holding the classifier, the data, and the assignment mechanism constant. Table~\ref{tab:design_sensitivity} reports the results. The matched-corpus-size analysis subsamples Statins to $n = 803$ articles, matching ADHD's corpus size, and runs the standard 5-fold protocol across seven subsample seeds. The 10-fold sensitivity analysis retains Statins at full $n = 2{,}744$ but uses 10-fold instead of 5-fold cross-validation across seven reruns.
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{lrrrr}
+\toprule
+Design & $n$ folds & Mean gap & 95\% bootstrap CI & SD \\
+\midrule
+Statins, 5-fold, full $n = 2{,}744$ (canonical, reference)   & 35  & $+0.0957$ & $[+0.075, +0.116]$  & 0.067 \\
+\textbf{Statins, 5-fold, subsampled $n = 803$ (NEW)}          & \textbf{35}  & \textbf{$+0.0332$} & \textbf{$[-0.022, +0.092]$} & \textbf{0.177} \\
+\textbf{Statins, 10-fold, full $n = 2{,}744$ (NEW)}            & \textbf{70}  & \textbf{$+0.0207$} & \textbf{$[+0.001, +0.041]$} & \textbf{0.086} \\
+ADHD, 5-fold, full $n = 803$ (reference)                       & 5   & $-0.0298$ & $[-0.218, +0.136]$  & 0.228 \\
+Opioids, 5-fold, full $n = 1{,}772$ (reference)                 & 5   & $-0.0100$ & $[-0.141, +0.086]$  & 0.151 \\
+\bottomrule
+\end{tabular}
+\caption{Evaluation design sensitivity on the Statins expert-vs-auto MeSH gap. The canonical Statins finding under the standard Cohen design (top row) attenuates under both subsampling to ADHD-matched size (row 2) and under 10-fold evaluation at full size (row 3). The subsampled CI includes zero. The 10-fold CI is narrowly positive but the magnitude shrinks roughly fivefold relative to the canonical reference.}
+\label{tab:design_sensitivity}
+\end{table}
+
+Three findings emerge. First, the Statins gap is approximately three times smaller at matched corpus size ($+0.033$ versus the canonical $+0.096$) and the 95\% bootstrap CI includes zero. Subsampled Statins and full-size ADHD are not statistically distinguishable, in the sense that the CI of the former ($[-0.022, +0.092]$) lies well within the CI of the latter ($[-0.218, +0.136]$). Second, at full corpus size but with 10-fold cross-validation, the Statins gap shrinks to $+0.021$, with a CI that excludes zero only by a small margin ($[+0.001, +0.041]$). Third, the 10-fold Statins result and the canonical BiomedBERT Statins result are within sampling noise of each other: BoW 10-fold $+0.021$ versus BERT 5-fold $+0.020$. Both are an order of magnitude below the canonical BoW 5-fold reference.
+
+The bag-of-words classifier therefore produces a substantially different expert-vs-auto gap depending on two evaluation choices that prior work treats as methodological defaults: how the corpus is sized (native versus matched) and how the cross-validation is partitioned (5-fold versus 10-fold). The canonical Cohen design happens to be the one under which the gap is most cleanly detected. We do not claim that the canonical design is the wrong default; we report that the magnitude of the Statins finding is partly a function of this default rather than an intrinsic property of the topic-classifier-mechanism combination.
+
+We also computed an empirical power analysis on the per-fold variances at each topic under the canonical design. Table~\ref{tab:power} reports the minimum detectable effect (MDE) at 80\% power for each topic.
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{lrrrr}
+\toprule
+Topic & $n$ folds & Observed mean & Per-fold SD & MDE (80\% power) \\
+\midrule
+Statins & 5  & $+0.125$ & 0.068 & 0.085 \\
+Opioids & 5  & $-0.010$ & 0.151 & 0.189 \\
+ADHD    & 5  & $-0.030$ & 0.228 & 0.286 \\
+\bottomrule
+\end{tabular}
+\caption{Empirical power analysis on per-fold variances at each topic. MDE computed at $\alpha = 0.05$ two-sided, 80\% power, normal approximation. With the present $n = 5$ folds the $t$-correction shifts MDE by less than 4\%.}
+\label{tab:power}
+\end{table}
+
+At the Statins per-fold variance ($0.068$), the canonical $n = 5$ folds give a minimum detectable effect of $0.085$ at 80\% power, comfortably below the observed Statins effect of $+0.125$ (this is why it is detected). At Opioids' larger per-fold variance ($0.151$), the same $n = 5$ folds give an MDE of $0.189$, which is $1.5\times$ the Statins effect size. At ADHD's still larger variance ($0.228$), the MDE is $0.286$, more than $2\times$ the Statins effect. A Statins-sized effect at Opioids or ADHD would not have been detected at the present sample sizes and variances. The cross-topic null at Opioids and ADHD is therefore design-limited rather than informative about the underlying mechanism: the data do not allow us to distinguish between ``no effect at those topics'' and ``effect present but undetectable at present sample sizes.''
+
+\subsection{Pattern across topics, classifiers, and evaluation designs}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.92\textwidth]{fig1_gap_forest.pdf}
+\caption{Expert-minus-auto MeSH WSS@95\% differences across classifiers and topics, canonical design. Each row shows the per-fold mean difference (point) with a 95\% bootstrap percentile confidence interval (horizontal bar). BoW rows summarise seven-rerun multi-run characterisation (35 per-fold differences per topic, 105 pooled). BERT rows summarise five-seed multi-seed characterisation (25 per-fold differences per topic, 75 pooled). The non-overlap of the BoW Statins interval $[+0.075, +0.116]$ and the BERT Statins interval $[-0.021, +0.062]$ is the cross-classifier finding at the topic where the gap robustly exists under canonical design. Both classifiers show confidence intervals spanning zero at Opioids and ADHD. Table~\ref{tab:design_sensitivity} reports the design-sensitivity decomposition of the BoW Statins canonical finding.}
+\label{fig:gap_forest}
+\end{figure}
+
+Figure~\ref{fig:gap_forest} summarises the main-comparison expert-minus-auto WSS@95\% gaps across the two classifier families and three topics. Under the canonical evaluation, the cross-classifier comparison admits a topic-stratified reading: where the bag-of-words classifier shows a robust expert-vs-auto MeSH gap (Statins, $+0.096$ with tight distribution), BiomedBERT reduces that gap to $+0.020$. Where the bag-of-words classifier shows no detectable gap (Opioids and ADHD), BiomedBERT shows the same null pattern.
+
+The robustness analyses in Section~4.4 require this reading to be qualified in two ways. First, the bag-of-words Statins gap is itself sensitive to two evaluation parameters; under both subsampling and 10-fold the gap attenuates to magnitudes comparable to the BiomedBERT canonical result. The transformer's apparent ``absorption'' of the Statins gap, measured against the canonical BoW reference, becomes less distinctive when measured against the BoW result under designs that increase per-fold training volume. Second, the cross-topic null at Opioids and ADHD does not establish absence of a mechanism effect at those topics; the empirical MDE at their variances exceeds the Statins effect size, so the present design lacks power to detect a Statins-sized effect there if it existed.
+
+The cleanest summary the data support is: the expert-vs-auto MeSH gap is real on Statins under the canonical Cohen evaluation design; under designs that increase per-fold training volume the gap shrinks to magnitudes comparable to those observed for BiomedBERT under the canonical design; and the cross-topic pattern at Opioids and ADHD is consistent with both ``no effect at those topics'' and ``effect present but undetectable at present sample sizes.''
+
+\section{Discussion}
+
+\subsection{What this paper shows, design-conditional reading}
+
+The result on Statins under the canonical Cohen evaluation is robust: under seven reruns of the same pipeline configuration, expert MeSH outperforms mechanical MeSH by $+0.096$ WSS@95\% on average, with all seven run-level means positive and 32 of 35 fold-level paired differences positive. This is a real effect at a real evaluation design that is widely used in the field. The robustness analyses do not refute it; they characterise it.
+
+What they characterise is that the magnitude of the Statins finding depends on at least two evaluation design parameters that the literature treats as defaults. Subsampling Statins to ADHD's corpus size shrinks the gap roughly threefold and the CI includes zero. Switching from 5-fold to 10-fold at full corpus size shrinks the gap roughly fivefold to $+0.021$. The 10-fold BoW Statins result is within sampling noise of the BiomedBERT 5-fold Statins result ($+0.020$). These observations are mutually consistent with two not-necessarily-exclusive readings.
+
+The first reading is that the expert-vs-auto MeSH gap is a real and structural property of the topic, but that the classifier's response to the difference depends on how much training data the classifier has effectively absorbed. At smaller per-fold training volumes, the classifier relies on the MeSH context to a degree that makes the assignment-mechanism difference observable. At larger per-fold training volumes (either through 10-fold partitioning or through the representational capacity of a transformer), the classifier extracts more signal from the abstract alone, making the MeSH context less critical and shrinking the observed gap. The 10-fold BoW result and the 5-fold BERT result are then explained by the same mechanism: more effective access to abstract text reduces the marginal contribution of MeSH augmentation.
+
+The second reading is that the canonical 5-fold full-corpus result is the point estimate that happens to be most cleanly recovered from the Cohen benchmark for Statins, and that the underlying effect is closer to the 10-fold magnitude. Under this reading, the historical Statins effect that the literature has reported (Cohen 2008, Matwin et al.\ 2010, and others) is an overestimate of the effect's typical magnitude under arbitrary evaluation choices, and the present 10-fold result is a more accurate point estimate. The CIs of the canonical and 10-fold designs do not overlap ($[+0.075, +0.116]$ versus $[+0.001, +0.041]$), so the data support a real difference between the two designs rather than sampling variation alone.
+
+We do not adjudicate between these readings. Both are consistent with the data, and either would constitute a methodologically useful warning to the screening literature that the Cohen Statins effect is more design-conditional than has been recognised. Future work that varies per-fold training volume systematically (e.g.\ via learning-curve analysis at varying training-set fractions) could resolve the question.
+
+\subsection{Relation to the lexical-semantic frame, reframed}
+
+An earlier draft of this paper offered a lexical-semantic interpretation of the canonical Statins finding, drawing on the semasiological versus onomasiological distinction (Baldinger 1980, Geeraerts 2010). Mechanical MeSH lookup operates semasiologically: it begins with linguistic forms in the text and finds related forms in the controlled vocabulary. Expert MeSH annotation operates onomasiologically: the indexer begins with the article's topical content and selects vocabulary that expresses it. The earlier draft argued that the bag-of-words Statins result reflected the classifier's inability to extract signal from semasiological enrichment when onomasiological enrichment was available.
+
+The robustness analyses require this interpretation to be qualified rather than abandoned. The lexical-semantic distinction characterises the assignment process, not the classifier's response to the assignment. The distinction predicts that mechanical and expert annotation produce different content; whether that content difference translates into a classifier-performance difference depends on what the classifier needs from the augmentation. When the classifier has limited effective access to the abstract --- because of bag-of-words representation, or because of restricted training data, or both --- the onomasiologically-curated annotation is more useful than the semasiologically-derived one, and the assignment-mechanism difference shows up as a WSS@95\% gap. When the classifier has more effective access to the abstract --- because of contextual representation, or larger per-fold training volume, or both --- the abstract itself supplies more of the signal the augmentation would otherwise have provided, and the assignment-mechanism difference shows up less clearly.
+
+The semasiological-onomasiological distinction therefore remains relevant as a description of the input difference between the two annotation sources, but its observability in classifier outputs is conditional on the classifier-evaluation combination. This is a more nuanced theoretical claim than the earlier draft made, and is consistent with the cross-topic pattern: at Opioids and ADHD, where the bag-of-words classifier already extracts relatively more signal from each abstract due to higher inclusion rates and tighter topical coherence, the augmentation-mechanism difference is correspondingly less observable, even with the present underpowered design.
+
+\subsection{Practical implication for screening pipelines}
+
+The practical implication of the canonical-design absorption result --- that transformer classifiers extract comparable signal from mechanical and expert MeSH on Statins --- generalises moderately under the robustness analyses. The transformer's $+0.020$ Statins gap is in the same range as the BoW 10-fold Statins gap, and both are well below the canonical BoW 5-fold reference. A screening pipeline that uses BiomedBERT with mechanical MeSH should expect WSS@95\% performance within approximately 0.02 of the expert-MeSH version on a Statins-like topic; this is a small operational cost relative to the latency and coverage benefits of mechanical assignment. The same pipeline using bag-of-words logistic regression at 10-fold evaluation would show approximately the same cost. The classifier choice and the evaluation design therefore interact, and the literature's reported expert-MeSH advantage of $\sim 0.10$ WSS@95\% is closer to a maximum than to a typical operational value.
+
+This implication is operational rather than theoretical. The transformer's apparent indifference to assignment mechanism at the topic-corpus-evaluation combination tested does not mean expert annotation has no value for other purposes. Expert annotation supports retrieval, browsing, and downstream uses for which mechanical assignment may not be adequate. The implication concerns one specific downstream use, namely screening classifier training, and does not generalise beyond it without further evidence.
+
+\subsection{What this finding does not establish}
+
+The data do not establish that mechanical assignment outperforms expert assignment at the BiomedBERT scale on any of the three topics. They establish that expert assignment does not produce the magnitude of advantage predicted by the bag-of-words canonical-design Statins finding when the classifier is BiomedBERT or when the bag-of-words evaluation uses a design that increases per-fold training volume. Statements such as ``BERT reverses the gap'' or ``auto-MeSH outperforms expert MeSH'' would overstate what the analysis supports.
+
+The cross-topic null at Opioids and ADHD does not establish that no expert-vs-auto effect exists at those topics. The empirical MDE at those topics' per-fold variances ($0.189$ for Opioids, $0.286$ for ADHD) exceeds the canonical Statins effect size ($+0.125$), meaning that a Statins-sized effect at either topic would have been undetectable at the present sample size. Conclusions about whether the lexical-semantic mechanism generalises across drug-class topics will require either larger samples or smaller per-fold variances than the Cohen benchmark provides at those topics.
+
+\subsection{What the finding leaves open for representation analysis and design isolation}
+
+The present experiment shows that BiomedBERT under the canonical evaluation is approximately indifferent to the assignment mechanism on the topic where bag-of-words under the same evaluation shows the effect, and that bag-of-words under designs that increase per-fold training volume also shows the same approximate indifference. Whether this indifference reflects implicit recovery of the expert-curated structure inside the representation, an algorithmically alternative solution that achieves comparable performance without recovering that structure, or simply a saturation effect of training volume, cannot be determined from classification accuracy alone. Layer-wise probing of the hidden states, comparing recoverability of expert and auto MeSH structure across transformer layers and across designs where the assignment-mechanism effect varies in magnitude, is the natural next step. Plank (2022) frames the broader concern about benchmark evaluation under human label variation that this question connects to.
+
+Two further design-isolation experiments would clarify the picture. A learning-curve analysis at varying training-set fractions of Statins (e.g. 25\%, 50\%, 75\%, 100\% with 5-fold) would isolate the per-fold training volume effect cleanly. A matched-evaluation-design comparison running BiomedBERT at both 5-fold and 10-fold on Statins would test whether the transformer effect is itself further attenuated by additional training data, or whether it has already saturated at 5-fold. Either is a natural extension of the present work.
+
+\section{Limitations}
+
+The experimental design has limitations that bound the interpretation of the result and that we acknowledge in advance of methodological review.
+
+The transformer comparison uses a single architecture, BiomedBERT-base. Whether the absorption finding generalises to BioBERT, BiomedBERT-large, BioLinkBERT, or to more recent biomedical large language models is an open question. The pattern's robustness across architectures is the natural next test. The single-ontology constraint is similar: we tested MeSH only, and whether the same finding holds for other biomedical ontologies (SNOMED-CT, UMLS, the NEO ontology used in the original thesis work on dementia) is not established by this experiment. The English-only scope is a third constraint that follows from the Cohen benchmark itself.
+
+Three of fifteen available Cohen topics provide the cross-topic evidence. This is reasonable cross-topic coverage but not exhaustive. Extending to the remaining twelve topics would clarify the topic-dependence finding by showing where else the bag-of-words assignment-mechanism gap arises and where it does not. The present work characterises three drug-class topics; whether non-drug-class topics (Cohen et al.\ 2006 includes topics on disease screening, treatment outcomes, and adverse events) produce the same pattern would extend the topic-stratified result.
+
+The evaluation design sensitivity revealed by the robustness analyses bounds the generality of the canonical-design result. We have decomposed the Statins canonical finding into a corpus-size component (the matched-$n$ subsampling reduces the gap from $+0.096$ to $+0.033$) and a fold-count component (the 10-fold result at full corpus size reduces it to $+0.021$). We have not run the joint design (10-fold at matched $n$), which would complete the decomposition, because the resulting per-fold included-article count at $n = 803$ under 10-fold ($\approx 4$) is too low for WSS@95\% to behave stably. The reader should treat the design-sensitivity decomposition as approximate rather than exhaustive.
+
+The BiomedBERT hyperparameters were chosen as standard fine-tuning defaults rather than optimised for the Cohen topics. Light hyperparameter tuning, particularly of the learning rate and the number of epochs, may produce modest gains in absolute WSS@95\% but is unlikely to change the qualitative comparison between expert and auto modes since both use identical training procedures. We did not run BiomedBERT under 10-fold evaluation; whether the transformer effect attenuates further at 10-fold or has already saturated at 5-fold is an open question.
+
+The bag-of-words pipeline exhibits residual non-determinism between identical-command reruns under the current Windows TensorFlow build, with per-fold WSS@95\% values drifting by up to 0.03 across runs. The pipeline's existing \texttt{set\_seeds()} function calls \texttt{np.random.seed()} and \texttt{tf.random.set\_seed()} but does not call \texttt{tf.keras.utils.set\_random\_seed()} or \texttt{tf.config.experimental.enable\_op\_determinism()}, which together would be required for full Keras layer initialisation determinism. Rather than chase this further, we characterised each topic's bag-of-words gap as a distribution across seven reruns (Section~4.1). The BiomedBERT pipeline uses explicit \texttt{--seed} arguments and writes per-fold JSON sibling files, making the BERT results reproducible from the saved JSON outputs without rerunning the GPU pipeline.
+
+The mechanical MeSH assignment procedure uses case-insensitive substring matching against a topic-wide MeSH vocabulary built from the cache of PubMed records for that topic. This is one of several possible mechanical assignment procedures. Alternative procedures (MetaMap, ScispaCy, cTAKES, MedCAT) perform contextual disambiguation that substring matching does not. Whether the absorption finding extends to these more sophisticated mechanical procedures is an additional open question.
+
+The seed 13 result on Opioids deserves a methodological caveat. Across five seeds at Opioids, four seeds produce gaps in $[-0.127, -0.059]$ and one (seed 13) produces $+0.082$. Whether this represents a single tail draw from a wide distribution or evidence of a bimodal distribution at Opioids cannot be resolved with five seeds. A future seed pool of 15 or more seeds at Opioids would resolve this. Retaining the outlier in the reported pooled mean ($-0.048$) is the conservative choice; reporting the four-seed mean excluding seed 13 ($-0.081$) would be picking the result post-hoc.
+
+\section{Conclusion}
+
+We tested whether the expert MeSH advantage observed in bag-of-words systematic review screening persists when the classifier is a contextual transformer, characterising both classifiers across all three topics as distributions rather than point estimates, and supplementing the main comparison with robustness analyses that decompose the Statins canonical finding by evaluation design. Under the canonical Cohen evaluation, the bag-of-words Statins result shows a per-run mean of $+0.096$ WSS@95\% advantage for expert over mechanical assignment across seven reruns, while Opioids and ADHD show per-run means of $+0.007$ and $+0.006$ that an empirical power analysis reveals to be design-limited rather than informative. The BiomedBERT multi-seed result on the same three topics shows a Statins per-seed pooled gap of $+0.020$, an Opioids gap of $-0.048$, and an ADHD gap of $+0.003$, with a three-topic pooled BiomedBERT gap of $-0.008$ across 75 fold values that is centred near zero.
+
+The robustness analyses on Statins reveal that the canonical bag-of-words finding is conditional on the evaluation design. Subsampling Statins to ADHD's corpus size reduces the gap to $+0.033$ with a CI that includes zero; using 10-fold instead of 5-fold cross-validation at full corpus size reduces it to $+0.021$. The 10-fold bag-of-words result and the canonical BiomedBERT result are within sampling noise of each other. The expert-vs-auto MeSH gap is therefore real at the canonical Cohen evaluation but evaluation-design-conditional in a way that the screening literature has not previously characterised. The cleanest summary the data support is that the classifier appears to absorb the assignment-mechanism gap where the gap robustly exists under canonical evaluation, that bag-of-words under designs which increase per-fold training volume shows the same approximate absorption, and that the cross-topic null at Opioids and ADHD does not allow us to distinguish between absence of a mechanism effect and absence of detection power. For systematic review screening pipelines that use transformer classifiers, the result implies that mechanical concept linking is a viable substitute for expert MeSH as a feature source on the Cohen drug-class topics tested. Whether the absorption finding generalises across transformer architectures, ontologies, biomedical domains, evaluation designs we have not tested (notably the joint 10-fold matched-$n$ design), and the remaining twelve Cohen topics remains an open question that the paper's limitations section enumerates and that subsequent work can address.
+
+\section*{References}
+
+{\small
+\noindent Baldinger, K. (1980). \textit{Semantic Theory: Towards a Modern Semantics}. Oxford: Blackwell.
+
+\noindent Cohen, A. M., Hersh, W. R., Peterson, K., and Yen, P.-Y. (2006). Reducing workload in systematic review preparation using automated citation classification. \textit{Journal of the American Medical Informatics Association}, 13(2), 206-219.
+
+\noindent Cohen, A. M. (2008). Optimizing feature representation for automated systematic review work prioritization. \textit{AMIA Annual Symposium Proceedings}, 121-125.
+
+\noindent Geeraerts, D. (2010). \textit{Theories of Lexical Semantics}. Oxford: Oxford University Press.
+
+\noindent Gu, Y., Tinn, R., Cheng, H., Lucas, M., Usuyama, N., Liu, X., Naumann, T., Gao, J., and Poon, H. (2021). Domain-specific language model pretraining for biomedical natural language processing. \textit{ACM Transactions on Computing for Healthcare}, 3(1), 1-23.
+
+\noindent Harris, Z. S. (1954). Distributional structure. \textit{Word}, 10(2-3), 146-162.
+
+\noindent Jin, Q. and Szolovits, P. (2018). PICO element detection in medical text via long short-term memory neural networks. \textit{Proceedings of the BioNLP Workshop}, 67-75.
+
+\noindent Lenci, A. (2018). Distributional models of word meaning. \textit{Annual Review of Linguistics}, 4, 151-171.
+
+\noindent Mao, Y. and Lu, Z. (2017). MeSH Now: automatic MeSH indexing at PubMed scale via learning to rank. \textit{Journal of Biomedical Semantics}, 8(1), 15.
+
+\noindent Matwin, S., Kouznetsov, A., Inkpen, D., Frunza, O., and O'Blenis, P. (2010). A new algorithm for reducing the workload of experts in performing systematic reviews. \textit{Journal of the American Medical Informatics Association}, 17(4), 446-453.
+
+\noindent Nadeau, C. and Bengio, Y. (2003). Inference for the generalization error. \textit{Machine Learning}, 52(3), 239-281.
+
+\noindent Phipson, B. and Smyth, G. K. (2010). Permutation P-values should never be zero: calculating exact P-values when permutations are randomly drawn. \textit{Statistical Applications in Genetics and Molecular Biology}, 9(1), Article 39.
+
+\noindent Plank, B. (2022). The ``Problem'' of Human Label Variation: On Ground Truth in Data, Modeling and Evaluation. \textit{Proceedings of EMNLP}, 10671-10682.
+
+\noindent Sahlgren, M. (2008). The distributional hypothesis. \textit{Italian Journal of Linguistics}, 20(1), 33-54.
+
+\noindent Saussure, F. de (1916/1959). \textit{Course in General Linguistics}. New York: Philosophical Library.
+
+\noindent Scott, S. and Matwin, S. (1999). Feature engineering for text classification. \textit{Proceedings of ICML-99}, 379-388.
+}
+
+\appendix
+\section{Reproducibility}
+
+The Cohen benchmark loader, BoW pipeline, BiomedBERT pipeline, evaluation metrics, the statistical analysis scripts (\texttt{bootstrap\_paired\_permutation.py}, \texttt{demo\_statistical\_analysis.py}, \texttt{parse\_bow\_multirun.py}), and the robustness-analysis scripts in \texttt{paper\_experiments/} (\texttt{patch\_cohen\_pipeline.py}, \texttt{run\_statins\_subsampling.sh}, \texttt{run\_statins\_10fold.sh}, \texttt{parse\_bow\_experiments.py}, \texttt{power\_analysis.py}) are available in the project repository. Per-fold WSS@95\%, AUC, and accuracy values for all BiomedBERT runs are saved as \texttt{.json} sibling files (\texttt{bert\_\{topic\}\_\{mode\}\_seed\{N\}.json}) and can be parsed deterministically. Multi-seed per-topic summaries are saved as \texttt{bert\_\{topic\}\_multiseed\_summary.json}. The cross-topic pooled multi-seed summary is in \texttt{bert\_three\_topic\_multiseed\_summary.json}. Per-fold WSS@95\% values for the seven BoW reruns per topic are saved in \texttt{bow\_\{topic\}\_multirun\_summary.json}. Per-fold values for the subsampling and 10-fold robustness analyses are in \texttt{paper\_experiments/outputs/bow\_experiments\_summary.csv}. The BoW pipeline uses nominally explicit seeds (\texttt{set\_seeds()} in \texttt{src/cohen\_pipeline.py}) but exhibits residual Keras-init non-determinism documented in Section~6. The BiomedBERT pipeline uses explicit \texttt{--seed} arguments at each invocation and the multi-seed protocol disclosed in Section~4.2.
+
+\section{Hypothesis register state}
+
+The hypothesis tested in this paper, registered prior to the BiomedBERT experiment, is:
+
+\begin{quote}
+\textbf{H-Pub2:} The bag-of-words finding (mechanical lookup fails, expert assignment succeeds) persists when the classifier is BiomedBERT. Specifically: BiomedBERT with auto-MeSH features will not recover the WSS@95\% gap relative to BiomedBERT with expert-MeSH features.
+
+\textit{Falsifying evidence specified in advance:} BiomedBERT achieves comparable WSS@95\% with auto-MeSH features as with expert-MeSH features, with the gap closing to within standard deviations on at least Statins.
+\end{quote}
+
+The disposition is partial falsification, design-conditional. At Statins under the canonical evaluation, where the bag-of-words gap robustly exists (multi-run mean $+0.096$, all seven reruns positive), BiomedBERT reduces it to a multi-seed pooled $+0.020$. The reduction is substantial but does not close the gap to within seed-level standard deviations on the BERT side. The robustness analyses (Section~4.4) show that the bag-of-words canonical-design Statins gap itself attenuates substantially under matched-corpus-size and under 10-fold evaluation, with the 10-fold result ($+0.021$) within sampling noise of the canonical BERT result. The H-Pub2 framing of ``transformer absorbs a structural bag-of-words effect'' is therefore best read as ``transformer under canonical evaluation produces a result comparable to bag-of-words under designs that increase per-fold training volume''; both attenuate the canonical-design gap to a small positive magnitude that may or may not be different from zero depending on which interval one privileges. At Opioids and ADHD, where the bag-of-words gap does not robustly exist under any tested design (multi-run means $+0.007$ and $+0.006$ with run-level signs split, and an empirical power analysis showing the design lacks power to detect a Statins-sized effect at those topics' variances), H-Pub2 was not directly testable against the assumed-positive bag-of-words baseline. The framing supported by the evidence is therefore design-conditional absorption at Statins, with the open question of whether the absorption is a property of the transformer specifically or of the increased effective training volume that distinguishes BERT (which extracts more signal per abstract) and BoW-10-fold (which trains on 90\% rather than 80\% per fold) from the BoW canonical baseline.
+
+\end{document}

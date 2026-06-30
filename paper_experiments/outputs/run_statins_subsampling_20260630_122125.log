@@ -1,0 +1,60 @@
+Starting BoW Statins subsampling experiment at Tue Jun 30 12:21:25 WEST 2026
+Topic: Statins, subsample_n=803, kfold=5, workflow=8
+Seeds: 1 2 3 4 5 6 7
+Email: sammy.okmens@gmail.com
+
+[1/7] subseed=1 -> paper_experiments/outputs/bow_statins_subN803_subseed1_modes.txt
+abstract                   0.945+/-0.005  0.662+/-0.083  0.125+/-0.105  0.948+/-0.005  0.675+/-0.086  0.144+/-0.110
+title_abstract             0.944+/-0.007  0.670+/-0.061  0.109+/-0.112  0.949+/-0.005  0.667+/-0.086  0.106+/-0.098
+title_abstract_mesh        0.950+/-0.004  0.738+/-0.073  0.186+/-0.173  0.949+/-0.005  0.725+/-0.067  0.146+/-0.144
+auto_mesh                  0.945+/-0.007  0.686+/-0.096  0.176+/-0.139  0.948+/-0.005  0.698+/-0.091  0.186+/-0.143
+Output saved to paper_experiments/outputs/bow_statins_subN803_subseed1_modes.txt
+       complete in 409s
+[2/7] subseed=2 -> paper_experiments/outputs/bow_statins_subN803_subseed2_modes.txt
+abstract                   0.944+/-0.000  0.742+/-0.066  0.200+/-0.200  0.944+/-0.000  0.730+/-0.090  0.187+/-0.218
+title_abstract             0.946+/-0.003  0.751+/-0.071  0.200+/-0.216  0.944+/-0.000  0.725+/-0.081  0.094+/-0.126
+title_abstract_mesh        0.940+/-0.006  0.736+/-0.051  0.148+/-0.155  0.943+/-0.002  0.744+/-0.046  0.159+/-0.158
+auto_mesh                  0.946+/-0.003  0.743+/-0.061  0.149+/-0.161  0.943+/-0.003  0.721+/-0.070  0.076+/-0.075
+Output saved to paper_experiments/outputs/bow_statins_subN803_subseed2_modes.txt
+       complete in 407s
+[3/7] subseed=3 -> paper_experiments/outputs/bow_statins_subN803_subseed3_modes.txt
+abstract                   0.946+/-0.003  0.697+/-0.059  0.082+/-0.084  0.945+/-0.002  0.701+/-0.044  0.147+/-0.127
+title_abstract             0.946+/-0.003  0.733+/-0.058  0.074+/-0.097  0.944+/-0.004  0.698+/-0.067  0.031+/-0.054
+title_abstract_mesh        0.946+/-0.005  0.696+/-0.111  0.096+/-0.077  0.943+/-0.007  0.696+/-0.105  0.164+/-0.125
+auto_mesh                  0.946+/-0.003  0.705+/-0.067  0.111+/-0.100  0.945+/-0.003  0.708+/-0.057  0.135+/-0.124
+Output saved to paper_experiments/outputs/bow_statins_subN803_subseed3_modes.txt
+       complete in 410s
+[4/7] subseed=4 -> paper_experiments/outputs/bow_statins_subN803_subseed4_modes.txt
+abstract                   0.950+/-0.004  0.714+/-0.055  0.239+/-0.088  0.949+/-0.002  0.694+/-0.065  0.239+/-0.132
+title_abstract             0.950+/-0.000  0.705+/-0.066  0.232+/-0.110  0.949+/-0.002  0.725+/-0.075  0.272+/-0.182
+title_abstract_mesh        0.949+/-0.003  0.717+/-0.079  0.281+/-0.193  0.949+/-0.003  0.722+/-0.080  0.236+/-0.152
+auto_mesh                  0.948+/-0.003  0.694+/-0.044  0.253+/-0.102  0.950+/-0.004  0.696+/-0.057  0.283+/-0.081
+Output saved to paper_experiments/outputs/bow_statins_subN803_subseed4_modes.txt
+       complete in 407s
+[5/7] subseed=5 -> paper_experiments/outputs/bow_statins_subN803_subseed5_modes.txt
+abstract                   0.944+/-0.000  0.677+/-0.074  0.149+/-0.062  0.945+/-0.003  0.674+/-0.087  0.163+/-0.135
+title_abstract             0.945+/-0.003  0.704+/-0.076  0.163+/-0.029  0.944+/-0.000  0.704+/-0.067  0.141+/-0.050
+title_abstract_mesh        0.945+/-0.005  0.757+/-0.090  0.254+/-0.203  0.945+/-0.006  0.786+/-0.112  0.362+/-0.262
+auto_mesh                  0.944+/-0.000  0.653+/-0.057  0.103+/-0.057  0.946+/-0.003  0.667+/-0.076  0.122+/-0.039
+Output saved to paper_experiments/outputs/bow_statins_subN803_subseed5_modes.txt
+       complete in 404s
+[6/7] subseed=6 -> paper_experiments/outputs/bow_statins_subN803_subseed6_modes.txt
+abstract                   0.941+/-0.009  0.687+/-0.100  0.167+/-0.113  0.943+/-0.005  0.689+/-0.098  0.166+/-0.153
+title_abstract             0.940+/-0.008  0.671+/-0.093  0.128+/-0.097  0.941+/-0.003  0.677+/-0.086  0.170+/-0.136
+title_abstract_mesh        0.948+/-0.005  0.734+/-0.083  0.142+/-0.119  0.946+/-0.003  0.744+/-0.091  0.190+/-0.120
+auto_mesh                  0.943+/-0.010  0.673+/-0.096  0.147+/-0.123  0.941+/-0.008  0.687+/-0.094  0.165+/-0.078
+Output saved to paper_experiments/outputs/bow_statins_subN803_subseed6_modes.txt
+       complete in 410s
+[7/7] subseed=7 -> paper_experiments/outputs/bow_statins_subN803_subseed7_modes.txt
+abstract                   0.941+/-0.008  0.799+/-0.063  0.257+/-0.237  0.945+/-0.006  0.799+/-0.073  0.223+/-0.241
+title_abstract             0.941+/-0.008  0.791+/-0.063  0.224+/-0.196  0.943+/-0.007  0.787+/-0.056  0.237+/-0.231
+title_abstract_mesh        0.939+/-0.014  0.771+/-0.081  0.216+/-0.228  0.943+/-0.010  0.774+/-0.080  0.204+/-0.217
+auto_mesh                  0.941+/-0.010  0.808+/-0.073  0.275+/-0.250  0.941+/-0.006  0.791+/-0.063  0.264+/-0.245
+Output saved to paper_experiments/outputs/bow_statins_subN803_subseed7_modes.txt
+       complete in 410s
+
+Done. 7/7 runs complete. Total wall time: 2859s.
+Outputs in: paper_experiments/outputs
+
+Next step:
+  python paper_experiments/parse_bow_experiments.py

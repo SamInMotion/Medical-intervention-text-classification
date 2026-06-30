@@ -1,0 +1,50 @@
+
+Cohen topic: Statins (abstract mode)
+Workflow 8: WorkflowConfig(dropstop=False, synonyms=False, parents=False, ngrams=3, nrfeats=1000)
+2-fold CV on 200 abstracts (11 included, 189 excluded)
+------------------------------------------------------------
+  Fold 1: BL acc=0.950 AUC=0.352 WSS=-0.050  Reg acc=0.950 AUC=0.259 WSS=-0.040
+  Fold 2: BL acc=0.940 AUC=0.246 WSS=-0.040  Reg acc=0.940 AUC=0.317 WSS=-0.050
+
+Baseline:     acc=0.945+/-0.005  AUC=0.299+/-0.053  WSS@95=-0.045+/-0.005
+Regularized:  acc=0.945+/-0.005  AUC=0.288+/-0.029  WSS@95=-0.045+/-0.005
+
+Cohen topic: Statins (title_abstract mode)
+Workflow 8: WorkflowConfig(dropstop=False, synonyms=False, parents=False, ngrams=3, nrfeats=1000)
+2-fold CV on 200 abstracts (11 included, 189 excluded)
+------------------------------------------------------------
+  Fold 1: BL acc=0.950 AUC=0.406 WSS=-0.040  Reg acc=0.950 AUC=0.278 WSS=-0.050
+  Fold 2: BL acc=0.940 AUC=0.270 WSS=-0.030  Reg acc=0.940 AUC=0.378 WSS=-0.040
+
+Baseline:     acc=0.945+/-0.005  AUC=0.338+/-0.068  WSS@95=-0.035+/-0.005
+Regularized:  acc=0.945+/-0.005  AUC=0.328+/-0.050  WSS@95=-0.045+/-0.005
+
+Cohen topic: Statins (title_abstract_mesh mode)
+Workflow 8: WorkflowConfig(dropstop=False, synonyms=False, parents=False, ngrams=3, nrfeats=1000)
+2-fold CV on 200 abstracts (11 included, 189 excluded)
+------------------------------------------------------------
+  Fold 1: BL acc=0.950 AUC=0.303 WSS=-0.030  Reg acc=0.950 AUC=0.257 WSS=-0.040
+  Fold 2: BL acc=0.940 AUC=0.309 WSS=-0.040  Reg acc=0.940 AUC=0.254 WSS=-0.050
+
+Baseline:     acc=0.945+/-0.005  AUC=0.306+/-0.003  WSS@95=-0.035+/-0.005
+Regularized:  acc=0.945+/-0.005  AUC=0.255+/-0.002  WSS@95=-0.045+/-0.005
+
+Cohen topic: Statins (auto_mesh mode)
+Workflow 8: WorkflowConfig(dropstop=False, synonyms=False, parents=False, ngrams=3, nrfeats=1000)
+2-fold CV on 200 abstracts (11 included, 189 excluded)
+------------------------------------------------------------
+  Fold 1: BL acc=0.950 AUC=0.246 WSS=-0.050  Reg acc=0.940 AUC=0.219 WSS=-0.050
+  Fold 2: BL acc=0.940 AUC=0.310 WSS=-0.030  Reg acc=0.940 AUC=0.250 WSS=-0.020
+
+Baseline:     acc=0.945+/-0.005  AUC=0.278+/-0.032  WSS@95=-0.040+/-0.010
+Regularized:  acc=0.940+/-0.000  AUC=0.234+/-0.016  WSS@95=-0.035+/-0.015
+
+==========================================================================================
+TEXT MODE COMPARISON: Statins, workflow 8, 2-fold CV
+==========================================================================================
+Mode                             BL Acc        BL AUC     BL WSS@95       Reg Acc       Reg AUC    Reg WSS@95
+------------------------------------------------------------------------------------------
+abstract                   0.945+/-0.005  0.299+/-0.053  -0.045+/-0.005  0.945+/-0.005  0.288+/-0.029  -0.045+/-0.005
+title_abstract             0.945+/-0.005  0.338+/-0.068  -0.035+/-0.005  0.945+/-0.005  0.328+/-0.050  -0.045+/-0.005
+title_abstract_mesh        0.945+/-0.005  0.306+/-0.003  -0.035+/-0.005  0.945+/-0.005  0.255+/-0.002  -0.045+/-0.005
+auto_mesh                  0.945+/-0.005  0.278+/-0.032  -0.040+/-0.010  0.940+/-0.000  0.234+/-0.016  -0.035+/-0.015

@@ -1,0 +1,62 @@
+
+Cohen topic: Statins (abstract mode)
+Workflow 8: WorkflowConfig(dropstop=False, synonyms=False, parents=False, ngrams=3, nrfeats=1000)
+5-fold CV on 803 abstracts (44 included, 759 excluded)
+------------------------------------------------------------
+  Fold 1: BL acc=0.944 AUC=0.626 WSS=-0.000  Reg acc=0.944 AUC=0.640 WSS=-0.031
+  Fold 2: BL acc=0.944 AUC=0.675 WSS=0.192  Reg acc=0.944 AUC=0.667 WSS=0.267
+  Fold 3: BL acc=0.950 AUC=0.803 WSS=0.025  Reg acc=0.944 AUC=0.763 WSS=0.031
+  Fold 4: BL acc=0.950 AUC=0.675 WSS=0.019  Reg acc=0.950 AUC=0.729 WSS=0.181
+  Fold 5: BL acc=0.944 AUC=0.708 WSS=0.175  Reg acc=0.944 AUC=0.707 WSS=0.287
+
+Baseline:     acc=0.946+/-0.003  AUC=0.697+/-0.059  WSS@95=0.082+/-0.084
+Regularized:  acc=0.945+/-0.002  AUC=0.701+/-0.044  WSS@95=0.147+/-0.127
+
+Cohen topic: Statins (title_abstract mode)
+Workflow 8: WorkflowConfig(dropstop=False, synonyms=False, parents=False, ngrams=3, nrfeats=1000)
+5-fold CV on 803 abstracts (44 included, 759 excluded)
+------------------------------------------------------------
+  Fold 1: BL acc=0.944 AUC=0.640 WSS=-0.000  Reg acc=0.944 AUC=0.619 WSS=-0.031
+  Fold 2: BL acc=0.944 AUC=0.714 WSS=0.261  Reg acc=0.938 AUC=0.635 WSS=0.111
+  Fold 3: BL acc=0.950 AUC=0.819 WSS=0.018  Reg acc=0.944 AUC=0.806 WSS=-0.013
+  Fold 4: BL acc=0.950 AUC=0.743 WSS=0.012  Reg acc=0.950 AUC=0.723 WSS=0.012
+  Fold 5: BL acc=0.944 AUC=0.748 WSS=0.081  Reg acc=0.944 AUC=0.706 WSS=0.075
+
+Baseline:     acc=0.946+/-0.003  AUC=0.733+/-0.058  WSS@95=0.074+/-0.097
+Regularized:  acc=0.944+/-0.004  AUC=0.698+/-0.067  WSS@95=0.031+/-0.054
+
+Cohen topic: Statins (title_abstract_mesh mode)
+Workflow 8: WorkflowConfig(dropstop=False, synonyms=False, parents=False, ngrams=3, nrfeats=1000)
+5-fold CV on 803 abstracts (44 included, 759 excluded)
+------------------------------------------------------------
+  Fold 1: BL acc=0.938 AUC=0.543 WSS=0.006  Reg acc=0.932 AUC=0.529 WSS=-0.031
+  Fold 2: BL acc=0.944 AUC=0.591 WSS=0.062  Reg acc=0.938 AUC=0.624 WSS=0.099
+  Fold 3: BL acc=0.950 AUC=0.832 WSS=0.062  Reg acc=0.950 AUC=0.819 WSS=0.335
+  Fold 4: BL acc=0.950 AUC=0.728 WSS=0.119  Reg acc=0.950 AUC=0.746 WSS=0.175
+  Fold 5: BL acc=0.950 AUC=0.784 WSS=0.231  Reg acc=0.944 AUC=0.759 WSS=0.244
+
+Baseline:     acc=0.946+/-0.005  AUC=0.696+/-0.111  WSS@95=0.096+/-0.077
+Regularized:  acc=0.943+/-0.007  AUC=0.696+/-0.105  WSS@95=0.164+/-0.125
+
+Cohen topic: Statins (auto_mesh mode)
+Workflow 8: WorkflowConfig(dropstop=False, synonyms=False, parents=False, ngrams=3, nrfeats=1000)
+5-fold CV on 803 abstracts (44 included, 759 excluded)
+------------------------------------------------------------
+  Fold 1: BL acc=0.944 AUC=0.622 WSS=0.031  Reg acc=0.944 AUC=0.627 WSS=-0.044
+  Fold 2: BL acc=0.944 AUC=0.670 WSS=0.180  Reg acc=0.950 AUC=0.673 WSS=0.180
+  Fold 3: BL acc=0.950 AUC=0.806 WSS=0.037  Reg acc=0.944 AUC=0.798 WSS=0.068
+  Fold 4: BL acc=0.950 AUC=0.669 WSS=0.031  Reg acc=0.944 AUC=0.709 WSS=0.137
+  Fold 5: BL acc=0.944 AUC=0.759 WSS=0.275  Reg acc=0.944 AUC=0.734 WSS=0.331
+
+Baseline:     acc=0.946+/-0.003  AUC=0.705+/-0.067  WSS@95=0.111+/-0.100
+Regularized:  acc=0.945+/-0.003  AUC=0.708+/-0.057  WSS@95=0.135+/-0.124
+
+==========================================================================================
+TEXT MODE COMPARISON: Statins, workflow 8, 5-fold CV
+==========================================================================================
+Mode                             BL Acc        BL AUC     BL WSS@95       Reg Acc       Reg AUC    Reg WSS@95
+------------------------------------------------------------------------------------------
+abstract                   0.946+/-0.003  0.697+/-0.059  0.082+/-0.084  0.945+/-0.002  0.701+/-0.044  0.147+/-0.127
+title_abstract             0.946+/-0.003  0.733+/-0.058  0.074+/-0.097  0.944+/-0.004  0.698+/-0.067  0.031+/-0.054
+title_abstract_mesh        0.946+/-0.005  0.696+/-0.111  0.096+/-0.077  0.943+/-0.007  0.696+/-0.105  0.164+/-0.125
+auto_mesh                  0.946+/-0.003  0.705+/-0.067  0.111+/-0.100  0.945+/-0.003  0.708+/-0.057  0.135+/-0.124

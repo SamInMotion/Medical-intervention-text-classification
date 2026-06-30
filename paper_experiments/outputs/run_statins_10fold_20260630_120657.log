@@ -1,0 +1,56 @@
+Starting BoW Statins 10-fold sensitivity experiment at Tue Jun 30 12:06:57 WEST 2026
+Topic: Statins, kfold=10, workflow=8
+Reruns: 1 2 3 4 5 6 7
+
+[1/7] run=1 -> paper_experiments/outputs/bow_statins_kfold10_run1_modes.txt
+  File "C:\Users\samue.KITAB\Medical-intervention-text-classification\src\cohen_pipeline.py", line 27, in <module>
+    from .features import build_vectorizer, vectorize
+  File "C:\Users\samue.KITAB\Medical-intervention-text-classification\src\features.py", line 6, in <module>
+    from tensorflow.keras.preprocessing import text as keras_text
+ModuleNotFoundError: No module named 'tensorflow'
+       complete in 4s
+[2/7] run=2 -> paper_experiments/outputs/bow_statins_kfold10_run2_modes.txt
+  File "C:\Users\samue.KITAB\Medical-intervention-text-classification\src\cohen_pipeline.py", line 27, in <module>
+    from .features import build_vectorizer, vectorize
+  File "C:\Users\samue.KITAB\Medical-intervention-text-classification\src\features.py", line 6, in <module>
+    from tensorflow.keras.preprocessing import text as keras_text
+ModuleNotFoundError: No module named 'tensorflow'
+       complete in 3s
+[3/7] run=3 -> paper_experiments/outputs/bow_statins_kfold10_run3_modes.txt
+  File "C:\Users\samue.KITAB\Medical-intervention-text-classification\src\cohen_pipeline.py", line 27, in <module>
+    from .features import build_vectorizer, vectorize
+  File "C:\Users\samue.KITAB\Medical-intervention-text-classification\src\features.py", line 6, in <module>
+    from tensorflow.keras.preprocessing import text as keras_text
+ModuleNotFoundError: No module named 'tensorflow'
+       complete in 4s
+[4/7] run=4 -> paper_experiments/outputs/bow_statins_kfold10_run4_modes.txt
+  File "C:\Users\samue.KITAB\Medical-intervention-text-classification\src\cohen_pipeline.py", line 27, in <module>
+    from .features import build_vectorizer, vectorize
+  File "C:\Users\samue.KITAB\Medical-intervention-text-classification\src\features.py", line 6, in <module>
+    from tensorflow.keras.preprocessing import text as keras_text
+ModuleNotFoundError: No module named 'tensorflow'
+       complete in 3s
+[5/7] run=5 -> paper_experiments/outputs/bow_statins_kfold10_run5_modes.txt
+  File "C:\Users\samue.KITAB\Medical-intervention-text-classification\src\cohen_pipeline.py", line 27, in <module>
+    from .features import build_vectorizer, vectorize
+  File "C:\Users\samue.KITAB\Medical-intervention-text-classification\src\features.py", line 6, in <module>
+    from tensorflow.keras.preprocessing import text as keras_text
+ModuleNotFoundError: No module named 'tensorflow'
+       complete in 4s
+[6/7] run=6 -> paper_experiments/outputs/bow_statins_kfold10_run6_modes.txt
+  File "C:\Users\samue.KITAB\Medical-intervention-text-classification\src\cohen_pipeline.py", line 27, in <module>
+    from .features import build_vectorizer, vectorize
+  File "C:\Users\samue.KITAB\Medical-intervention-text-classification\src\features.py", line 6, in <module>
+    from tensorflow.keras.preprocessing import text as keras_text
+ModuleNotFoundError: No module named 'tensorflow'
+       complete in 3s
+[7/7] run=7 -> paper_experiments/outputs/bow_statins_kfold10_run7_modes.txt
+  File "C:\Users\samue.KITAB\Medical-intervention-text-classification\src\cohen_pipeline.py", line 27, in <module>
+    from .features import build_vectorizer, vectorize
+  File "C:\Users\samue.KITAB\Medical-intervention-text-classification\src\features.py", line 6, in <module>
+    from tensorflow.keras.preprocessing import text as keras_text
+ModuleNotFoundError: No module named 'tensorflow'
+       complete in 3s
+
+Done. 7/7 runs complete. Total wall time: 26s.
+Outputs in: paper_experiments/outputs
