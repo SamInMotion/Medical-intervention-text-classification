@@ -112,6 +112,8 @@ def run_cohen_kfold(
     n_folds=5,
     epochs=42,
     batch_size=5,
+    subsample_n=None,
+    subsample_seed=42,
 ):
     """Run k-fold CV on one Cohen topic with one workflow configuration.
 
@@ -130,6 +132,20 @@ def run_cohen_kfold(
         email=email,
         api_key=api_key,
     )
+
+    if subsample_n is not None and len(df) > 0 and subsample_n < len(df):
+        from sklearn.model_selection import train_test_split
+        df_sub, _ = train_test_split(
+            df,
+            train_size=subsample_n,
+            random_state=subsample_seed,
+            stratify=df["labels"],
+        )
+        df = df_sub.reset_index(drop=True)
+        logger.info(
+            "Subsampled topic %s to %d records (stratified, subsample_seed=%d)",
+            topic, len(df), subsample_seed,
+        )
 
     if len(df) == 0:
         logger.error("No data for topic '%s'. Aborting.", topic)
@@ -307,6 +323,8 @@ def run_text_mode_comparison(
     n_folds=5,
     epochs=42,
     batch_size=5,
+    subsample_n=None,
+    subsample_seed=42,
 ):
     """Run one workflow across all four text modes for comparison.
 
@@ -329,6 +347,8 @@ def run_text_mode_comparison(
             n_folds=n_folds,
             epochs=epochs,
             batch_size=batch_size,
+            subsample_n=subsample_n,
+            subsample_seed=subsample_seed,
         )
         if result:
             results.append(result)
@@ -405,6 +425,15 @@ def main():
         "--output-file", type=str, default=None,
         help="Save output to file (in addition to console)",
     )
+    parser.add_argument(
+        "--subsample-n", type=int, default=None,
+        help="Stratified subsample to N records before splitting. "
+             "Use with --subsample-seed for reproducibility.",
+    )
+    parser.add_argument(
+        "--subsample-seed", type=int, default=42,
+        help="Seed for stratified subsample (default: 42)",
+    )
 
     args = parser.parse_args()
 
@@ -445,6 +474,8 @@ def main():
             n_folds=args.kfold,
             epochs=args.epochs,
             batch_size=args.batch_size,
+            subsample_n=args.subsample_n,
+            subsample_seed=args.subsample_seed,
         )
     elif args.all_workflows:
         run_cohen_all_workflows(
@@ -470,6 +501,8 @@ def main():
             n_folds=args.kfold,
             epochs=args.epochs,
             batch_size=args.batch_size,
+            subsample_n=args.subsample_n,
+            subsample_seed=args.subsample_seed,
         )
 
     if output_file:
