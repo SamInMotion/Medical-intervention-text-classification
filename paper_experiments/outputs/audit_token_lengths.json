@@ -1,0 +1,152 @@
+{
+  "Statins": {
+    "abstract": {
+      "n_abstracts": 2744,
+      "mean_tokens": 311.13556851311955,
+      "median_tokens": 312.0,
+      "max_tokens": 1929,
+      "percentiles": {
+        "p50": 312,
+        "p75": 390,
+        "p90": 470,
+        "p95": 531,
+        "p99": 678,
+        "p100": 1929
+      },
+      "n_truncated_at_512": 167,
+      "pct_truncated_at_512": 6.08600583090379
+    },
+    "title_abstract": {
+      "n_abstracts": 2744,
+      "mean_tokens": 329.3600583090379,
+      "median_tokens": 331.0,
+      "max_tokens": 1947,
+      "percentiles": {
+        "p50": 331,
+        "p75": 412,
+        "p90": 492,
+        "p95": 555,
+        "p99": 698,
+        "p100": 1947
+      },
+      "n_truncated_at_512": 218,
+      "pct_truncated_at_512": 7.944606413994169
+    },
+    "title_abstract_mesh": {
+      "n_abstracts": 2744,
+      "mean_tokens": 378.49161807580174,
+      "median_tokens": 381.0,
+      "max_tokens": 1982,
+      "percentiles": {
+        "p50": 381,
+        "p75": 470,
+        "p90": 549,
+        "p95": 611,
+        "p99": 754,
+        "p100": 1982
+      },
+      "n_truncated_at_512": 415,
+      "pct_truncated_at_512": 15.123906705539358
+    }
+  },
+  "Opiods": {
+    "abstract": {
+      "n_abstracts": 1772,
+      "mean_tokens": 293.1884875846501,
+      "median_tokens": 291.0,
+      "max_tokens": 1075,
+      "percentiles": {
+        "p50": 291,
+        "p75": 363,
+        "p90": 443,
+        "p95": 506,
+        "p99": 690,
+        "p100": 1075
+      },
+      "n_truncated_at_512": 83,
+      "pct_truncated_at_512": 4.683972911963883
+    },
+    "title_abstract": {
+      "n_abstracts": 1772,
+      "mean_tokens": 310.0716704288939,
+      "median_tokens": 308.5,
+      "max_tokens": 1095,
+      "percentiles": {
+        "p50": 309,
+        "p75": 382,
+        "p90": 463,
+        "p95": 527,
+        "p99": 716,
+        "p100": 1095
+      },
+      "n_truncated_at_512": 103,
+      "pct_truncated_at_512": 5.812641083521445
+    },
+    "title_abstract_mesh": {
+      "n_abstracts": 1772,
+      "mean_tokens": 357.49322799097064,
+      "median_tokens": 357.0,
+      "max_tokens": 1163,
+      "percentiles": {
+        "p50": 357,
+        "p75": 433,
+        "p90": 515,
+        "p95": 578,
+        "p99": 760,
+        "p100": 1163
+      },
+      "n_truncated_at_512": 184,
+      "pct_truncated_at_512": 10.383747178329571
+    }
+  },
+  "ADHD": {
+    "abstract": {
+      "n_abstracts": 803,
+      "mean_tokens": 303.25529265255295,
+      "median_tokens": 294,
+      "max_tokens": 986,
+      "percentiles": {
+        "p50": 294,
+        "p75": 370,
+        "p90": 448,
+        "p95": 497,
+        "p99": 686,
+        "p100": 986
+      },
+      "n_truncated_at_512": 37,
+      "pct_truncated_at_512": 4.60772104607721
+    },
+    "title_abstract": {
+      "n_abstracts": 803,
+      "mean_tokens": 321.62017434620174,
+      "median_tokens": 313,
+      "max_tokens": 1002,
+      "percentiles": {
+        "p50": 313,
+        "p75": 391,
+        "p90": 468,
+        "p95": 524,
+        "p99": 707,
+        "p100": 1002
+      },
+      "n_truncated_at_512": 44,
+      "pct_truncated_at_512": 5.47945205479452
+    },
+    "title_abstract_mesh": {
+      "n_abstracts": 803,
+      "mean_tokens": 371.6164383561644,
+      "median_tokens": 363,
+      "max_tokens": 1046,
+      "percentiles": {
+        "p50": 363,
+        "p75": 443,
+        "p90": 523,
+        "p95": 582,
+        "p99": 770,
+        "p100": 1046
+      },
+      "n_truncated_at_512": 95,
+      "pct_truncated_at_512": 11.83063511830635
+    }
+  }
+}
