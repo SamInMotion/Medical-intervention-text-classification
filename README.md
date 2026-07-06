@@ -70,8 +70,8 @@ The analysis pipeline consists of:
 - `paper_experiments/parse_bow_multirun.py` — parses BoW multi-run `.txt` outputs into per-topic summary JSONs.
 - `bootstrap_paired_permutation.py` — computes per-topic and pooled bootstrap CIs and permutation p-values for the BiomedBERT multi-seed analysis from the per-fold JSONs. Produces the BERT statistics in the paper's Table 5.
 - `make_fig1_gap_forest_v3.py` — reads all three BoW multi-run summaries and all three BiomedBERT multi-seed summaries to render the canonical Figure 1 forest plot.
-- `paper_experiments/make_fig1_v2.py` — earlier figure generator that read only the BoW Statins summary and used hardcoded BERT values. Preserved as historical baseline; superseded by v3.
-- `paper_experiments/make_paper_artifacts.py` and `paper_experiments/demo_statistical_analysis.py` — pre-audit historical baselines that assume filenames without the `_seed42` suffix. Preserved as research record. The CU 178 §6 patch making them audit-aware is documented but not executed; the canonical regeneration paths are the scripts above.
+- `scripts/make_fig1_v2.py` — earlier figure generator that read only the BoW Statins summary and used hardcoded BERT values. Preserved as historical baseline; superseded by v3.
+- `scripts/make_paper_artifacts.py` and `demo_statistical_analysis.py` — pre-audit historical baselines that assume filenames without the `_seed42` suffix. Preserved as research record. The CU 178 §6 patch making them audit-aware is documented but not executed; the canonical regeneration paths are the scripts above.
 
 Per-claim-to-data mapping with regeneration commands is in [REPRODUCING.md](REPRODUCING.md).
 
@@ -193,7 +193,7 @@ The Cohen benchmark extension fixes Workflow 8 (the thesis-identified best) and 
 
 - **Multi-seed BiomedBERT extended to all topic-mode combinations.** The current multi-seed analysis covers Statins across five seeds for the two H-Pub2-critical modes (`title_abstract_mesh` and `auto_mesh`). Multi-seed analysis is complete for all three topics (Statins, Opioids, ADHD) with five seeds each for the H-Pub2-critical modes. Extending to five seeds across all topic-mode combinations would tighten the null-finding CIs.
 
-- **Audit-aware paper-artifact pipeline.** `paper_experiments/make_paper_artifacts.py` and `paper_experiments/demo_statistical_analysis.py` are preserved as pre-audit historical baselines and assume filenames without the `_seed42` suffix. The patch to read from `analysis_results_full_v2.json` and expose the multi-run BoW ribbon is documented but not executed; the canonical regeneration paths run through `bootstrap_bert_per_fold.py` and `make_fig1_gap_forest_v3.py` instead.
+- **Audit-aware paper-artifact pipeline.** `scripts/make_paper_artifacts.py` and `demo_statistical_analysis.py` are preserved as pre-audit historical baselines and assume filenames without the `_seed42` suffix. The patch to read from `analysis_results_full_v2.json` and expose the multi-run BoW ribbon is documented but not executed; the canonical regeneration paths run through `bootstrap_paired_permutation.py` and `make_fig1_gap_forest_v3.py` instead.
 
 - **Extension to remaining Cohen topics.** Twelve more topics are available in the benchmark. Adding them would tighten the pooled CIs substantially and let the cross-classifier comparison rest on a wider topic base.
 
