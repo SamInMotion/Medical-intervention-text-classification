@@ -68,8 +68,8 @@ The bag-of-words pipeline exhibits residual non-determinism between identical-co
 The analysis pipeline consists of:
 
 - `paper_experiments/parse_bow_multirun.py` — parses BoW multi-run `.txt` outputs into per-topic summary JSONs.
-- `paper_experiments/bootstrap_bert_per_fold.py` — computes per-topic and pooled bootstrap CIs and permutation p-values for the BiomedBERT multi-seed analysis from the per-fold JSONs. Produces the BERT statistics in the paper's Table 5.
-- `paper_experiments/make_fig1_gap_forest_v3.py` — reads all three BoW multi-run summaries and all three BiomedBERT multi-seed summaries to render the canonical Figure 1 forest plot.
+- `bootstrap_paired_permutation.py` — computes per-topic and pooled bootstrap CIs and permutation p-values for the BiomedBERT multi-seed analysis from the per-fold JSONs. Produces the BERT statistics in the paper's Table 5.
+- `make_fig1_gap_forest_v3.py` — reads all three BoW multi-run summaries and all three BiomedBERT multi-seed summaries to render the canonical Figure 1 forest plot.
 - `paper_experiments/make_fig1_v2.py` — earlier figure generator that read only the BoW Statins summary and used hardcoded BERT values. Preserved as historical baseline; superseded by v3.
 - `paper_experiments/make_paper_artifacts.py` and `paper_experiments/demo_statistical_analysis.py` — pre-audit historical baselines that assume filenames without the `_seed42` suffix. Preserved as research record. The CU 178 §6 patch making them audit-aware is documented but not executed; the canonical regeneration paths are the scripts above.
 
@@ -157,10 +157,10 @@ The BiomedBERT pipeline writes per-fold raw values to a `.json` sibling next to 
 
 ```bash
 # Table 5 BERT statistics from multi-seed JSONs
-python paper_experiments/bootstrap_bert_per_fold.py
+python bootstrap_paired_permutation.py
 
 # Figure 1 forest plot from all six summary JSONs
-python paper_experiments/make_fig1_gap_forest_v3.py
+python make_fig1_gap_forest_v3.py
 ```
 
 **Run tests:**
@@ -191,7 +191,7 @@ The Cohen benchmark extension fixes Workflow 8 (the thesis-identified best) and 
 
 ## What's next
 
-- **Multi-seed BiomedBERT extended to all topic-mode combinations.** The current multi-seed analysis covers Statins across five seeds for the two H-Pub2-critical modes (`title_abstract_mesh` and `auto_mesh`). Opioids and ADHD have one seed per mode at present. Extending to five seeds across all topic-mode combinations would tighten the null-finding CIs.
+- **Multi-seed BiomedBERT extended to all topic-mode combinations.** The current multi-seed analysis covers Statins across five seeds for the two H-Pub2-critical modes (`title_abstract_mesh` and `auto_mesh`). Multi-seed analysis is complete for all three topics (Statins, Opioids, ADHD) with five seeds each for the H-Pub2-critical modes. Extending to five seeds across all topic-mode combinations would tighten the null-finding CIs.
 
 - **Audit-aware paper-artifact pipeline.** `paper_experiments/make_paper_artifacts.py` and `paper_experiments/demo_statistical_analysis.py` are preserved as pre-audit historical baselines and assume filenames without the `_seed42` suffix. The patch to read from `analysis_results_full_v2.json` and expose the multi-run BoW ribbon is documented but not executed; the canonical regeneration paths run through `bootstrap_bert_per_fold.py` and `make_fig1_gap_forest_v3.py` instead.
 
