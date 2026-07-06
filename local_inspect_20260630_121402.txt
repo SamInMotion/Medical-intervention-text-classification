@@ -1,0 +1,450 @@
+
+========================================================================
+== 1. PYTHON / VENV STATUS
+========================================================================
+which python:
+/c/Users/samue.KITAB/AppData/Local/Programs/Python/Python314/python
+
+python -c 'import sys; print(sys.executable); print(sys.version)':
+C:\Users\samue.KITAB\AppData\Local\Programs\Python\Python314\python.exe
+3.14.4 (tags/v3.14.4:23116f9, Apr  7 2026, 14:10:54) [MSC v.1944 64 bit (AMD64)]
+
+VIRTUAL_ENV env var: <unset>
+
+Looking for .venv* directories at repo root:
+.venv312
+
+Try: ./.venv312/Scripts/python --version
+Python 3.12.7
+
+Try: ./.venv312/Scripts/python -c 'import tensorflow; print(tensorflow.__version__)'
+2.21.0
+
+========================================================================
+== 2. GIT STATE
+========================================================================
+main
+
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   data/README.md
+	modified:   src/cohen_pipeline.py
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	local_inspect_20260630_121402.txt
+	paper_experiments/
+	src/cohen_pipeline.py.bak
+	state_diagnostic.sh
+	state_diagnostic_20260630_015344.txt
+	state_diagnostic_20260630_015500.txt
+	state_diagnostic_20260630_015540.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+--- git log -10 --oneline ---
+0e3ccba Promote fig1_gap_forest_v3 to canonical figure generator; archive v2 outputs
+b21e93e Add bootstrap and forest plot scripts cited by paper §4.3
+6c5613c Add multi-seed BERT summaries and fig1_gap_forest_v3
+843bc99 Add BoW + BERT multi-run characterisation for Opioids and ADHD
+ef3a1d6 Update README: remove completed figure bullet, locate scripts, name archives
+43e226c Add REPRODUCING.md: map paper claims to data files and commands
+b64396e Add make_paper_artifacts.py and demo_statistical_analysis.py to scripts/
+2fcbb8c Archive April analysis drafts to paper/archive/ with provenance README
+e1cb6f9 Archive superseded outputs to outputs/archive/ with provenance README
+4d49e93 Add paper-cited outputs: BoW multi-run, audit BERT, multi-seed Statins, fig1
+
+--- git stash list ---
+
+========================================================================
+== 3. LOCAL FILES — full dump
+========================================================================
+
+>>>>> BEGIN FILE: src/features.py <<<<<
+"""Vectorization: convert token lists into numerical feature matrices."""
+
+from typing import List, Tuple
+
+import numpy as np
+from tensorflow.keras.preprocessing import text as keras_text
+
+
+def build_vectorizer(train_texts: List[List[str]], num_words: int) -> keras_text.Tokenizer:
+    """Fit a Keras tokenizer on training data."""
+    tokenizer = keras_text.Tokenizer(num_words=num_words)
+    tokenizer.fit_on_texts(train_texts)
+    return tokenizer
+
+
+def vectorize(texts, tokenizer, mode="binary"):
+    return tokenizer.texts_to_matrix(texts, mode=mode)
+
+
+def prepare_features(train_texts, dev_texts, test_texts, num_words, mode="binary"):
+    """Build vectorizer on training data and transform all splits."""
+    tokenizer = build_vectorizer(train_texts, num_words)
+    x_train = vectorize(train_texts, tokenizer, mode)
+    x_dev = vectorize(dev_texts, tokenizer, mode)
+    x_test = vectorize(test_texts, tokenizer, mode)
+    return x_train, x_dev, x_test, tokenizer
+
+<<<<< END FILE: src/features.py >>>>>
+
+>>>>> BEGIN FILE: src/preprocessing.py <<<<<
+"""Text preprocessing: tokenization, n-grams, NEO enrichment, stopwords.
+
+The ontology enrichment is the thesis contribution. For each token
+that appears in the NEO dictionary, its synonyms and/or parent
+concepts get appended to the document's token list. This gives the
+classifier semantic context that a plain bag-of-words misses on
+small datasets.
+"""
+
+import re
+from typing import List, Optional, Set
+
+from .config import WorkflowConfig
+
+
+def word_tokens(text: str) -> List[str]:
+    """Tokenize into lowercase words, preserving hyphenated compounds."""
+    return re.findall(r"[\w-]+", text.casefold())
+
+
+def make_ngrams(tokens: List[str], n: int = 3) -> List[str]:
+    return ["_".join(tpl) for tpl in zip(*[tokens[i:] for i in range(n)])]
+
+
+def _try_synonyms(word, neo_dict):
+    val = neo_dict.get(word)
+    if val:
+        return val.get("Synonyms")
+    return None
+
+
+def _try_parents(word, neo_dict):
+    val = neo_dict.get(word)
+    if val:
+        return val.get("Parents")
+    return None
+
+
+def _split_terms(terms, use_ngrams):
+    """When n-grams are off, split multi-word terms like 'cerebellar_signs'
+    into individual words so they match unigram features. When n-grams are
+    on, keep them joined so they match n-gram features instead."""
+    if not use_ngrams:
+        return {s for sublist in [t.split("_") for t in terms] for s in sublist}
+    return set(terms)
+
+
+def _get_all_synonyms(tokens, neo_dict, use_ngrams):
+    new = set()
+    for w in tokens:
+        synonyms = _try_synonyms(w, neo_dict)
+        if synonyms:
+            new |= _split_terms(synonyms, use_ngrams)
+    return new
+
+
+def _get_all_parents(tokens, neo_dict, use_ngrams):
+    new = set()
+    for w in tokens:
+        parents = _try_parents(w, neo_dict)
+        if parents:
+            new |= _split_terms(parents, use_ngrams)
+    return new
+
+
+def enrich_with_neo(token_list, neo_dict, config, neo_terms_added=None):
+    """Add NEO synonyms and/or parent concepts to a document's tokens."""
+    if not config.synonyms and not config.parents:
+        return token_list
+
+    use_ngrams = bool(config.ngrams)
+    token_set = set(token_list)
+    new = set()
+
+    if config.synonyms:
+        new |= _get_all_synonyms(token_set, neo_dict, use_ngrams)
+
+    if config.parents:
+        new |= _get_all_parents(token_set, neo_dict, use_ngrams)
+
+    if new:
+        new -= token_set
+        if neo_terms_added is not None:
+            neo_terms_added |= new
+        token_list = list(token_set | new)
+
+    return token_list
+
+
+def remove_stopwords(token_list, stopwords):
+    return [tok for tok in token_list if tok not in stopwords]
+
+
+def preprocess_corpus(texts, config, neo_dict=None, stopwords=None):
+    """Run the full preprocessing pipeline on raw texts.
+
+    Order matters: tokenize -> n-grams -> NEO enrichment -> stopwords.
+    N-grams come before enrichment so that multi-word ontology terms
+    can match n-gram features when that mode is active.
+    """
+    tokenized = [word_tokens(t) for t in texts]
+
+    if config.ngrams:
+        n = int(config.ngrams)
+        for txt in tokenized:
+            txt.extend(make_ngrams(txt, n))
+
+    neo_terms_added: Set[str] = set()
+    if neo_dict and (config.synonyms or config.parents):
+        tokenized = [
+            enrich_with_neo(t, neo_dict, config, neo_terms_added)
+            for t in tokenized
+        ]
+
+    if config.dropstop and stopwords:
+        tokenized = [remove_stopwords(t, stopwords) for t in tokenized]
+
+    return tokenized
+
+<<<<< END FILE: src/preprocessing.py >>>>>
+
+========================================================================
+== 4. LOCAL cohen_pipeline.py — only the subsample-related blocks
+========================================================================
+
+--- grep -nC 5 'subsample' src/cohen_pipeline.py ---
+110-    text_mode="abstract",
+111-    workflow_id=10,
+112-    n_folds=5,
+113-    epochs=42,
+114-    batch_size=5,
+115:    subsample_n=None,
+116:    subsample_seed=42,
+117-):
+118-    """Run k-fold CV on one Cohen topic with one workflow configuration.
+119-
+120-    NEO enrichment is skipped for Cohen data (NEO covers neurological
+121-    examination terms, not drug efficacy). The enrichment workflows
+--
+131-        cache_dir=cache_dir,
+132-        email=email,
+133-        api_key=api_key,
+134-    )
+135-
+136:    if subsample_n is not None and len(df) > 0 and subsample_n < len(df):
+137-        from sklearn.model_selection import train_test_split
+138-        df_sub, _ = train_test_split(
+139-            df,
+140:            train_size=subsample_n,
+141:            random_state=subsample_seed,
+142-            stratify=df["labels"],
+143-        )
+144-        df = df_sub.reset_index(drop=True)
+145-        logger.info(
+146:            "Subsampled topic %s to %d records (stratified, subsample_seed=%d)",
+147:            topic, len(df), subsample_seed,
+148-        )
+149-
+150-    if len(df) == 0:
+151-        logger.error("No data for topic '%s'. Aborting.", topic)
+152-        return None
+--
+321-    api_key=None,
+322-    workflow_id=8,
+323-    n_folds=5,
+324-    epochs=42,
+325-    batch_size=5,
+326:    subsample_n=None,
+327:    subsample_seed=42,
+328-):
+329-    """Run one workflow across all four text modes for comparison.
+330-
+331-    Default workflow 8 (no stopwords, trigrams, no enrichment) chosen
+332-    because it's the simplest trigram config — isolates the text mode
+--
+345-            text_mode=mode,
+346-            workflow_id=workflow_id,
+347-            n_folds=n_folds,
+348-            epochs=epochs,
+349-            batch_size=batch_size,
+350:            subsample_n=subsample_n,
+351:            subsample_seed=subsample_seed,
+352-        )
+353-        if result:
+354-            results.append(result)
+355-
+356-    if not results:
+--
+424-    parser.add_argument(
+425-        "--output-file", type=str, default=None,
+426-        help="Save output to file (in addition to console)",
+427-    )
+428-    parser.add_argument(
+429:        "--subsample-n", type=int, default=None,
+430:        help="Stratified subsample to N records before splitting. "
+431:             "Use with --subsample-seed for reproducibility.",
+432-    )
+433-    parser.add_argument(
+434:        "--subsample-seed", type=int, default=42,
+435:        help="Seed for stratified subsample (default: 42)",
+436-    )
+437-
+438-    args = parser.parse_args()
+439-
+440-    logging.basicConfig(
+--
+472-            api_key=args.api_key,
+473-            workflow_id=args.workflow,
+474-            n_folds=args.kfold,
+475-            epochs=args.epochs,
+476-            batch_size=args.batch_size,
+477:            subsample_n=args.subsample_n,
+478:            subsample_seed=args.subsample_seed,
+479-        )
+480-    elif args.all_workflows:
+481-        run_cohen_all_workflows(
+482-            topic=args.topic,
+483-            tsv_path=args.tsv_path,
+--
+499-            text_mode=args.text_mode,
+500-            workflow_id=args.workflow,
+501-            n_folds=args.kfold,
+502-            epochs=args.epochs,
+503-            batch_size=args.batch_size,
+504:            subsample_n=args.subsample_n,
+505:            subsample_seed=args.subsample_seed,
+506-        )
+507-
+508-    if output_file:
+509-        sys.stdout = original_stdout
+510-        output_file.close()
+
+--- argparse block (looking for --subsample) ---
+426-        help="Save output to file (in addition to console)",
+427-    )
+428-    parser.add_argument(
+429:        "--subsample-n", type=int, default=None,
+430-        help="Stratified subsample to N records before splitting. "
+431:             "Use with --subsample-seed for reproducibility.",
+432-    )
+433-    parser.add_argument(
+434:        "--subsample-seed", type=int, default=42,
+435-        help="Seed for stratified subsample (default: 42)",
+436-    )
+437-
+
+========================================================================
+== 5. DIFFS — local vs origin/main
+========================================================================
+
+--- git diff origin/main -- src/features.py ---
+
+--- git diff origin/main -- src/preprocessing.py ---
+
+--- git diff origin/main -- src/cohen_pipeline.py ---
+diff --git a/src/cohen_pipeline.py b/src/cohen_pipeline.py
+index 41f6e8a..5831dc0 100644
+--- a/src/cohen_pipeline.py
++++ b/src/cohen_pipeline.py
+@@ -112,6 +112,8 @@ def run_cohen_kfold(
+     n_folds=5,
+     epochs=42,
+     batch_size=5,
++    subsample_n=None,
++    subsample_seed=42,
+ ):
+     """Run k-fold CV on one Cohen topic with one workflow configuration.
+ 
+@@ -131,6 +133,20 @@ def run_cohen_kfold(
+         api_key=api_key,
+     )
+ 
++    if subsample_n is not None and len(df) > 0 and subsample_n < len(df):
++        from sklearn.model_selection import train_test_split
++        df_sub, _ = train_test_split(
++            df,
++            train_size=subsample_n,
++            random_state=subsample_seed,
++            stratify=df["labels"],
++        )
++        df = df_sub.reset_index(drop=True)
++        logger.info(
++            "Subsampled topic %s to %d records (stratified, subsample_seed=%d)",
++            topic, len(df), subsample_seed,
++        )
++
+     if len(df) == 0:
+         logger.error("No data for topic '%s'. Aborting.", topic)
+         return None
+@@ -307,6 +323,8 @@ def run_text_mode_comparison(
+     n_folds=5,
+     epochs=42,
+     batch_size=5,
++    subsample_n=None,
++    subsample_seed=42,
+ ):
+     """Run one workflow across all four text modes for comparison.
+ 
+@@ -329,6 +347,8 @@ def run_text_mode_comparison(
+             n_folds=n_folds,
+             epochs=epochs,
+             batch_size=batch_size,
++            subsample_n=subsample_n,
++            subsample_seed=subsample_seed,
+         )
+         if result:
+             results.append(result)
+@@ -405,6 +425,15 @@ def main():
+         "--output-file", type=str, default=None,
+         help="Save output to file (in addition to console)",
+     )
++    parser.add_argument(
++        "--subsample-n", type=int, default=None,
++        help="Stratified subsample to N records before splitting. "
++             "Use with --subsample-seed for reproducibility.",
++    )
++    parser.add_argument(
++        "--subsample-seed", type=int, default=42,
++        help="Seed for stratified subsample (default: 42)",
++    )
+ 
+     args = parser.parse_args()
+ 
+@@ -445,6 +474,8 @@ def main():
+             n_folds=args.kfold,
+             epochs=args.epochs,
+             batch_size=args.batch_size,
++            subsample_n=args.subsample_n,
++            subsample_seed=args.subsample_seed,
+         )
+     elif args.all_workflows:
+         run_cohen_all_workflows(
+@@ -470,6 +501,8 @@ def main():
+             n_folds=args.kfold,
+             epochs=args.epochs,
+             batch_size=args.batch_size,
++            subsample_n=args.subsample_n,
++            subsample_seed=args.subsample_seed,
+         )
+ 
+     if output_file:
+
+========================================================================
+== 6. ANY .bak FILES IN src/
+========================================================================
+-rw-r--r-- 1 samue 197609 16496 Apr 14 17:57 src/cohen_pipeline.py.bak
+
+========================================================================
+== 7. SHA256 OF LOCAL FILES
+========================================================================
+  076647af51d3e7b3b885b26bf93f16c9a888cbbd74ad1a8e912f12dae15728ec  src/features.py
+  6d780d24901963ed299df1e6dfd44cfcdb2f5ea51ad1873d46ab4360406a89b2  src/preprocessing.py
+  9dda982d5282c35990d918fc00125f8f9c1ac4987321f57d580f8fb8cd2ae758  src/cohen_pipeline.py

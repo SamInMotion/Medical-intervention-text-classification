@@ -1,0 +1,640 @@
+
+
+========================================================================
+== STATE DIAGNOSTIC — Tue Jun 30 01:55:40 WEST 2026
+========================================================================
+Local repo path:  /c/path/repo
+Drive directory:  /g/My Drive/cohen_bert_run
+GitHub remote:    https://github.com/SamInMotion/Medical-intervention-text-classification
+
+Run via: bash state_diagnostic.sh [LOCAL] [DRIVE] [BRANCH]
+All commands are read-only.
+
+
+========================================================================
+== 1. ENVIRONMENT
+========================================================================
+
+$ uname -a
+MINGW64_NT-10.0-26200 Kitab 3.6.4-b9f03e96.x86_64 2025-07-16 18:17 UTC x86_64 Msys
+
+$ bash --version
+GNU bash, version 5.2.37(1)-release (x86_64-pc-msys)
+Copyright (C) 2022 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+
+This is free software; you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+$ python --version
+Python 3.14.4
+
+$ python -c import sys; print(sys.executable)
+C:\Users\samue.KITAB\AppData\Local\Programs\Python\Python314\python.exe
+
+$ pwd
+/c/Users/samue.KITAB/Medical-intervention-text-classification
+
+--- Tool availability ---
+   git          /mingw64/bin/git
+   curl         /mingw64/bin/curl
+   sha256sum    /usr/bin/sha256sum
+   shasum       /usr/bin/core_perl/shasum
+   openssl      /mingw64/bin/openssl
+   wc           /usr/bin/wc
+   grep         /usr/bin/grep
+
+
+========================================================================
+== 2. LOCAL REPO
+========================================================================
+Local repo path does not exist: /c/path/repo
+Override by passing the actual path as the first argument.
+Scanning common parent directories for the repo name...
+Found candidate paths under /c/Users/samue.KITAB:
+/c/Users/samue.KITAB/Medical-intervention-text-classification
+Found candidate paths under /c:
+/c/Users/samue.KITAB/Medical-intervention-text-classification
+
+
+========================================================================
+== 3. GOOGLE DRIVE — cohen_bert_run folder
+========================================================================
+
+--- Top-level listing ---
+
+$ ls -la /g/My Drive/cohen_bert_run
+total 4214
+drwxr-xr-x 0 samue 197609       0 Jun 11 13:51 .
+drwxr-xr-x 0 samue 197609       0 Jun 29 19:28 ..
+-rw-r--r-- 0 samue 197609   24164 Jun 18 19:02 Cohen_BERT_Extension_Results_Consolidation_v1.md
+-rw-r--r-- 0 samue 197609   17828 Jun 19 13:08 Copy of cohen_bert_pipeline.py
+-rw-r--r-- 0 samue 197609    8065 Jun 18 14:22 Phase_0_Positioning_Note_v1.md
+-rw-r--r-- 0 samue 197609   10446 Jun 18 18:41 Phase_0_Positioning_Note_v2.md
+-rw-r--r-- 0 samue 197609   12099 Jun 12 18:33 bert_adhd_run_20260612_1633.zip
+-rw-r--r-- 0 samue 197609   15315 Jun 18 13:06 bert_adhd_run_20260618_1106.zip
+-rw-r--r-- 0 samue 197609   62265 Jun 20 14:41 bert_audit_run_20260620_1241.zip
+-rw-r--r-- 0 samue 197609    9905 Jun 11 13:52 bert_models.py
+-rw-r--r-- 0 samue 197609  103671 Jun 26 07:08 bert_opiods_adhd_multiseed_20260626_0508.zip
+-rw-r--r-- 0 samue 197609    8825 Jun 11 23:00 bert_opiods_run_20260611_2100.zip
+-rw-r--r-- 0 samue 197609   45598 Jun 18 18:35 bert_statins_multiseed_20260618_1635.zip
+-rw-r--r-- 0 samue 197609    4789 Jun 11 16:25 bert_statins_run_20260611_1425.zip
+-rw-r--r-- 0 samue 197609    2673 Jun 18 19:02 bow_stats_results.json
+-rw-r--r-- 0 samue 197609   32143 Jun 19 07:35 cohen_bert_audit_colab.ipynb
+-rw-r--r-- 0 samue 197609   17828 Jun 18 12:35 cohen_bert_pipeline.py
+-rw-r--r-- 0 samue 197609 3932493 Jun 11 13:54 cohen_data.zip
+drwxr-xr-x 0 samue 197609       0 Jun 26 12:10 outputs
+
+--- All .py files in Drive folder (recursive, depth 3) ---
+
+$ find /g/My Drive/cohen_bert_run -maxdepth 3 -type f -name *.py
+/g/My Drive/cohen_bert_run/bert_models.py
+/g/My Drive/cohen_bert_run/cohen_bert_pipeline.py
+/g/My Drive/cohen_bert_run/Copy of cohen_bert_pipeline.py
+
+--- All .ipynb files ---
+
+$ find /g/My Drive/cohen_bert_run -maxdepth 3 -type f -name *.ipynb
+/g/My Drive/cohen_bert_run/cohen_bert_audit_colab.ipynb
+
+--- Hashes of any Python files at Drive root ---
+
+/g/My Drive/cohen_bert_run/bert_models.py
+   sha256=d6485deb1418630b8c554a33f2c341a7cdc323d809d78f4cba34f9cbb174a3a2  size=9905B  lines=277
+
+/g/My Drive/cohen_bert_run/cohen_bert_pipeline.py
+   sha256=5af32e8703f01acb4b70ac0106ac9d80ccf565d7776f39384df122a317d51f03  size=17828B  lines=513
+
+/g/My Drive/cohen_bert_run/Copy of cohen_bert_pipeline.py
+   sha256=5af32e8703f01acb4b70ac0106ac9d80ccf565d7776f39384df122a317d51f03  size=17828B  lines=513
+
+--- FULL DUMP — Drive copy: /g/My Drive/cohen_bert_run/cohen_bert_pipeline.py ---
+
+$ head -80 /g/My Drive/cohen_bert_run/cohen_bert_pipeline.py
+"""Run BiomedBERT classifier on Cohen et al. (2006) benchmark data.
+
+Parallel entry point to src/cohen_pipeline.py with BiomedBERT replacing the
+bag-of-words logistic regression. Reuses benchmark_loader, auto_mesh, and
+evaluation modules from the existing pipeline — only the classifier changes.
+
+Usage:
+    # Quick validation: 200-sample subsample, abstract mode, 2 folds, 1 epoch
+    python -m src.cohen_bert_pipeline --topic Statins --email you@example.com \\
+        --text-mode abstract --subsample 200 --kfold 2 --epochs 1
+
+    # Single mode, full corpus, 5 folds, 3 epochs (default)
+    python -m src.cohen_bert_pipeline --topic Statins --email you@example.com \\
+        --text-mode title_abstract_mesh --output-file outputs/bert_expert_mesh.txt
+
+    # All four text modes (H-Pub2 experiment)
+    python -m src.cohen_bert_pipeline --topic Statins --email you@example.com \\
+        --compare-text-modes --output-file outputs/bert_text_modes_statins.txt
+
+This pipeline tests Addendum 1 hypothesis H-Pub2: does the expert vs auto MeSH
+WSS@95 gap (Reg WSS 0.223 vs 0.102 in the BoW pipeline) persist when the
+classifier is BiomedBERT?
+
+Hardware notes:
+    - CPU: one text mode at full Statins (2,744 abstracts), 5-fold, 3 epochs
+      runs in ~5-7 hours.
+    - GPU: ~5-10x faster. Set --fp16 if your GPU has Tensor Cores (T4+).
+    - The --subsample N flag gives a fast end-to-end validation path.
+"""
+
+import argparse
+import gc
+import json
+import logging
+import sys
+import time
+
+import numpy as np
+import torch
+from sklearn.model_selection import StratifiedKFold
+
+from .config import SPLIT_SEED
+from .benchmark_loader import COHEN_TOPICS, load_cohen_topic, list_topics_summary
+from .auto_mesh import build_mesh_vocabulary, prepare_auto_mesh_texts
+from .evaluation import compute_roc_auc, compute_wss_at_recall
+from .bert_models import BertConfig, BiomedBertClassifier
+
+
+logger = logging.getLogger(__name__)
+
+
+VALID_TEXT_MODES = ("abstract", "title_abstract", "title_abstract_mesh", "auto_mesh")
+
+
+def _prepare_texts(df, text_mode):
+    """Build raw text per record for the chosen mode.
+
+    Mirrors cohen_pipeline._prepare_texts for the non-auto-mesh modes.
+    BERT does its own tokenization so we skip preprocess_corpus entirely —
+    no stopword removal, no n-grams, no NEO enrichment.
+    """
+    texts = []
+    for _, row in df.iterrows():
+        parts = []
+        if text_mode in ("title_abstract", "title_abstract_mesh"):
+            if row.get("title"):
+                parts.append(str(row["title"]))
+        parts.append(str(row["texts"]))
+        if text_mode == "title_abstract_mesh":
+            mesh = row.get("mesh_terms", [])
+            if mesh:
+                parts.append(" ".join(mesh))
+        texts.append(" ".join(parts))
+    return texts
+
+
+def _build_texts_for_mode(df, text_mode, cache_dir):
+    """Dispatch to the right text-construction path for the mode."""
+    if text_mode == "auto_mesh":
+        mesh_vocab = build_mesh_vocabulary(cache_dir)
+[... truncated to first 80 lines for brevity ...]
+   sha256=5af32e8703f01acb4b70ac0106ac9d80ccf565d7776f39384df122a317d51f03  size=17828B  lines=513
+
+--- FULL DUMP — Drive copy: /g/My Drive/cohen_bert_run/bert_models.py ---
+
+$ head -80 /g/My Drive/cohen_bert_run/bert_models.py
+"""BiomedBERT (PubMedBERT) sequence classification for Cohen benchmark.
+
+Mirrors the predict_proba interface used by src/models.py so it can drop into
+the existing cohen_pipeline.py text-mode comparison. The four text modes from
+cohen_pipeline.py (abstract / title_abstract / title_abstract_mesh /
+title_abstract_automesh) work without modification — only the classifier
+changes.
+
+Note on the model name: Microsoft renamed PubMedBERT to BiomedBERT in 2024.
+The canonical identifier is now microsoft/BiomedNLP-BiomedBERT-base-uncased-abstract.
+The older PubMedBERT name still redirects but may stop working at some point.
+"""
+
+from __future__ import annotations
+
+import logging
+from dataclasses import dataclass
+from typing import Iterable, Union
+
+import numpy as np
+import torch
+from torch import nn
+from torch.utils.data import Dataset
+from transformers import (
+    AutoModelForSequenceClassification,
+    AutoTokenizer,
+    Trainer,
+    TrainingArguments,
+)
+
+logger = logging.getLogger(__name__)
+
+MODEL_ID = "microsoft/BiomedNLP-BiomedBERT-base-uncased-abstract"
+MAX_LEN = 512  # BERT-base hard limit; Cohen abstracts mostly fit
+
+
+@dataclass
+class BertConfig:
+    """Training config. Defaults tuned for Cohen-sized corpora on modest hardware."""
+
+    model_id: str = MODEL_ID
+    max_length: int = MAX_LEN
+    learning_rate: float = 2e-5
+    epochs: int = 3
+    train_batch_size: int = 8
+    eval_batch_size: int = 16
+    weight_decay: float = 0.01
+    warmup_ratio: float = 0.1
+    seed: int = 42
+    fp16: bool = False  # set True on GPU
+    output_dir: str = "./bert_runs"
+    # Class weighting for imbalanced data. Options:
+    #   None        - no weighting (default)
+    #   "balanced"  - compute from train labels: n / (n_classes * count_per_class)
+    #   {0: w0, 1: w1} - explicit per-class weights
+    class_weight: Union[str, dict, None] = None
+
+
+class _TextDataset(Dataset):
+    """Wraps texts + labels for HuggingFace Trainer."""
+
+    def __init__(self, texts: list[str], labels: list[int], tokenizer, max_length: int):
+        self.encodings = tokenizer(
+            texts,
+            truncation=True,
+            padding="max_length",
+            max_length=max_length,
+            return_tensors=None,
+        )
+        self.labels = labels
+
+    def __len__(self) -> int:
+        return len(self.labels)
+
+    def __getitem__(self, idx: int) -> dict:
+        item = {k: torch.tensor(v[idx]) for k, v in self.encodings.items()}
+        item["labels"] = torch.tensor(self.labels[idx])
+        return item
+
+
+[... truncated to first 80 lines for brevity ...]
+   sha256=d6485deb1418630b8c554a33f2c341a7cdc323d809d78f4cba34f9cbb174a3a2  size=9905B  lines=277
+
+
+========================================================================
+== 4. GITHUB REMOTE — raw content from default branch
+========================================================================
+GitHub default branch: main
+
+--- Repository metadata ---
+{
+  "id": 720451967,
+  "node_id": "R_kgDOKvE5fw",
+  "name": "Medical-intervention-text-classification",
+  "full_name": "SamInMotion/Medical-intervention-text-classification",
+  "private": false,
+  "owner": {
+    "login": "SamInMotion",
+    "id": 119664673,
+    "node_id": "U_kgDOByHwIQ",
+    "avatar_url": "https://avatars.githubusercontent.com/u/119664673?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/SamInMotion",
+    "html_url": "https://github.com/SamInMotion",
+    "followers_url": "https://api.github.com/users/SamInMotion/followers",
+    "following_url": "https://api.github.com/users/SamInMotion/following{/other_user}",
+    "gists_url": "https://api.github.com/users/SamInMotion/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/SamInMotion/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/SamInMotion/subscriptions",
+    "organizations_url": "https://api.github.com/users/SamInMotion/orgs",
+    "repos_url": "https://api.github.com/users/SamInMotion/repos",
+    "events_url": "https://api.github.com/users/SamInMotion/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/SamInMotion/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "html_url": "https://github.com/SamInMotion/Medical-intervention-text-classification",
+  "description": "Master's thesis (UiB, Computational Linguistics, 2023) and extension work. Text classification for systematic review screening. Original 11-workflow analysis with NEO ontology integration plus Cohen et al. (2006) drug-class benchmark extension comparing BoW and BiomedBERT.",
+  "fork": false,
+  "url": "https://api.github.com/repos/SamInMotion/Medical-intervention-text-classification",
+  "forks_url": "https://api.github.com/repos/SamInMotion/Medical-intervention-text-classification/forks",
+  "keys_url": "https://api.github.com/repos/SamInMotion/Medical-intervention-text-classification/keys{/key_id}",
+  "collaborators_url": "https://api.github.com/repos/SamInMotion/Medical-intervention-text-classification/collaborators{/collaborator}",
+  "teams_url": "https://api.github.com/repos/SamInMotion/Medical-intervention-text-classification/teams",
+  "hooks_url": "https://api.github.com/repos/SamInMotion/Medical-intervention-text-classification/hooks",
+  "issue_events_url": "https://api.github.com/repos/SamInMotion/Medical-intervention-text-classification/issues/events{/number}",
+  "events_url": "https://api.github.com/repos/SamInMotion/Medical-intervention-text-classification/events",
+  "assignees_url": "https://api.github.com/repos/SamInMotion/Medical-intervention-text-classification/assignees{/user}",
+  "branches_url": "https://api.github.com/repos/SamInMotion/Medical-intervention-text-classification/branches{/branch}",
+
+--- Latest commit on default branch ---
+{
+  "sha": "0ec21a1c301e10cd64d20419833c8bb1d655d4a7",
+  "node_id": "C_kwDOKvE5f9oAKDBlYzIxYTFjMzAxZTEwY2Q2NGQyMDQxOTgzM2M4YmIxZDY1NWQ0YTc",
+  "commit": {
+    "author": {
+      "name": "Samuel Okoe-Mensah",
+      "email": "119664673+SamInMotion@users.noreply.github.com",
+      "date": "2026-06-28T18:07:56Z"
+    },
+    "committer": {
+      "name": "GitHub",
+      "email": "noreply@github.com",
+      "date": "2026-06-28T18:07:56Z"
+    },
+    "message": "Revise thesis information and project descriptions\n\nUpdated thesis details and clarified project outcomes.",
+    "tree": {
+      "sha": "65a9a598f7504a8367e85c3e421939c30b9a9caa",
+      "url": "https://api.github.com/repos/SamInMotion/Medical-intervention-text-classification/git/trees/65a9a598f7504a8367e85c3e421939c30b9a9caa"
+    },
+    "url": "https://api.github.com/repos/SamInMotion/Medical-intervention-text-classification/git/commits/0ec21a1c301e10cd64d20419833c8bb1d655d4a7",
+    "comment_count": 0,
+    "verification": {
+      "verified": true,
+      "reason": "valid",
+      "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsFcBAABCAAQBQJqQWL8CRC1aQ7uu5UhlAAAVrcQAIKzJIGnJTMYM4xEhGcoV1ui\nkwbmBjV4LFQhlSYKghb6Uut6O3YGPpB8t4bokUfhe+vdWdDS7EQnmdwFQEE4FFXT\nuyImjYYFttwbazNYZjEgpHKdY19zjnHJlK7HEMVReLPA9POaP3zOVdh1jhJ+R/xq\nrDTVzWQ8Mp/DpDHBPmRi/E2/iWlSco5dFxayDF8qQtLElfSPXKXkfOrWAXXrss4Z\n0TyTyQ1t8PvKr0Z131Y6XD5+s3Jp6u3ymncaDqu6I0pIDLcFmyWWf+J8PU2HkY/N\nfOM4ubbJs/+76tl3ThzUeI/44sLBiJputJJJ8RMQMBQp+U4un1UvODJu8RY0awJx\nH8kGxAtxZH1THFs1BQbtlRHg5Ji63nV5Rfy76zGlebTe3HZraOro/avQYZsnUh5C\n8x8tfmSfS/bMLIM0pLdl6HuLQYZ6X3v3xZrYaa08hpz5LyL15n2iEZrdf1cp8+Ft\n9uBpyH7n1VpmDJ4hF0ym0Qge8DOuNOVkfWCV0rrSWDM1oLlHJzTqyxLhbgQqYqDj\nk5u5gf+PtjWN8bhTDh68zrgS6ekeHvUJj09WfI8WvJsGV5WixoNvBM4ZsPQQvxFC\nXh1W6LdtzHMbOhOaxX16QI2ZZEnvA0pebwcOX/j+iE/mqbk/DZWViCqUQh2e5DJ7\nVil8bbgaqWm/iNqakHng\n=fvKV\n-----END PGP SIGNATURE-----\n",
+      "payload": "tree 65a9a598f7504a8367e85c3e421939c30b9a9caa\nparent 0e3ccba8ed31c416f379d472969e9365061111e5\nauthor Samuel Okoe-Mensah <119664673+SamInMotion@users.noreply.github.com> 1782670076 +0200\ncommitter GitHub <noreply@github.com> 1782670076 +0200\n\nRevise thesis information and project descriptions\n\nUpdated thesis details and clarified project outcomes.",
+      "verified_at": "2026-06-28T18:07:57Z"
+    }
+  },
+  "url": "https://api.github.com/repos/SamInMotion/Medical-intervention-text-classification/commits/0ec21a1c301e10cd64d20419833c8bb1d655d4a7",
+  "html_url": "https://github.com/SamInMotion/Medical-intervention-text-classification/commit/0ec21a1c301e10cd64d20419833c8bb1d655d4a7",
+  "comments_url": "https://api.github.com/repos/SamInMotion/Medical-intervention-text-classification/commits/0ec21a1c301e10cd64d20419833c8bb1d655d4a7/comments",
+  "author": {
+    "login": "SamInMotion",
+    "id": 119664673,
+    "node_id": "U_kgDOByHwIQ",
+    "avatar_url": "https://avatars.githubusercontent.com/u/119664673?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/SamInMotion",
+    "html_url": "https://github.com/SamInMotion",
+    "followers_url": "https://api.github.com/users/SamInMotion/followers",
+    "following_url": "https://api.github.com/users/SamInMotion/following{/other_user}",
+    "gists_url": "https://api.github.com/users/SamInMotion/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/SamInMotion/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/SamInMotion/subscriptions",
+    "organizations_url": "https://api.github.com/users/SamInMotion/orgs",
+    "repos_url": "https://api.github.com/users/SamInMotion/repos",
+    "events_url": "https://api.github.com/users/SamInMotion/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/SamInMotion/received_events",
+    "type": "User",
+
+--- Branches on remote ---
+    "name": "main",
+      "sha": "0ec21a1c301e10cd64d20419833c8bb1d655d4a7",
+    "name": "v2.0-infastructure",
+      "sha": "1f2a7e95638400bd9200913676fbdefeca862027",
+
+--- Tree contents — src/ ---
+    "name": "__init__.py",
+    "sha": "eb894fe62be16471bcf092e595d0465ddb32b6f2",
+    "size": 80,
+    "name": "auto_mesh.py",
+    "sha": "0680c94f3b20dc2aefbb4fc506c418fead4b5a43",
+    "size": 3552,
+    "name": "benchmark_loader.py",
+    "sha": "b353b580e1bf66163f8dc86617971dc3033034eb",
+    "size": 11134,
+    "name": "bert_models.py",
+    "sha": "e81d0443078def1ccf8f41004e184d2be9d79cc9",
+    "size": 9905,
+    "name": "cohen_bert_pipeline.py",
+    "sha": "d5e080e0d0c06f3a64f5ddc83a920dcd76c8fb96",
+    "size": 15865,
+    "name": "cohen_pipeline.py",
+    "sha": "41f6e8afeb1d955b5d5578c19520f999571e653e",
+    "size": 16496,
+    "name": "config.py",
+    "sha": "273126ee96566348036baa0b704817067e7a0099",
+    "size": 2190,
+    "name": "data_loader.py",
+    "sha": "c27b7b5b5a8cb07489b03fe4cc7aeb21a4ea359b",
+    "size": 1703,
+    "name": "evaluation.py",
+    "sha": "b166700c16289d5d91e727266eb5ed8049decc65",
+    "size": 3696,
+    "name": "features.py",
+    "sha": "8360238e7917b18b1926f454ae24414a2c5590f7",
+    "size": 970,
+    "name": "models.py",
+    "sha": "4d5d55957760c0567a2a9e36bffa0947e5b6e8d0",
+    "size": 1050,
+    "name": "pipeline.py",
+    "sha": "d46ad74d0f5f7f861b50efa60b7e943173f15881",
+    "size": 12087,
+    "name": "preprocessing.py",
+    "sha": "e56ea0af9ad90ba4e46241af7ba9fc4aaa89e14c",
+    "size": 3484,
+
+--- Hashes + dumps of remote key files ---
+
+src/features.py (REMOTE main)
+   sha256=777754e4058402b9d9fc7d8cb01c3ee7912d7749c3f20903a8701f29b2ff058f  size=970B  lines=26
+
+--- FULL DUMP — GitHub copy: src/features.py ---
+
+>>>>> BEGIN FILE: /tmp/tmp.qtrG6Qc05A/features.py <<<<<
+"""Vectorization: convert token lists into numerical feature matrices."""
+
+from typing import List, Tuple
+
+import numpy as np
+from tensorflow.keras.preprocessing import text as keras_text
+
+
+def build_vectorizer(train_texts: List[List[str]], num_words: int) -> keras_text.Tokenizer:
+    """Fit a Keras tokenizer on training data."""
+    tokenizer = keras_text.Tokenizer(num_words=num_words)
+    tokenizer.fit_on_texts(train_texts)
+    return tokenizer
+
+
+def vectorize(texts, tokenizer, mode="binary"):
+    return tokenizer.texts_to_matrix(texts, mode=mode)
+
+
+def prepare_features(train_texts, dev_texts, test_texts, num_words, mode="binary"):
+    """Build vectorizer on training data and transform all splits."""
+    tokenizer = build_vectorizer(train_texts, num_words)
+    x_train = vectorize(train_texts, tokenizer, mode)
+    x_dev = vectorize(dev_texts, tokenizer, mode)
+    x_test = vectorize(test_texts, tokenizer, mode)
+    return x_train, x_dev, x_test, tokenizer
+
+<<<<< END FILE: /tmp/tmp.qtrG6Qc05A/features.py >>>>>
+
+src/preprocessing.py (REMOTE main)
+   sha256=e1ee5f07c624a136ca8030a4ec3e5fd988a2c7300e9b9ae41e19311e4023a083  size=3484B  lines=118
+
+--- FULL DUMP — GitHub copy: src/preprocessing.py ---
+
+>>>>> BEGIN FILE: /tmp/tmp.qtrG6Qc05A/preprocessing.py <<<<<
+"""Text preprocessing: tokenization, n-grams, NEO enrichment, stopwords.
+
+The ontology enrichment is the thesis contribution. For each token
+that appears in the NEO dictionary, its synonyms and/or parent
+concepts get appended to the document's token list. This gives the
+classifier semantic context that a plain bag-of-words misses on
+small datasets.
+"""
+
+import re
+from typing import List, Optional, Set
+
+from .config import WorkflowConfig
+
+
+def word_tokens(text: str) -> List[str]:
+    """Tokenize into lowercase words, preserving hyphenated compounds."""
+    return re.findall(r"[\w-]+", text.casefold())
+
+
+def make_ngrams(tokens: List[str], n: int = 3) -> List[str]:
+    return ["_".join(tpl) for tpl in zip(*[tokens[i:] for i in range(n)])]
+
+
+def _try_synonyms(word, neo_dict):
+    val = neo_dict.get(word)
+    if val:
+        return val.get("Synonyms")
+    return None
+
+
+def _try_parents(word, neo_dict):
+    val = neo_dict.get(word)
+    if val:
+        return val.get("Parents")
+    return None
+
+
+def _split_terms(terms, use_ngrams):
+    """When n-grams are off, split multi-word terms like 'cerebellar_signs'
+    into individual words so they match unigram features. When n-grams are
+    on, keep them joined so they match n-gram features instead."""
+    if not use_ngrams:
+        return {s for sublist in [t.split("_") for t in terms] for s in sublist}
+    return set(terms)
+
+
+def _get_all_synonyms(tokens, neo_dict, use_ngrams):
+    new = set()
+    for w in tokens:
+        synonyms = _try_synonyms(w, neo_dict)
+        if synonyms:
+            new |= _split_terms(synonyms, use_ngrams)
+    return new
+
+
+def _get_all_parents(tokens, neo_dict, use_ngrams):
+    new = set()
+    for w in tokens:
+        parents = _try_parents(w, neo_dict)
+        if parents:
+            new |= _split_terms(parents, use_ngrams)
+    return new
+
+
+def enrich_with_neo(token_list, neo_dict, config, neo_terms_added=None):
+    """Add NEO synonyms and/or parent concepts to a document's tokens."""
+    if not config.synonyms and not config.parents:
+        return token_list
+
+    use_ngrams = bool(config.ngrams)
+    token_set = set(token_list)
+    new = set()
+
+    if config.synonyms:
+        new |= _get_all_synonyms(token_set, neo_dict, use_ngrams)
+
+    if config.parents:
+        new |= _get_all_parents(token_set, neo_dict, use_ngrams)
+
+    if new:
+        new -= token_set
+        if neo_terms_added is not None:
+            neo_terms_added |= new
+        token_list = list(token_set | new)
+
+    return token_list
+
+
+def remove_stopwords(token_list, stopwords):
+    return [tok for tok in token_list if tok not in stopwords]
+
+
+def preprocess_corpus(texts, config, neo_dict=None, stopwords=None):
+    """Run the full preprocessing pipeline on raw texts.
+
+    Order matters: tokenize -> n-grams -> NEO enrichment -> stopwords.
+    N-grams come before enrichment so that multi-word ontology terms
+    can match n-gram features when that mode is active.
+    """
+    tokenized = [word_tokens(t) for t in texts]
+
+    if config.ngrams:
+        n = int(config.ngrams)
+        for txt in tokenized:
+            txt.extend(make_ngrams(txt, n))
+
+    neo_terms_added: Set[str] = set()
+    if neo_dict and (config.synonyms or config.parents):
+        tokenized = [
+            enrich_with_neo(t, neo_dict, config, neo_terms_added)
+            for t in tokenized
+        ]
+
+    if config.dropstop and stopwords:
+        tokenized = [remove_stopwords(t, stopwords) for t in tokenized]
+
+    return tokenized
+
+<<<<< END FILE: /tmp/tmp.qtrG6Qc05A/preprocessing.py >>>>>
+
+src/cohen_pipeline.py (REMOTE main)
+   sha256=9734e142d39d9602eed82b17d58e9f8c24eada2aed2460f1126e066b45e135c1  size=16496B  lines=482
+
+src/cohen_bert_pipeline.py (REMOTE main)
+   sha256=b0b7f7a9528bcbfd6a7fbb116380c19c9436813450ca741ead99bb8b0f4d7a89  size=15865B  lines=466
+
+src/benchmark_loader.py (REMOTE main)
+   sha256=d07a093f4f81e527117a7946d48d9063cc1dbad2867006ea53f56788b18e1681  size=11134B  lines=352
+
+src/bert_models.py (REMOTE main)
+   sha256=d6485deb1418630b8c554a33f2c341a7cdc323d809d78f4cba34f9cbb174a3a2  size=9905B  lines=277
+
+src/evaluation.py (REMOTE main)
+   sha256=59a7209089c48dc3f533aa3ba778398e966985d723a85a65718b69f0b9b64499  size=3696B  lines=122
+
+src/models.py (REMOTE main)
+   sha256=b448cc16213f0e410ec02ed4e72f3634e18816e651e97d2c541aac3ce2c0da82  size=1050B  lines=32
+
+src/config.py (REMOTE main)
+   sha256=d2ba7a3de518d7ea4aa3f4b7bbcd20512c5ffc7cbee1b04041f0e19582c08c73  size=2190B  lines=61
+
+src/auto_mesh.py (REMOTE main)
+   sha256=824455957a9353e19960d184305c0d864559a216c84f67adc8d39132ee881ef7  size=3552B  lines=115
+
+--- Check side branches for features.py (cohen-bert, benchmark, patch, paper, multi-run) ---
+
+
+========================================================================
+== 5. SUMMARY
+========================================================================
+
+Three things to look for when reading this report:
+
+  (a) Does any features.py anywhere contain 'CountVectorizer'?
+      Search this file for 'PRESENT' under markers for src/features.py.
+      If absent everywhere, the 'patched features.py' described in
+      Consolidation v1/v2/v3 was never deployed and the BoW pipeline
+      runs on the Keras Tokenizer version as uploaded.
+
+  (b) Do the local, Drive, and GitHub copies of features.py share the
+      same sha256? If yes, all three are in sync. If different, identify
+      which copy was used by the actual BoW multi-run on June 18–20.
+
+  (c) Are there uncommitted local changes to src/features.py or
+      src/preprocessing.py? Check Section 2 git status.
+
+Paste the entire output of this report back to me.
