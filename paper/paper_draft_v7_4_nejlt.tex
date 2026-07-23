@@ -1,3 +1,18 @@
+% ============================================================
+% Evaluation design conditions the expert-vs-auto MeSH gap:
+% a controlled comparison of bag-of-words and BiomedBERT on the
+% Cohen benchmark
+%
+% Samuel M. Okoe-Mensah
+% ORCID 0009-0003-2208-2545
+%
+% Requires nejlt.sty and nejlt_bib.bst from
+%   https://github.com/NEJLT/nejlt-template
+% Build: pdflatex -> bibtex -> pdflatex -> pdflatex
+%
+% Code, data and per-fold outputs:
+%   https://github.com/SamInMotion/Medical-intervention-text-classification
+% ============================================================
 
 \documentclass{article}
 \usepackage[final]{nejlt}
@@ -17,17 +32,18 @@
 \edef\headtitle{Evaluation design conditions the expert-vs-auto MeSH gap}
 \makeatother
 
-% ---- AUTHOR BLOCK (toggle for anonymization) ----
+% Comment out the line below and uncomment the next for anonymous review.
 \author{
-Samuel Okoe-Mensah, University of Bergen, Norway {\tt \small sammy.okmens@gmail.com}
+Samuel M. Okoe-Mensah, Accra, Ghana {\tt \small sammy.okmens@gmail.com}
 }
-% \author{Anonymous submission}
-% -------------------------------------------------
+%\author{Anonymous submission}
 
 \begin{document}
-\thispagestyle{title}
+\thispagestyle{plain}
 
-\abstract{Systematic review screening classifiers commonly augment abstracts with Medical Subject Headings (MeSH) drawn from either expert annotation or mechanical lookup. These two sources have not been compared directly as classifier features, and no prior work has asked whether that comparison's outcome depends on how the classifier is evaluated. Using the \newcite{cohen2006drug} drug-class benchmark on three topics, we characterise both a bag-of-words logistic regression classifier (seven reruns) and BiomedBERT (five seeds), then run robustness analyses on the Statins finding. Under the canonical 5-fold full-corpus design, the bag-of-words expert-vs-auto gap on Statins is $+0.096$ WSS@95\%. Stratified subsampling to matched corpus size ($n=803$) shrinks this to $+0.033$ (95\% bootstrap CI includes zero); 10-fold cross-validation at full corpus size shrinks it to $+0.021$ (CI narrowly excludes zero). BiomedBERT under canonical evaluation gives $+0.020$, within sampling noise of the bag-of-words 10-fold result. An empirical power analysis shows that a Statins-sized effect at Opioids' or ADHD's per-fold variance would not have been detectable under the present per-topic fold counts ($\text{MDE}_{\text{Opioids}} = 0.189$, $\text{MDE}_{\text{ADHD}} = 0.286$), so cross-topic nulls are design-limited rather than informative. The canonical design is the condition under which the gap is most cleanly detected, and the gap attenuates under designs that increase per-fold training volume. A representation asymmetry --- 15.1\% of Statins inputs exceed BiomedBERT's 512-token cap in the expert-MeSH mode, and truncation preferentially removes the appended MeSH terms --- may contribute to the transformer's smaller gap but cannot be isolated from the training-volume effect without a no-truncation comparison. For screening pipelines using transformer classifiers or 10-fold bag-of-words, the observed expert-vs-auto gap on the topics tested is approximately $0.02$ WSS@95\%, with confidence intervals spanning zero on at least one bound.}
+\abstract{A systematic review begins with someone reading thousands of abstracts to identify the few that are relevant, and classifiers are used to prioritise that reading. Their inputs are often augmented with Medical Subject Headings (MeSH), assigned either by expert indexers weeks or months after publication or by automatic tools at once. To our knowledge the two have not been compared directly as classifier features, and no prior work has asked whether that comparison's outcome depends on how the classifier is evaluated. Using the \newcite{cohen2006drug} drug-class benchmark on three topics, we characterise a bag-of-words logistic regression classifier (seven reruns) and BiomedBERT (five seeds), then examine how the Statins result changes under alternative evaluation designs. Under the canonical 5-fold full-corpus design, the bag-of-words expert-vs-auto gap on Statins is $+0.096$ WSS@95\%. Stratified subsampling to matched corpus size ($n=803$) reduces it to $+0.033$ (95\% bootstrap CI includes zero); 10-fold cross-validation at full corpus size reduces it to $+0.021$ (CI narrowly excludes zero). BiomedBERT under canonical evaluation gives $+0.020$, within sampling noise of the bag-of-words 10-fold result. An empirical power analysis indicates that a Statins-sized effect at Opioids' or ADHD's per-fold variance would not have been detectable under the present per-topic fold counts ($\text{MDE}_{\text{Opioids}} = 0.189$, $\text{MDE}_{\text{ADHD}} = 0.286$), so cross-topic nulls are design-limited rather than informative. Of the designs tested, the canonical one is where the gap is most cleanly detected, and the gap attenuates under designs that increase per-fold training volume. A representation asymmetry remains: 15.1\% of Statins inputs exceed BiomedBERT's 512-token cap in the expert-MeSH mode, and truncation preferentially removes the appended MeSH terms. This may contribute to the transformer's smaller gap but cannot be isolated from the training-volume effect without a no-truncation comparison. For screening pipelines using transformer classifiers or 10-fold bag-of-words, the observed expert-vs-auto gap on the topics tested is approximately $0.02$ WSS@95\%, with confidence intervals spanning zero on at least one bound. More broadly, benchmark conclusions about feature sources can change substantially under reasonable changes to the evaluation design.}
+
+
 
 \maketitle
 
@@ -224,7 +240,7 @@ The Opioids and ADHD distributions are not positive and not tight. On Opioids th
 
 BiomedBERT was characterised across five seeds (42, 7, 13, 21, 31) for each of the two H-Pub2-critical modes (\texttt{title\_abstract\_mesh} and \texttt{auto\_mesh}) on each of the three topics. This produces 25 per-fold WSS@95\% values per topic per mode (5 seeds $\times$ 5 folds), and 75 pooled across the three topics per mode. Tables~\ref{tab:bert_statins}, \ref{tab:bert_opiods}, and \ref{tab:bert_adhd} report the per-seed expert and auto WSS@95\% means and the per-seed expert-vs-auto gap for each topic.
 
-\begin{table}[h]
+\begin{table*}[h]
 \centering
 \small
 \begin{tabular}{rrrr}
@@ -242,7 +258,7 @@ Seed & Expert WSS mean & Auto WSS mean & Gap \\
 \end{tabular}
 \caption{BiomedBERT Statins multi-seed characterisation. Five seeds, five folds each.}
 \label{tab:bert_statins}
-\end{table}
+\end{table*}
 
 \begin{table}[h]
 \centering
@@ -362,7 +378,7 @@ The bag-of-words classifier therefore produces a substantially different expert-
 
 We also computed an empirical power analysis on the per-fold variances at each topic under the canonical design. Table~\ref{tab:power} reports the minimum detectable effect (MDE) at 80\% power for each topic.
 
-\begin{table}[h]
+\begin{table*}[h]
 \centering
 \small
 \begin{tabular}{lrrrr}
@@ -376,7 +392,7 @@ ADHD    & 5  & $-0.030$ & 0.228 & 0.286 \\
 \end{tabular}
 \caption{Empirical power analysis on per-fold variances at each topic. MDE computed at $\alpha = 0.05$ two-sided, 80\% power, normal approximation. With the present $n = 5$ folds the $t$-correction shifts MDE by less than 4\%.}
 \label{tab:power}
-\end{table}
+\end{table*}
 
 At the Statins per-fold variance ($0.068$), the canonical $n = 5$ folds give a minimum detectable effect of $0.085$ at 80\% power, comfortably below the observed Statins effect of $+0.125$ (this is why it is detected). At Opioids' larger per-fold variance ($0.151$), the same $n = 5$ folds give an MDE of $0.189$, which is $1.5\times$ the Statins effect size. At ADHD's still larger variance ($0.228$), the MDE is $0.286$, more than $2\times$ the Statins effect. A Statins-sized effect at Opioids or ADHD would not have been detected at the present sample sizes and variances. The cross-topic null at Opioids and ADHD is therefore design-limited rather than informative about the underlying mechanism: the data do not allow us to distinguish between ``no effect at those topics'' and ``effect present but undetectable at present sample sizes.''
 
@@ -461,9 +477,9 @@ We tested whether the expert-vs-auto MeSH gap observed in bag-of-words systemati
 
 The expert-vs-auto MeSH gap is therefore real at the canonical Cohen evaluation but evaluation-design-conditional in a way that the screening literature has not previously characterised. Where the gap robustly exists under canonical evaluation, transformer classifiers and bag-of-words classifiers under designs that increase per-fold training volume produce approximately the same attenuated gap; where the gap does not robustly exist under any tested design, the substitution question is moot. Whether the attenuation pattern generalises across transformer architectures, ontologies, and the remaining Cohen topics is an open question that Section~\ref{sec:limitations} enumerates in full. The broader contribution is methodological: benchmark conclusions about feature-source effects can change substantially under reasonable evaluation-design changes, even when the underlying task and data are held constant.
 
-% Acknowledgements section — comment out for anonymous review; add before camera-ready.
+% Acknowledgements, to be added for the non-anonymous version.
 % \section*{Acknowledgements}
-% [Acknowledgements to be added at camera-ready stage]
+% [Acknowledgements]
 
 \bibliography{nejlt}
 \bibliographystyle{nejlt_bib}
