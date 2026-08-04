@@ -1,6 +1,8 @@
 # Power analysis: minimum detectable effect by topic
 
-Per-fold expert-vs-auto WSS@95 distributions from the BoW multi-run data give us topic-specific variance estimates. MDE computed at α=0.05 (two-sided), power=0.80, normal approximation. With n=35 fold values per topic the t-correction shifts MDE by under 4%.
+Per-fold expert-vs-auto WSS@95 differences from `bow_stats_results.json`, the canonical single-run 5-fold analysis, give topic-specific variance estimates. MDE computed at alpha=0.05 (two-sided), power=0.80, normal approximation, on n=5 fold values per topic.
+
+At n=5 the normal approximation understates MDE by about 34% relative to the exact noncentral-t computation, so the values below are conservative.
 
 | Topic | n_total | n_folds | Observed mean | 95% CI | SD | SE | MDE (80% power) |
 |---|---|---|---|---|---|---|---|

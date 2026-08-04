@@ -1,8 +1,15 @@
 """Power analysis for the topic-stratified BoW gap.
 
-Uses observed per-fold variance from the multi-run BoW data to compute the
-minimum detectable effect (MDE) at each topic size, given the current
-fold count. Answers Christer's Q2/Q3 from a complementary angle: even
+Uses observed per-fold variance from the canonical single-run 5-fold BoW
+analysis to compute the minimum detectable effect (MDE) at each topic size,
+at that design's fold count.
+
+The fold count here is deliberately not the pooled multi-run count used in
+the paper's main results tables. The question this analysis answers is what
+the canonical Cohen evaluation design could have detected, and that design
+is one 5-fold run. Pooling the seven reruns would answer a different
+question, about a characterisation protocol the screening literature does
+not use. Answers Christer's Q2/Q3 from a complementary angle: even
 without the matched-n subsampling experiment, we can ask whether the
 observed Statins effect size would have been detectable at Opioids/ADHD
 sample sizes if it existed there.
@@ -11,7 +18,7 @@ Reads bow_stats_results.json (searched in three likely locations) and
 extracts per-fold expert-vs-auto WSS@95 diffs per topic.
 
 Outputs:
-    paper_experiments/outputs/power_analysis.md  (table + narrative for §5.2)
+    paper_experiments/outputs/power_analysis.md  (table + narrative for §4.4 / §5.4)
 
 Usage:
     python paper_experiments/power_analysis.py
@@ -85,8 +92,10 @@ def mde_from_diffs(diffs, alpha=ALPHA, power=POWER_TARGET):
 
     Approximation: MDE = (z_{1-a/2} + z_{power}) * SD / sqrt(n)
 
-    For n=35 folds, the normal-approximation MDE is within a few percent of
-    the t-distribution-corrected version. Documented in the output.
+    The normal approximation is close to the t-corrected value only at large
+    n. At small n it understates MDE materially. The size of that shortfall
+    is measured by t_inflation_factor() and reported in the output, rather
+    than assumed.
     """
     arr = np.asarray(diffs, dtype=float)
     n = len(arr)
@@ -104,6 +113,36 @@ def mde_from_diffs(diffs, alpha=ALPHA, power=POWER_TARGET):
         "se": sd / math.sqrt(n),
         "mde": float(mde),
     }
+
+
+def t_inflation_factor(n, alpha=ALPHA, power=POWER_TARGET):
+    """Exact noncentral-t MDE divided by the normal-approximation MDE.
+
+    Scale-free: depends only on n, alpha and power, not on the observed SD.
+    Lets the report state how far the normal approximation falls short at
+    the fold count actually used. Returns None if it cannot be solved.
+    """
+    df = n - 1
+    if df < 1:
+        return None
+    from scipy.optimize import brentq
+    from scipy.stats import norm, nct, t as student_t
+
+    sd = 1.0
+    crit = student_t.ppf(1 - alpha / 2, df)
+
+    def attained_power(delta):
+        ncp = delta * math.sqrt(n) / sd
+        return (1 - nct.cdf(crit, df, ncp)) + nct.cdf(-crit, df, ncp) - power
+
+    try:
+        exact = float(brentq(attained_power, 1e-9, 3 * sd, xtol=1e-10))
+    except ValueError:
+        return None
+    approx = (norm.ppf(1 - alpha / 2) + norm.ppf(power)) * sd / math.sqrt(n)
+    if approx == 0:
+        return None
+    return exact / approx
 
 
 def bootstrap_ci(diffs, n_boot=N_BOOT, alpha=ALPHA, seed=SEED):
@@ -178,12 +217,25 @@ def main():
 
     md = []
     md.append("# Power analysis: minimum detectable effect by topic\n")
+    n_values = sorted({r["n_folds"] for r in rows})
+    n_desc = str(n_values[0]) if len(n_values) == 1 else "/".join(map(str, n_values))
+    inflations = [t_inflation_factor(r["n_folds"]) for r in rows]
+    inflations = [x for x in inflations if x is not None]
+    infl_pct = (max(inflations) - 1.0) * 100 if inflations else None
+
     md.append(
-        "Per-fold expert-vs-auto WSS@95 distributions from the BoW multi-run "
-        "data give us topic-specific variance estimates. MDE computed at "
-        "α=0.05 (two-sided), power=0.80, normal approximation. With n=35 "
-        "fold values per topic the t-correction shifts MDE by under 4%.\n"
+        f"Per-fold expert-vs-auto WSS@95 differences from `{stats_path.name}`, "
+        f"the canonical single-run 5-fold analysis, give topic-specific "
+        f"variance estimates. MDE computed at alpha={ALPHA} (two-sided), "
+        f"power={POWER_TARGET:.2f}, normal approximation, on n={n_desc} fold "
+        f"values per topic.\n"
     )
+    if infl_pct is not None:
+        md.append(
+            f"At n={n_desc} the normal approximation understates MDE by about "
+            f"{infl_pct:.0f}% relative to the exact noncentral-t computation, "
+            f"so the values below are conservative.\n"
+        )
     md.append("| Topic | n_total | n_folds | Observed mean | 95% CI | SD | SE | MDE (80% power) |")
     md.append("|---|---|---|---|---|---|---|---|")
     for r in rows:
