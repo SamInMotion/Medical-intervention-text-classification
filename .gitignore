@@ -49,3 +49,19 @@ Cohen_BERT_Extension_Results_Consolidation_*.md
 _audit_*.txt
 repo_audit.sh
 audit_repo.sh
+
+# Session forensics and state dumps, not reproducibility artifacts
+forensics.txt
+chain.txt
+paper_state_forensics*.sh
+inspect_analysis_chain.sh
+fix_power_analysis.sh
+state_diagnostic*.sh
+state_diagnostic*.txt
+local_inspect_*.txt
+archive_pre_anon_*.zip
+
+# Working copies of superseded files, untracked
+*.bak
+*.bak2
+docs/Context_Update_*.md

@@ -1,0 +1,201 @@
+MeSH assignment analysis: Statins
+======================================================================
+Vocabulary: 4740 unique terms, minimum length 4
+
+--- included articles (152 articles)
+  expert terms per article (eligible): 20.51
+  expert terms below min length:       0
+  terms matched by substring search:   14.13
+  of which assigned by the indexer:    3.33
+  expert terms not in the abstract:    17.18
+  matched but not assigned:            10.8
+  recovery rate, micro:  0.1623
+  recovery rate, macro:  0.1623
+  spurious share of all matched terms: 0.7644
+  articles where nothing was recovered: 6
+
+  most frequently missed expert terms:
+      148  humans
+      121  therapeutic use
+      108  middle aged
+      107  male
+      105  drug therapy
+      102  female
+       97  anticholesteremic agents
+       94  blood
+       63  cholesterol, ldl
+       58  hydroxymethylglutaryl-coa reductase inhibitors
+       54  aged
+       53  double-blind method
+       51  prevention & control
+       51  adult
+       48  treatment outcome
+       45  adverse effects
+       40  coronary disease
+       39  heptanoic acids
+       39  pyrroles
+       32  administration & dosage
+       30  hypercholesterolemia
+       29  drug effects
+       24  cholesterol, hdl
+       23  complications
+       22  risk factors
+
+  most frequent spurious matches:
+      129  patients
+       89  cholesterol
+       78  disease
+       67  risk
+       59  methods
+       52  therapy
+       51  back
+       51  heart
+       44  infarction
+       34  analysis
+       34  safety
+       32  secondary
+       30  diet
+       27  myocardial infarction
+       25  women
+       25  population
+       23  time
+       23  education
+       23  incidence
+       20  mortality
+       17  tics
+       17  triglycerides
+       16  secondary prevention
+       15  morbidity
+       14  affect
+
+--- excluded articles (2592 articles)
+  expert terms per article (eligible): 18.96
+  expert terms below min length:       0.01
+  terms matched by substring search:   13.07
+  of which assigned by the indexer:    2.93
+  expert terms not in the abstract:    16.03
+  matched but not assigned:            10.14
+  recovery rate, micro:  0.1546
+  recovery rate, macro:  0.154
+  spurious share of all matched terms: 0.7758
+  articles where nothing was recovered: 203
+
+  most frequently missed expert terms:
+     2497  humans
+     1709  therapeutic use
+     1523  drug therapy
+     1364  male
+     1341  female
+     1321  middle aged
+     1078  blood
+      873  hydroxymethylglutaryl-coa reductase inhibitors
+      802  aged
+      799  anticholesteremic agents
+      797  adult
+      655  prevention & control
+      629  drug effects
+      535  pharmacology
+      486  cholesterol, ldl
+      468  administration & dosage
+      454  coronary disease
+      446  hypolipidemic agents
+      438  treatment outcome
+      434  adverse effects
+      429  complications
+      424  metabolism
+      408  double-blind method
+      367  hyperlipidemias
+      358  etiology
+
+  most frequent spurious matches:
+     1768  patients
+     1268  disease
+     1127  cholesterol
+      985  risk
+      976  therapy
+      667  heart
+      652  methods
+      495  back
+      359  time
+      350  infarction
+      346  diet
+      325  population
+      315  secondary
+      314  analysis
+      306  women
+      282  mortality
+      281  affect
+      270  tics
+      267  safety
+      249  rest
+      231  triglycerides
+      225  proteins
+      219  morbidity
+      212  coronary artery disease
+      211  incidence
+
+--- all articles (2744 articles)
+  expert terms per article (eligible): 19.04
+  expert terms below min length:       0.01
+  terms matched by substring search:   13.13
+  of which assigned by the indexer:    2.95
+  expert terms not in the abstract:    16.09
+  matched but not assigned:            10.18
+  recovery rate, micro:  0.1551
+  recovery rate, macro:  0.1545
+  spurious share of all matched terms: 0.7751
+  articles where nothing was recovered: 209
+
+  most frequently missed expert terms:
+     2645  humans
+     1830  therapeutic use
+     1628  drug therapy
+     1471  male
+     1443  female
+     1429  middle aged
+     1172  blood
+      931  hydroxymethylglutaryl-coa reductase inhibitors
+      896  anticholesteremic agents
+      856  aged
+      848  adult
+      706  prevention & control
+      658  drug effects
+      551  pharmacology
+      549  cholesterol, ldl
+      500  administration & dosage
+      494  coronary disease
+      486  treatment outcome
+      479  adverse effects
+      466  hypolipidemic agents
+      461  double-blind method
+      452  complications
+      433  metabolism
+      388  hyperlipidemias
+      375  etiology
+
+  most frequent spurious matches:
+     1897  patients
+     1346  disease
+     1216  cholesterol
+     1052  risk
+     1028  therapy
+      718  heart
+      711  methods
+      546  back
+      394  infarction
+      382  time
+      376  diet
+      350  population
+      348  analysis
+      347  secondary
+      331  women
+      302  mortality
+      301  safety
+      295  affect
+      287  tics
+      259  rest
+      248  triglycerides
+      234  morbidity
+      234  incidence
+      233  proteins
+      225  secondary prevention

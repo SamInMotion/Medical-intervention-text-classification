@@ -1,0 +1,965 @@
+{
+  "topic": "Statins",
+  "min_length": 4,
+  "vocabulary_size": 4740,
+  "label_column": "labels",
+  "groups": {
+    "included articles": {
+      "n_articles": 152,
+      "mean_expert_terms_eligible": 20.51,
+      "mean_expert_terms_below_min_length": 0,
+      "mean_auto_terms_matched": 14.13,
+      "mean_recovered_per_article": 3.33,
+      "mean_missed_per_article": 17.18,
+      "mean_spurious_per_article": 10.8,
+      "micro_recovery_rate": 0.1623,
+      "macro_recovery_rate": 0.1623,
+      "spurious_share_of_matched": 0.7644,
+      "articles_with_zero_recovery": 6,
+      "top_missed_terms": [
+        [
+          "humans",
+          148
+        ],
+        [
+          "therapeutic use",
+          121
+        ],
+        [
+          "middle aged",
+          108
+        ],
+        [
+          "male",
+          107
+        ],
+        [
+          "drug therapy",
+          105
+        ],
+        [
+          "female",
+          102
+        ],
+        [
+          "anticholesteremic agents",
+          97
+        ],
+        [
+          "blood",
+          94
+        ],
+        [
+          "cholesterol, ldl",
+          63
+        ],
+        [
+          "hydroxymethylglutaryl-coa reductase inhibitors",
+          58
+        ],
+        [
+          "aged",
+          54
+        ],
+        [
+          "double-blind method",
+          53
+        ],
+        [
+          "prevention & control",
+          51
+        ],
+        [
+          "adult",
+          51
+        ],
+        [
+          "treatment outcome",
+          48
+        ],
+        [
+          "adverse effects",
+          45
+        ],
+        [
+          "coronary disease",
+          40
+        ],
+        [
+          "heptanoic acids",
+          39
+        ],
+        [
+          "pyrroles",
+          39
+        ],
+        [
+          "administration & dosage",
+          32
+        ],
+        [
+          "hypercholesterolemia",
+          30
+        ],
+        [
+          "drug effects",
+          29
+        ],
+        [
+          "cholesterol, hdl",
+          24
+        ],
+        [
+          "complications",
+          23
+        ],
+        [
+          "risk factors",
+          22
+        ]
+      ],
+      "top_spurious_terms": [
+        [
+          "patients",
+          129
+        ],
+        [
+          "cholesterol",
+          89
+        ],
+        [
+          "disease",
+          78
+        ],
+        [
+          "risk",
+          67
+        ],
+        [
+          "methods",
+          59
+        ],
+        [
+          "therapy",
+          52
+        ],
+        [
+          "back",
+          51
+        ],
+        [
+          "heart",
+          51
+        ],
+        [
+          "infarction",
+          44
+        ],
+        [
+          "analysis",
+          34
+        ],
+        [
+          "safety",
+          34
+        ],
+        [
+          "secondary",
+          32
+        ],
+        [
+          "diet",
+          30
+        ],
+        [
+          "myocardial infarction",
+          27
+        ],
+        [
+          "women",
+          25
+        ],
+        [
+          "population",
+          25
+        ],
+        [
+          "time",
+          23
+        ],
+        [
+          "education",
+          23
+        ],
+        [
+          "incidence",
+          23
+        ],
+        [
+          "mortality",
+          20
+        ],
+        [
+          "tics",
+          17
+        ],
+        [
+          "triglycerides",
+          17
+        ],
+        [
+          "secondary prevention",
+          16
+        ],
+        [
+          "morbidity",
+          15
+        ],
+        [
+          "affect",
+          14
+        ]
+      ],
+      "top_recovered_terms": [
+        [
+          "simvastatin",
+          47
+        ],
+        [
+          "pravastatin",
+          44
+        ],
+        [
+          "cholesterol",
+          36
+        ],
+        [
+          "atorvastatin",
+          34
+        ],
+        [
+          "lovastatin",
+          25
+        ],
+        [
+          "hypercholesterolemia",
+          24
+        ],
+        [
+          "aged",
+          19
+        ],
+        [
+          "myocardial infarction",
+          17
+        ],
+        [
+          "fluvastatin",
+          16
+        ],
+        [
+          "therapy",
+          12
+        ],
+        [
+          "blood",
+          12
+        ],
+        [
+          "mortality",
+          11
+        ],
+        [
+          "adult",
+          11
+        ],
+        [
+          "triglycerides",
+          10
+        ],
+        [
+          "risk factors",
+          9
+        ],
+        [
+          "incidence",
+          8
+        ],
+        [
+          "male",
+          8
+        ],
+        [
+          "risk",
+          7
+        ],
+        [
+          "drug therapy",
+          7
+        ],
+        [
+          "lipids",
+          7
+        ],
+        [
+          "stroke",
+          6
+        ],
+        [
+          "drug interactions",
+          6
+        ],
+        [
+          "coronary angiography",
+          5
+        ],
+        [
+          "female",
+          5
+        ],
+        [
+          "metabolism",
+          5
+        ]
+      ]
+    },
+    "excluded articles": {
+      "n_articles": 2592,
+      "mean_expert_terms_eligible": 18.96,
+      "mean_expert_terms_below_min_length": 0.01,
+      "mean_auto_terms_matched": 13.07,
+      "mean_recovered_per_article": 2.93,
+      "mean_missed_per_article": 16.03,
+      "mean_spurious_per_article": 10.14,
+      "micro_recovery_rate": 0.1546,
+      "macro_recovery_rate": 0.154,
+      "spurious_share_of_matched": 0.7758,
+      "articles_with_zero_recovery": 203,
+      "top_missed_terms": [
+        [
+          "humans",
+          2497
+        ],
+        [
+          "therapeutic use",
+          1709
+        ],
+        [
+          "drug therapy",
+          1523
+        ],
+        [
+          "male",
+          1364
+        ],
+        [
+          "female",
+          1341
+        ],
+        [
+          "middle aged",
+          1321
+        ],
+        [
+          "blood",
+          1078
+        ],
+        [
+          "hydroxymethylglutaryl-coa reductase inhibitors",
+          873
+        ],
+        [
+          "aged",
+          802
+        ],
+        [
+          "anticholesteremic agents",
+          799
+        ],
+        [
+          "adult",
+          797
+        ],
+        [
+          "prevention & control",
+          655
+        ],
+        [
+          "drug effects",
+          629
+        ],
+        [
+          "pharmacology",
+          535
+        ],
+        [
+          "cholesterol, ldl",
+          486
+        ],
+        [
+          "administration & dosage",
+          468
+        ],
+        [
+          "coronary disease",
+          454
+        ],
+        [
+          "hypolipidemic agents",
+          446
+        ],
+        [
+          "treatment outcome",
+          438
+        ],
+        [
+          "adverse effects",
+          434
+        ],
+        [
+          "complications",
+          429
+        ],
+        [
+          "metabolism",
+          424
+        ],
+        [
+          "double-blind method",
+          408
+        ],
+        [
+          "hyperlipidemias",
+          367
+        ],
+        [
+          "etiology",
+          358
+        ]
+      ],
+      "top_spurious_terms": [
+        [
+          "patients",
+          1768
+        ],
+        [
+          "disease",
+          1268
+        ],
+        [
+          "cholesterol",
+          1127
+        ],
+        [
+          "risk",
+          985
+        ],
+        [
+          "therapy",
+          976
+        ],
+        [
+          "heart",
+          667
+        ],
+        [
+          "methods",
+          652
+        ],
+        [
+          "back",
+          495
+        ],
+        [
+          "time",
+          359
+        ],
+        [
+          "infarction",
+          350
+        ],
+        [
+          "diet",
+          346
+        ],
+        [
+          "population",
+          325
+        ],
+        [
+          "secondary",
+          315
+        ],
+        [
+          "analysis",
+          314
+        ],
+        [
+          "women",
+          306
+        ],
+        [
+          "mortality",
+          282
+        ],
+        [
+          "affect",
+          281
+        ],
+        [
+          "tics",
+          270
+        ],
+        [
+          "safety",
+          267
+        ],
+        [
+          "rest",
+          249
+        ],
+        [
+          "triglycerides",
+          231
+        ],
+        [
+          "proteins",
+          225
+        ],
+        [
+          "morbidity",
+          219
+        ],
+        [
+          "coronary artery disease",
+          212
+        ],
+        [
+          "incidence",
+          211
+        ]
+      ],
+      "top_recovered_terms": [
+        [
+          "cholesterol",
+          462
+        ],
+        [
+          "simvastatin",
+          388
+        ],
+        [
+          "pravastatin",
+          343
+        ],
+        [
+          "hypercholesterolemia",
+          258
+        ],
+        [
+          "blood",
+          214
+        ],
+        [
+          "atorvastatin",
+          197
+        ],
+        [
+          "lovastatin",
+          181
+        ],
+        [
+          "risk factors",
+          166
+        ],
+        [
+          "myocardial infarction",
+          161
+        ],
+        [
+          "male",
+          158
+        ],
+        [
+          "therapy",
+          144
+        ],
+        [
+          "triglycerides",
+          142
+        ],
+        [
+          "fluvastatin",
+          122
+        ],
+        [
+          "mortality",
+          121
+        ],
+        [
+          "aged",
+          112
+        ],
+        [
+          "coronary artery disease",
+          89
+        ],
+        [
+          "metabolism",
+          87
+        ],
+        [
+          "hypertension",
+          80
+        ],
+        [
+          "female",
+          78
+        ],
+        [
+          "drug therapy",
+          73
+        ],
+        [
+          "adverse effects",
+          71
+        ],
+        [
+          "humans",
+          71
+        ],
+        [
+          "pharmacokinetics",
+          69
+        ],
+        [
+          "stroke",
+          68
+        ],
+        [
+          "c-reactive protein",
+          66
+        ]
+      ]
+    },
+    "all articles": {
+      "n_articles": 2744,
+      "mean_expert_terms_eligible": 19.04,
+      "mean_expert_terms_below_min_length": 0.01,
+      "mean_auto_terms_matched": 13.13,
+      "mean_recovered_per_article": 2.95,
+      "mean_missed_per_article": 16.09,
+      "mean_spurious_per_article": 10.18,
+      "micro_recovery_rate": 0.1551,
+      "macro_recovery_rate": 0.1545,
+      "spurious_share_of_matched": 0.7751,
+      "articles_with_zero_recovery": 209,
+      "top_missed_terms": [
+        [
+          "humans",
+          2645
+        ],
+        [
+          "therapeutic use",
+          1830
+        ],
+        [
+          "drug therapy",
+          1628
+        ],
+        [
+          "male",
+          1471
+        ],
+        [
+          "female",
+          1443
+        ],
+        [
+          "middle aged",
+          1429
+        ],
+        [
+          "blood",
+          1172
+        ],
+        [
+          "hydroxymethylglutaryl-coa reductase inhibitors",
+          931
+        ],
+        [
+          "anticholesteremic agents",
+          896
+        ],
+        [
+          "aged",
+          856
+        ],
+        [
+          "adult",
+          848
+        ],
+        [
+          "prevention & control",
+          706
+        ],
+        [
+          "drug effects",
+          658
+        ],
+        [
+          "pharmacology",
+          551
+        ],
+        [
+          "cholesterol, ldl",
+          549
+        ],
+        [
+          "administration & dosage",
+          500
+        ],
+        [
+          "coronary disease",
+          494
+        ],
+        [
+          "treatment outcome",
+          486
+        ],
+        [
+          "adverse effects",
+          479
+        ],
+        [
+          "hypolipidemic agents",
+          466
+        ],
+        [
+          "double-blind method",
+          461
+        ],
+        [
+          "complications",
+          452
+        ],
+        [
+          "metabolism",
+          433
+        ],
+        [
+          "hyperlipidemias",
+          388
+        ],
+        [
+          "etiology",
+          375
+        ]
+      ],
+      "top_spurious_terms": [
+        [
+          "patients",
+          1897
+        ],
+        [
+          "disease",
+          1346
+        ],
+        [
+          "cholesterol",
+          1216
+        ],
+        [
+          "risk",
+          1052
+        ],
+        [
+          "therapy",
+          1028
+        ],
+        [
+          "heart",
+          718
+        ],
+        [
+          "methods",
+          711
+        ],
+        [
+          "back",
+          546
+        ],
+        [
+          "infarction",
+          394
+        ],
+        [
+          "time",
+          382
+        ],
+        [
+          "diet",
+          376
+        ],
+        [
+          "population",
+          350
+        ],
+        [
+          "analysis",
+          348
+        ],
+        [
+          "secondary",
+          347
+        ],
+        [
+          "women",
+          331
+        ],
+        [
+          "mortality",
+          302
+        ],
+        [
+          "safety",
+          301
+        ],
+        [
+          "affect",
+          295
+        ],
+        [
+          "tics",
+          287
+        ],
+        [
+          "rest",
+          259
+        ],
+        [
+          "triglycerides",
+          248
+        ],
+        [
+          "morbidity",
+          234
+        ],
+        [
+          "incidence",
+          234
+        ],
+        [
+          "proteins",
+          233
+        ],
+        [
+          "secondary prevention",
+          225
+        ]
+      ],
+      "top_recovered_terms": [
+        [
+          "cholesterol",
+          498
+        ],
+        [
+          "simvastatin",
+          435
+        ],
+        [
+          "pravastatin",
+          387
+        ],
+        [
+          "hypercholesterolemia",
+          282
+        ],
+        [
+          "atorvastatin",
+          231
+        ],
+        [
+          "blood",
+          226
+        ],
+        [
+          "lovastatin",
+          206
+        ],
+        [
+          "myocardial infarction",
+          178
+        ],
+        [
+          "risk factors",
+          175
+        ],
+        [
+          "male",
+          166
+        ],
+        [
+          "therapy",
+          156
+        ],
+        [
+          "triglycerides",
+          152
+        ],
+        [
+          "fluvastatin",
+          138
+        ],
+        [
+          "mortality",
+          132
+        ],
+        [
+          "aged",
+          131
+        ],
+        [
+          "metabolism",
+          92
+        ],
+        [
+          "coronary artery disease",
+          90
+        ],
+        [
+          "female",
+          83
+        ],
+        [
+          "hypertension",
+          82
+        ],
+        [
+          "drug therapy",
+          80
+        ],
+        [
+          "adverse effects",
+          75
+        ],
+        [
+          "humans",
+          75
+        ],
+        [
+          "stroke",
+          74
+        ],
+        [
+          "pharmacokinetics",
+          72
+        ],
+        [
+          "lipids",
+          69
+        ]
+      ]
+    }
+  }
+}
