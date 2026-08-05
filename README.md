@@ -203,13 +203,6 @@ The Cohen benchmark extension fixes Workflow 8 (the thesis-identified best) and 
 
 ## Citation
 
-If you use this work, please cite:
-
-```
-Okoe-Mensah, S. (2023). Text Classification for the Automation of Article Selection
-on the Effectiveness of Medical Interventions. Master's thesis, University of Bergen.
-```
-
 The Cohen benchmark extension paper is in internal review. Citation details will be added when the paper is publicly available.
 
 ## Acknowledgements
