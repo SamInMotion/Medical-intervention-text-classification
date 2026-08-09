@@ -28,8 +28,8 @@ designs_short = ['Canonical\nBoW', 'Subsampled\nBoW', '10-fold\nBoW', 'BiomedBER
 means = [0.0957, 0.0332, 0.0207, 0.0200]
 
 # 95% bootstrap CIs from manuscript
-ci_lower = [0.075, -0.022, 0.001, -0.011]
-ci_upper = [0.116, 0.092, 0.041, 0.052]
+ci_lower = [0.075, -0.022, 0.001, -0.021]
+ci_upper = [0.116, 0.092, 0.041, 0.062]
 
 # Colors for each design condition
 colors = ['#1a5276', '#1e8449', '#d68910', '#7d3c98']
@@ -162,7 +162,7 @@ row_data = [
     ('Canonical BoW\n(5-fold, full n=2,744)', '0.096', '[+0.075, +0.116]', colors[0], light_colors[0]),
     ('Subsampled BoW\n(5-fold, n=803)', '0.033', '[-0.022, +0.092]', colors[1], light_colors[1]),
     ('10-fold BoW\n(10-fold, full n=2,744)', '0.021', '[+0.001, +0.041]', colors[2], light_colors[2]),
-    ('BiomedBERT\n(5-fold, truncated 512)', '0.020', '[-0.011, +0.052]', colors[3], light_colors[3]),
+    ('BiomedBERT\n(5-fold, truncated 512)', '0.020', '[-0.021, +0.062]', colors[3], light_colors[3]),
 ]
 
 row_y = [7.15, 5.75, 4.35, 2.95]
@@ -214,7 +214,7 @@ ax2.text(5, 0.15, 'Bootstrap percentile CIs, 10,000 resamples',
 # SAVE
 # ============================================================
 
-plt.savefig('fig_design_sensitivity_final.pdf', dpi=300, facecolor='white', bbox_inches='tight')
-plt.savefig('fig_design_sensitivity_final.png', dpi=300, facecolor='white', bbox_inches='tight')
+plt.savefig('outputs/fig_design_sensitivity_final.pdf', dpi=300, facecolor='white', bbox_inches='tight')
+plt.savefig('outputs/fig_design_sensitivity_final.png', dpi=300, facecolor='white', bbox_inches='tight')
 print("Saved: fig_design_sensitivity_final.pdf")
 print("Saved: fig_design_sensitivity_final.png")

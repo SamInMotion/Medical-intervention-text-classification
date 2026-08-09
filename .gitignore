@@ -65,3 +65,6 @@ archive_pre_anon_*.zip
 *.bak
 *.bak2
 docs/Context_Update_*.md
+
+NEJLT_HANDOVER.md
+Context_Update_*.md

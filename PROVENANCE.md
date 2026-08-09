@@ -56,7 +56,7 @@ nowhere, so each session re-derived the same lineage from scratch.
 | # | Defect | Location | Evidence | Fix |
 |---|---|---|---|---|
 | 20 | **BERT rows of Table 5 are seed-level statistics under a per-fold `n` column.** Perm p values 0.19/0.31/0.81 are 6/32, 10/32, 26/32, only possible at n=5. Bootstrap of the 5 per-seed gaps reproduces the means and the v4 parenthetical [−0.037,+0.020] exactly. | Table 5 | `paper_draft_v4.tex` L293 discloses "n=15 seed-level"; disclosure removed by v7.1 | Replace with the per-fold set, independently recomputed twice: Statins +0.0199 [−0.021,+0.062] p 0.363; Opioids −0.0481 [−0.098,+0.004] p 0.083; ADHD +0.0035 [−0.040,+0.042] p 0.876; pooled −0.0083 [−0.036,+0.018] p 0.549. Figure 1 already plots this set; Figure 2 does not (see #35) |
-| 21 | **Runs 1 and 2 are the archived oneDNN test runs.** All 24 values in `run1.txt` match `archive/bow_statins_smoke_onednn_off.txt`; `run2.txt` matches `..._rerun2.txt`. Run 1 executed with `TF_ENABLE_ONEDNN_OPTS=0`. | §4.1 "identical arguments"; App A.3 | timestamps 06-20 15:08, 15:28, 15:33 | Correct the identical-arguments claim; disclose the reuse |
+| 21 | **Runs 1 and 2 are the archived oneDNN test runs.** All 24 values in `run1.txt` match `archive/bow_statins_smoke_onednn_off.txt`; `run2.txt` matches `bow_statins_smoke_rerun2.txt`. Run 1 executed with `TF_ENABLE_ONEDNN_OPTS=0`. | §4.1 "identical arguments"; App A.3 | timestamps 06-20 15:08, 15:28, 15:33 | Correct the identical-arguments claim; disclose the reuse |
 | 22 | **Table 10 rests on a separate 18 June single-run session** with oneDNN enabled, two days before the multi-run set and eight before Opioids/ADHD multi-runs. Statins expert 0.235 exceeds all seven multi-run values [0.198,0.227]. | Table 10, §3.6, §4.4, §5.4 | Confirmed: json diffs + smoke auto folds = smoke expert folds, mean 0.235. Run 1 does not match. REPRODUCING.md claims run 1 (see #45) | Disclose the separate session and environment, or recompute MDE from multi-run per-run SDs |
 | 23 | **"the originally published value of +0.121" is not published.** It is the 14 April run, expert 0.223 − auto 0.102. Contradicts the Introduction's no-prior-study claim. | §4.1 | `outputs/archive/text_mode_comparison.txt` 04-14; `PUBLISHED_STATINS_GAP` in deleted code | Rewrite as an earlier single-run estimate from this work |
 | 24 | **"drift up to 0.03 WSS@95% per fold" understates by ~5×.** Max per-fold spread across 7 runs: 0.144 expert, 0.137 auto. No source for 0.03 anywhere in the repo. | §3.5 | computed from `bow_statins_multirun_summary.json` | Replace with 0.144; strengthens the multi-run justification |
@@ -95,7 +95,7 @@ nowhere, so each session re-derived the same lineage from scratch.
 | 36 | README states `features.py` is a CountVectorizer replacement; it uses `keras_text.Tokenizer`. The paper is right, the README is wrong |
 | 37 | README BERT CIs match `bert_per_fold_bootstrap.json` and therefore disagree with Table 5. README is correct; resolved by #20 |
 | 38 | README "What's Next" claims multi-seed covers Statins only, then all three, in consecutive sentences |
-| 39 | README and REPRODUCING.md reference `make_fig1_gap_forest_v3.py` at root; actual path `scripts/make_fig1_gap_forest.py` after `eac66cf` |
+| 39 | README and REPRODUCING.md reference make_fig1_gap_forest_v3.py at root; actual path `scripts/make_fig1_gap_forest.py` after `eac66cf` |
 | 40 | Appendix A.1 lists analysis scripts at paths that do not match the current tree |
 | 41 | **INVERTED.** `.gitignore` L40 excludes `data/cohen/cache/`, which is the `--cache-dir` default and the only directory the code reads. `data/cohen/pubmed_cache/` is the tracked copy and is referenced by nothing. A clone gets 6,216 records at a dead path and re-fetches from Entrez. Bears on the data-availability criterion and on the anonymised mirror. |
 | 42 | `docs/Context_Update_188.md` and consolidation drafts tracked in the repo; identity-bearing |
@@ -116,3 +116,66 @@ nowhere, so each session re-derived the same lineage from scratch.
 |---|---|
 | 2026-08-05 | Built from full-session audit at HEAD `6147b23` |
 | 2026-08-05 | Table 5 replacement set verified by independent recomputation (#19b). #22 confirmed by arithmetic. #29 gains bootstrap CIs. #34 closed. #41 inverted. #50 closed. #45–#49 added. Audit closed; no blocking unknowns remain. |
+
+---
+
+## Part 6 — Experiment artifacts
+
+Sourced from the session inventories that produced them. Every file below
+supports a claim in the manuscript or records a decision that shaped one.
+
+### Design-sensitivity experiments (Table 9, Figure 2)
+
+| File | Role |
+|---|---|
+| `paper_experiments/run_statins_subsampling.sh` | Experiment A driver, matched corpus size |
+| `paper_experiments/run_statins_10fold.sh` | Experiment B driver, 10-fold at full size |
+| `paper_experiments/outputs/bow_statins_subN803_subseed{1..7}_modes.txt` | Experiment A raw output, 7 subsample seeds |
+| `paper_experiments/outputs/bow_statins_kfold10_run{1..7}_modes.txt` | Experiment B raw output, 7 reruns |
+| `paper_experiments/parse_bow_experiments.py` | Bootstrap CI parser and verdict generator |
+| `paper_experiments/outputs/bow_experiments_summary.csv` | Long-format per-fold values, source of #10 and #11 |
+| `paper_experiments/outputs/bow_experiments_summary.md` | Bootstrap CI table |
+| `paper_experiments/outputs/bow_experiments_decision.txt` | Verdict text. Prompted the §5.2 rework (CU 210) |
+| `paper_experiments/patch_cohen_pipeline.py` | Adds `--subsample-n` and `--subsample-seed` to the BoW pipeline |
+
+### Power analysis and token audit (Table 11, §3.3)
+
+| File | Role |
+|---|---|
+| `paper_experiments/power_analysis.py` | MDE table generator |
+| `paper_experiments/outputs/power_analysis.md` | MDE table, source of #12 and #13 |
+| `paper_experiments/audit_token_lengths.py` | Truncation-rate analysis |
+| `paper_experiments/outputs/audit_token_lengths.md` | Truncation rates, source of #14 and #15 |
+
+### Audit and reviewer-facing analyses
+
+| File | Role |
+|---|---|
+| `paper_experiments/audit_bow_bert_data_parity.md` | Narrative audit of BoW/BERT data parity |
+| `outputs/analysis_results_full_v2.json` | Audit-based three-topic single-seed analysis. Verification source for Table 6 per-fold values |
+| `outputs/audit_comparison.json` | Pre- and post-audit drift, source of #25 |
+| `paper_experiments/local_inspect.sh` | One-shot diagnostic, retained for reproducibility |
+| `scripts/build_manifest.py` | Generates `MANIFEST.md` by deriving each file's justification from imports and documentation references |
+| `scripts/verify_branch.sh` | Five-check pre-mirror verification: identity, provenance fingerprint, documentation paths, imports and tests, orphans |
+| `MANIFEST.md` | Generated inventory: every tracked file with the reason it is present |
+| `notebooks/cohen_bert_audit.ipynb` | Colab notebook for the BiomedBERT reproducibility audit; produced `outputs/audit_comparison.json` |
+| `paper_experiments/README_paper_experiments.md` | Directory guide to the design-sensitivity and power-analysis scripts |
+
+### Figures
+
+| File | Role |
+|---|---|
+| `outputs/fig1_gap_forest.pdf`, `.png` | Figure 1, from `scripts/make_fig1_gap_forest.py` |
+| `outputs/fig_design_sensitivity_final.pdf`, `.png` | Figure 2, from `scripts/fig_design_sensitivity.py`. Values are hardcoded at `ci_lower`/`ci_upper` and in the summary-table rows; both must be updated by hand when Table 6 changes |
+| `make_fig2_design_sensitivity.py` | Superseded. Writes `fig2_design_sensitivity.pdf`, which nothing consumes |
+
+### Superseded, retained as record
+
+| File | Role |
+|---|---|
+| `outputs/archive/bow_statins_smoke.txt` | Source of Table 11, see #22 |
+| `outputs/archive/bow_statins_smoke_onednn_off.txt`, `bow_statins_smoke_rerun2.txt` | oneDNN falsification runs, see #21 |
+| `outputs/archive/text_mode_comparison.txt` | 14 April run, the +0.121 of #23 |
+| `outputs/archive/all_workflows_statins.txt` | April exploration, all 11 workflows on Statins |
+| `outputs/archive/bert_val_tuned.txt` | Early tuned BERT validation log |
+| `outputs/archive/analysis_results_full.json` | Pre-audit single-seed analysis |
