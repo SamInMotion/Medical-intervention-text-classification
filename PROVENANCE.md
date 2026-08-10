@@ -158,6 +158,7 @@ supports a claim in the manuscript or records a decision that shaped one.
 | `scripts/build_manifest.py` | Generates `MANIFEST.md` by deriving each file's justification from imports and documentation references |
 | `scripts/verify_branch.sh` | Five-check pre-mirror verification: identity, provenance fingerprint, documentation paths, imports and tests, orphans |
 | `MANIFEST.md` | Generated inventory: every tracked file with the reason it is present |
+| manuscript | Not in the repository. The live source is in Overleaf; the arXiv v2 source is preserved at tag `v1.1-arxiv` (`6147b23`), and the pre-audit tree is archived at `../archive_pre_anon_v1.1-arxiv.zip`. `paper/` was removed from `main` at `026e488` |
 | `notebooks/cohen_bert_audit.ipynb` | Colab notebook for the BiomedBERT reproducibility audit; produced `outputs/audit_comparison.json` |
 | `paper_experiments/README_paper_experiments.md` | Directory guide to the design-sensitivity and power-analysis scripts |
 
