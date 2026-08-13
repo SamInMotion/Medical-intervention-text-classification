@@ -19,8 +19,8 @@ The original thesis code lives in the Jupyter notebooks at the repo root. These 
 In 2026 the notebook code was refactored into a Python package (`src/`) with tests, a CLI interface, and clearer separation between data loading, preprocessing, feature extraction, and evaluation. The refactor enabled the Cohen benchmark extension and the BiomedBERT comparison.
 
 **Original thesis code (2023):**
-- `Main Classify Abstracts Code.ipynb` — full classification pipeline
-- `Ontology Preferred Label Groupings.ipynb` — NEO ontology processing
+- Main Classify Abstracts Code.ipynb — full classification pipeline
+- Ontology Preferred Label Groupings.ipynb — NEO ontology processing
 - `classify_abstracts_new.py` — standalone script version
 
 **v2.0 refactor (2026):**
@@ -69,7 +69,7 @@ The analysis pipeline consists of:
 
 - `paper_experiments/parse_bow_multirun.py` — parses BoW multi-run `.txt` outputs into per-topic summary JSONs.
 - `bootstrap_paired_permutation.py` — computes per-topic and pooled bootstrap CIs and permutation p-values for the BiomedBERT multi-seed analysis from the per-fold JSONs. Produces the BERT statistics in the paper's Table 5.
-- `make_fig1_gap_forest_v3.py` — reads all three BoW multi-run summaries and all three BiomedBERT multi-seed summaries to render the canonical Figure 1 forest plot.
+- `scripts/make_fig1_gap_forest.py` — reads all three BoW multi-run summaries and all three BiomedBERT multi-seed summaries to render the canonical Figure 1 forest plot.
 - `scripts/make_fig1_v2.py` — earlier figure generator that read only the BoW Statins summary and used hardcoded BERT values. Preserved as historical baseline; superseded by v3.
 - `scripts/make_paper_artifacts.py` and `demo_statistical_analysis.py` — pre-audit historical baselines that assume filenames without the `_seed42` suffix. Preserved as research record. The CU 178 §6 patch making them audit-aware is documented but not executed; the canonical regeneration paths are the scripts above.
 
@@ -104,7 +104,7 @@ source venv/bin/activate  # Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-Place the original thesis data files (`abstracts.tsv`, `neo.json`, `med-stopwords.txt`) in the `data/` directory. See `data/README.md` for details.
+Place the original thesis data files (abstracts.tsv, neo.json, med-stopwords.txt) in the `data/` directory. See `data/README.md` for details.
 
 The Cohen benchmark loader fetches and caches abstracts on first run. An NCBI Entrez email address is required (passed via `--email` on the command line) to comply with the Entrez usage policy.
 
@@ -160,7 +160,7 @@ The BiomedBERT pipeline writes per-fold raw values to a `.json` sibling next to 
 python bootstrap_paired_permutation.py
 
 # Figure 1 forest plot from all six summary JSONs
-python make_fig1_gap_forest_v3.py
+python scripts/make_fig1_gap_forest.py
 ```
 
 **Run tests:**
@@ -193,7 +193,7 @@ The Cohen benchmark extension fixes Workflow 8 (the thesis-identified best) and 
 
 - **Multi-seed BiomedBERT extended to all topic-mode combinations.** The current multi-seed analysis covers Statins across five seeds for the two H-Pub2-critical modes (`title_abstract_mesh` and `auto_mesh`). Multi-seed analysis is complete for all three topics (Statins, Opioids, ADHD) with five seeds each for the H-Pub2-critical modes. Extending to five seeds across all topic-mode combinations would tighten the null-finding CIs.
 
-- **Audit-aware paper-artifact pipeline.** `scripts/make_paper_artifacts.py` and `demo_statistical_analysis.py` are preserved as pre-audit historical baselines and assume filenames without the `_seed42` suffix. The patch to read from `analysis_results_full_v2.json` and expose the multi-run BoW ribbon is documented but not executed; the canonical regeneration paths run through `bootstrap_paired_permutation.py` and `make_fig1_gap_forest_v3.py` instead.
+- **Audit-aware paper-artifact pipeline.** `scripts/make_paper_artifacts.py` and `demo_statistical_analysis.py` are preserved as pre-audit historical baselines and assume filenames without the `_seed42` suffix. The patch to read from `analysis_results_full_v2.json` and expose the multi-run BoW ribbon is documented but not executed; the canonical regeneration paths run through `bootstrap_paired_permutation.py` and `scripts/make_fig1_gap_forest.py` instead.
 
 - **Extension to remaining Cohen topics.** Twelve more topics are available in the benchmark. Adding them would tighten the pooled CIs substantially and let the cross-classifier comparison rest on a wider topic base.
 

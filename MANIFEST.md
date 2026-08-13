@@ -7,10 +7,9 @@ from Python imports and from paths cited in the documentation.
 **ORPHAN** means nothing references the file: no import, no paper
 claim, no document. Orphans should be removed or documented.
 
-## 2 orphans
+## 1 orphans
 
-- `archive/Main Classify Abstracts Code.ipynb`
-- `archive/Ontology Preferred Label Groupings.ipynb`
+- `scripts/step2_anon.sh`
 
 ## Grouped
 
@@ -28,13 +27,12 @@ claim, no document. Orphans should be removed or documented.
 | `PROVENANCE.md` | cited in PROVENANCE.md, REPRODUCING.md; project file |
 | `README.md` | cited in PROVENANCE.md, README.md, data/README.md; project file |
 | `REPRODUCING.md` | cited in PROVENANCE.md, README.md, data/README.md; project file |
-| `archive/Main Classify Abstracts Code.ipynb` | **ORPHAN** |
-| `archive/Ontology Preferred Label Groupings.ipynb` | **ORPHAN** |
 | `archive/commit_and_store.sh` | cited in PROVENANCE.md |
 | `archive/fig1_gap_forest_v2.pdf` | cited in PROVENANCE.md |
 | `archive/fig1_gap_forest_v2.png` | cited in PROVENANCE.md; figure, PDF sibling cited |
 | `archive/make_fig1_v2.py` | entry point; cited in PROVENANCE.md, README.md, REPRODUCING.md, data/README.md |
 | `archive/make_fig2_design_sensitivity.py` | entry point; cited in PROVENANCE.md, REPRODUCING.md |
+| `archive/pre_v7_7/make_fig1_gap_forest.py` | entry point; cited in PROVENANCE.md, README.md, REPRODUCING.md, data/README.md |
 | `archive/verify_setup.sh` | cited in PROVENANCE.md |
 | `bootstrap_paired_permutation.py` | entry point; cited in PROVENANCE.md, README.md, REPRODUCING.md |
 | `bow_stats_results.json` | cited in PROVENANCE.md, README.md, REPRODUCING.md, data/README.md |
@@ -42,6 +40,7 @@ claim, no document. Orphans should be removed or documented.
 | `data/README.md` | cited in PROVENANCE.md, README.md, data/README.md; project file |
 | `data/cohen/epc-ir.clean.tsv` | cited in PROVENANCE.md, REPRODUCING.md; data |
 | `demo_statistical_analysis.py` | entry point; cited in PROVENANCE.md, README.md, data/README.md |
+| `docs/CORRECTIONS_v7_7.md` | cited in PROVENANCE.md |
 | `docs/Cohen_BERT_Extension_Results_Consolidation_v4.md` | cited in PROVENANCE.md |
 | `notebooks/cohen_bert_audit.ipynb` | cited in PROVENANCE.md, README.md, data/README.md |
 | `notebooks/cohen_bert_multiseed.ipynb` | cited in README.md, REPRODUCING.md, data/README.md |
@@ -177,12 +176,18 @@ claim, no document. Orphans should be removed or documented.
 | `pyproject.toml` | project file |
 | `requirements.txt` | cited in README.md, data/README.md; project file |
 | `scripts/README.md` | cited in PROVENANCE.md, README.md, data/README.md; project file |
+| `scripts/apply_v7_7_repo.sh` | cited in PROVENANCE.md |
+| `scripts/bootstrap_bert_per_fold.py` | entry point; cited in PROVENANCE.md, data/README.md |
 | `scripts/build_manifest.py` | entry point; cited in PROVENANCE.md |
 | `scripts/fig_design_sensitivity.py` | cited in PROVENANCE.md, REPRODUCING.md |
-| `scripts/make_fig1_gap_forest.py` | entry point; cited in PROVENANCE.md, REPRODUCING.md |
+| `scripts/fix_provenance_paths.py` | entry point; cited in PROVENANCE.md |
+| `scripts/make_fig1_gap_forest.py` | entry point; cited in PROVENANCE.md, README.md, REPRODUCING.md, data/README.md |
 | `scripts/make_paper_artifacts.py` | entry point; cited in PROVENANCE.md, README.md, REPRODUCING.md, data/README.md |
 | `scripts/run_bow_multirun.sh` | cited in PROVENANCE.md |
+| `scripts/step1_docs.sh` | cited in PROVENANCE.md |
+| `scripts/step2_anon.sh` | **ORPHAN** |
 | `scripts/verify_branch.sh` | cited in PROVENANCE.md |
+| `scripts/verify_v7_7.sh` | cited in PROVENANCE.md |
 | `src/__init__.py` | cited in PROVENANCE.md; project file |
 | `src/auto_mesh.py` | imported by mesh_assignment_analysis.py, cohen_bert_pipeline.py, cohen_pipeline.py, +1 more; cited in PROVENANCE.md, README.md, REPRODUCING.md, data/README.md |
 | `src/benchmark_loader.py` | imported by audit_token_lengths.py, mesh_assignment_analysis.py, cohen_bert_pipeline.py, +2 more; cited in PROVENANCE.md, README.md, REPRODUCING.md, data/README.md |

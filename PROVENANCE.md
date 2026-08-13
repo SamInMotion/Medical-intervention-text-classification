@@ -323,8 +323,6 @@ recorded as open, and asserted it wrongly. See #32 and #53b.
 | `archive/make_fig1_v2.py` | See #53 |
 | `archive/make_fig2_design_sensitivity.py` | See #35, #53b |
 | `archive/pre_v7_7/` | Pre-patch copies of every file `scripts/apply_v7_7_repo.sh` replaced |
-| `archive/Main Classify Abstracts Code.ipynb` | Thesis-era notebook, full classification pipeline as submitted (2023) |
-| `archive/Ontology Preferred Label Groupings.ipynb` | Thesis-era NEO ontology processing |
 | `archive/fig1_gap_forest_v2.pdf` | Output of the decoy generator, see #53 |
 | `archive/fig1_gap_forest_v2.png` | Output of the decoy generator, see #53 |
 | `archive/commit_and_store.sh` | Superseded session helper |

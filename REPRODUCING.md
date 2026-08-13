@@ -90,7 +90,7 @@ TEXT MODE COMPARISON block.
 
 **Condition to disclose:** `bow_statins_run1.txt` is byte-identical on all
 reported values to `outputs/archive/bow_statins_smoke_onednn_off.txt`, and
-`run2.txt` to `..._smoke_rerun2.txt`. Run 1 was executed with
+`run2.txt` to `bow_statins_smoke_rerun2.txt`. Run 1 was executed with
 `TF_ENABLE_ONEDNN_OPTS=0`. The paper's claim that the seven reruns use identical
 arguments is pending correction, ledger #21.
 
