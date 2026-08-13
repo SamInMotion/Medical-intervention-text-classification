@@ -325,8 +325,8 @@ recorded as open, and asserted it wrongly. See #32 and #53b.
 | `archive/pre_v7_7/` | Pre-patch copies of every file `scripts/apply_v7_7_repo.sh` replaced |
 | `archive/fig1_gap_forest_v2.pdf` | Output of the decoy generator, see #53 |
 | `archive/fig1_gap_forest_v2.png` | Output of the decoy generator, see #53 |
-| `archive/commit_and_store.sh` | Superseded session helper |
-| `archive/verify_setup.sh` | Superseded setup check. `paper_experiments/README_paper_experiments.md` still cites the pre-archive path; update it or restore the file |
+| archive/commit_and_store.sh (not on the review branch) | Superseded session helper |
+| archive/verify_setup.sh (not on the review branch) | Superseded setup check. `paper_experiments/README_paper_experiments.md` still cites the pre-archive path; update it or restore the file |
 
 ---
 
