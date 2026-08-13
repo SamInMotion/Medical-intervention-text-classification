@@ -3,7 +3,7 @@
 # local_inspect.sh
 # ----------------------------------------------------------------------------
 # Inspect the LOCAL working tree. Run from inside the repo:
-#   cd /c/Users/samue.KITAB/Medical-intervention-text-classification
+#   cd $REPO_ROOT
 #   bash paper_experiments/local_inspect.sh
 #
 # Read-only. Dumps three files in full and shows git state.

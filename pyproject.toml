@@ -10,9 +10,9 @@ readme = "README.md"
 requires-python = ">=3.9"
 license = {text = "MIT"}
 authors = [
-    {name = "Samuel Okoe-Mensah", email = "sammy.okmens@gmail.com"},
+    {name = "Anonymous Author"},
 ]
-keywords = ["NLP", "text-classification", "systematic-review", "medical", "ontology", "SNOMED-CT"]
+keywords = ["NLP", "text-classification", "systematic-review", "ontology"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

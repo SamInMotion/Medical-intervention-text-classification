@@ -42,11 +42,11 @@ class ProjectPaths:
 
     @property
     def abstracts_path(self) -> Path:
-        return self.data_dir / "abstracts.tsv"
+        return self.data_dir / "corpus.tsv"
 
     @property
     def neo_path(self) -> Path:
-        return self.data_dir / "neo.json"
+        return self.data_dir / "ontology.json"
 
     @property
     def med_stopwords_path(self) -> Path:

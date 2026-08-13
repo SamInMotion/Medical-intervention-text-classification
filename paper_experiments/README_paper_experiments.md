@@ -18,7 +18,7 @@ Six computations addressing Christer Johansson's six questions on the paper draf
 ## Phase 0 — verify (5 minutes)
 
 ```bash
-cd /c/Users/samue.KITAB/Medical-intervention-text-classification
+cd $REPO_ROOT
 bash paper_experiments/verify_setup.sh
 ```
 

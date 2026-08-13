@@ -142,7 +142,7 @@ ADHD     SD 0.2281594  normal 0.2859  exact 0.3838
 ```
 
 Exact noncentral-*t*, α = 0.05 two-sided, 80% power. The normal-approximation
-column matches CU 210's record of `power_analysis.md` to four decimals, which
+column matches an internal session record of `power_analysis.md` to four decimals, which
 confirms both the formula and the input file. `power_analysis.py` already
 computed the exact ratio and reported the approximation as the headline; the
 08-11 patch flips which value is printed, so `tab:power` now has a generating
@@ -216,7 +216,7 @@ function, so the file does not carry it.**
 | 39 | README and REPRODUCING.md reference make_fig1_gap_forest_v3.py at root | OPEN. **Note: the correct path is not `scripts/make_fig1_gap_forest.py` either** — see #53. `_v3` is that script's *output*, not its name |
 | 40 | Appendix A.1 lists analysis scripts at paths that do not match the current tree | Partly resolved: `scripts/bootstrap_bert_per_fold.py` restored, see #54 |
 | 41 | **INVERTED.** `.gitignore` L40 excludes `data/cohen/cache/`, the `--cache-dir` default and the only directory the code reads | OPEN. Bears on the data-availability criterion and the mirror |
-| 42 | docs/Context_Update_188.md and consolidation drafts tracked in the repo; identity-bearing | OPEN. Also causes a branch check 3 failure: cite as "CU 188" without `.md` so the checker stops parsing it as a path |
+| 42 | internal context-update documents and consolidation drafts tracked in the repo; identity-bearing | 
 | 43 | `bootstrap_paired_permutation.py` expects `bert_{topic}_{mode}.txt` without seed suffix | OPEN |
 | 44 | Consolidation v4 §3 carries the same stale BERT set as `tab:stats` | OPEN. Confirmed live by a stale-value sweep 08-11, at line 35 |
 | 45 | REPRODUCING.md misattributes `tab:power`'s source to `bow_statins_run1.txt`; it is `archive/bow_statins_smoke.txt` | OPEN |
@@ -236,8 +236,8 @@ function, so the file does not carry it.**
 | 54 | **`scripts/bootstrap_bert_per_fold.py` was deleted** in commit `992d227` (06 July, "move analysis scripts to root, remove scripts/ dir") — an intent that only half executed, since `scripts/` was later recreated and the file never reappeared at root. This is the script behind #20's correction; `outputs/bert_per_fold_bootstrap.json` survived. Appendix A.1's claim that the statistical analysis scripts are available was false for the BERT intervals for five weeks. | **RESTORED 08-11** from `992d227^` |
 | 55 | **`paper_experiments/power_analysis.py` defects.** (a) `t_inflation_factor` bracketed the root at `[1e-9, 3*sd]`, pushing the noncentrality past scipy's stable `nct` range: it returns `None` at n=25 and n=70, works at n=5 and n=35, and the caller filtered `None` without noticing. (b) The exact ratio was computed and never applied to the reported MDE. (c) "so the values below are conservative" is emitted by this script; the manuscript's version came from here. (d) The module docstring named a third party and `find_bow_stats()` contained a Windows Google Drive path. | **FIXED 08-11.** Patched version adds a Part 2 generating B1 and B3 |
 | 56 | `demo_statistical_analysis.py` carries a stale BERT value | OPEN, surfaced by the 08-11 sweep |
-| 57 | `origin/v2.0-infastructure` exists and is unaudited | OPEN. Confirmed present by `git fetch --prune` on 08-11, which settles the question CU 213 Part 4 raised. Public surface; decide audit or delete |
-| 58 | **`scripts/verify_branch.sh` Check 1 scope gap.** Its header says it covers "local path", but `IDENTITY='okoe\|okmens\|samuel\|bergen\|SamInMotion\|KITAB'` implements identity tokens plus the machine name only. `/g/My Drive/` contains neither and passes. Archive identifiers are also uncovered: a DOI or arXiv id carries no name but resolves to a deposit under one. | OPEN. Add a path shape and `10\.5281/zenodo\|arxiv\.org` |
+| 57 | `origin/v2.0-infastructure` exists and is unaudited | OPEN. Confirmed present by `git fetch --prune` on 08-11, which settles a question raised in an internal repository audit. Public surface; decide audit or delete |
+| 58 | **`scripts/verify_branch.sh` Check 1 scope gap.** Its header says it covers "local path", but the `IDENTITY` pattern implements author-identity tokens plus the machine hostname only. A Windows Drive-mount path contains neither and passes. Archive identifiers are also uncovered: a DOI or preprint id carries no name but resolves to a deposit under one. | OPEN. Add a path shape and `10\.5281/zenodo\|arxiv\.org` |
 
 ---
 
@@ -257,7 +257,7 @@ supports a claim in the manuscript or records a decision that shaped one.
 | `paper_experiments/parse_bow_experiments.py` | Bootstrap CI parser and verdict generator |
 | `paper_experiments/outputs/bow_experiments_summary.csv` | Long-format per-fold values, source of #10 and #11 |
 | `paper_experiments/outputs/bow_experiments_summary.md` | Bootstrap CI table |
-| `paper_experiments/outputs/bow_experiments_decision.txt` | Verdict text. Prompted the §5.2 rework (CU 210) |
+| `paper_experiments/outputs/bow_experiments_decision.txt` | Verdict text. Prompted the §5.2 rework|
 | `paper_experiments/patch_cohen_pipeline.py` | Adds `--subsample-n` and `--subsample-seed` to the BoW pipeline |
 | `paper_experiments/outputs/run_statins_{10fold,subsampling}_20260630_*.log` ×8 | **Run artifacts for these two experiments.** Referenced here so they are not orphans; they are the execution record behind #10 and #11 |
 

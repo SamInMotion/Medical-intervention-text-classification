@@ -27,7 +27,7 @@
 
 set -euo pipefail
 
-EMAIL="${EMAIL:-sammy.okmens@gmail.com}"
+EMAIL="${EMAIL:?set EMAIL to your NCBI Entrez address}"
 TOPICS=("Opiods" "ADHD")   # cache spelling for Opioids preserved by Cohen TSV
 RUNS=7
 

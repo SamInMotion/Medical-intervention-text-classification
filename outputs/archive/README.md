@@ -35,10 +35,6 @@ the seven-run multi-run characterisation.
   bow_statins_run{1..7}.txt in the parent directory.
 
 ### April thesis exploration
-
-- `kfold_results.txt` (April 12) — Original thesis k-fold validation
-  results on NEO classification (1,611 neurological concepts). The
-  80-86% k-fold accuracy baseline the thesis rests on. Pre-Cohen
   benchmark.
 
 - `all_workflows_statins.txt` (April 14) — April Cohen Statins workflow
