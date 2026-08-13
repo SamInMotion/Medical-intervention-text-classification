@@ -180,6 +180,7 @@ claim, no document. Orphans should be removed or documented.
 | `scripts/bootstrap_bert_per_fold.py` | entry point; cited in PROVENANCE.md, data/README.md |
 | `scripts/build_manifest.py` | entry point; cited in PROVENANCE.md |
 | `scripts/fig_design_sensitivity.py` | cited in PROVENANCE.md, REPRODUCING.md |
+| `scripts/fix_doc_paths.py` | entry point; cited in PROVENANCE.md |
 | `scripts/fix_provenance_paths.py` | entry point; cited in PROVENANCE.md |
 | `scripts/make_fig1_gap_forest.py` | entry point; cited in PROVENANCE.md, README.md, REPRODUCING.md, data/README.md |
 | `scripts/make_paper_artifacts.py` | entry point; cited in PROVENANCE.md, README.md, REPRODUCING.md, data/README.md |
