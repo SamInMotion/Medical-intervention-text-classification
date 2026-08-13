@@ -27,7 +27,7 @@ claim, no document. Orphans should be removed or documented.
 | `REPRODUCING.md` | cited in PROVENANCE.md, README.md; project file |
 | `archive/fig1_gap_forest_v2.pdf` | cited in PROVENANCE.md |
 | `archive/fig1_gap_forest_v2.png` | cited in PROVENANCE.md; figure, PDF sibling cited |
-| `archive/make_fig1_v2.py` | entry point; cited in PROVENANCE.md, README.md, REPRODUCING.md |
+| `archive/make_fig1_v2.py` | entry point; cited in PROVENANCE.md, REPRODUCING.md |
 | `archive/make_fig2_design_sensitivity.py` | entry point; cited in PROVENANCE.md, REPRODUCING.md |
 | `archive/pre_v7_7/make_fig1_gap_forest.py` | entry point; cited in PROVENANCE.md, README.md, REPRODUCING.md |
 | `bootstrap_paired_permutation.py` | entry point; cited in PROVENANCE.md, REPRODUCING.md |

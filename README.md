@@ -54,8 +54,8 @@ scripts/                 figure generators and the multi-run driver
 `PROVENANCE.md` is authoritative. It carries one row per number in the manuscript
 with its source file, that file's date, the run conditions, and a verification
 status, along with the defects still open against the code and documentation.
-`REPRODUCING.md` is generated from it; where the two disagree, `PROVENANCE.md`
-wins.
+`REPRODUCING.md` is a hand-maintained companion; where the two disagree,
+`PROVENANCE.md` wins.
 
 ---
 
@@ -114,8 +114,11 @@ derives and are not used by any analysis reported in the manuscript:
 retained because `src/cohen_pipeline.py` imports feature-extraction helpers from
 the same package.
 
-`scripts/make_fig1_v2.py` and `scripts/make_paper_artifacts.py` predate the
-current output naming and are retained as record, not as regeneration paths.
+`scripts/make_fig1_gap_forest.py` writes `fig1_gap_forest_v3.pdf`, which the
+manuscript does not include; it is retained as record.
+`scripts/make_paper_artifacts.py` names the shipped
+`outputs/fig1_gap_forest.pdf` but predates the multi-seed output naming and
+does not run on the current tree; see `PROVENANCE.md` #43 and #53b.
 
 The bag-of-words pipeline is not fully deterministic across identical-command
 reruns; the cause and the multi-run response are documented in the manuscript and
