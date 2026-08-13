@@ -40,7 +40,7 @@ cp -r data/cohen/pubmed_cache data/cohen/cache
 
 ```
 PROVENANCE.md            every number in the manuscript, mapped to its source file
-REPRODUCING.md           claim-to-command map, generated from PROVENANCE.md
+REPRODUCING.md           companion claim-to-command map
 src/                     pipelines, benchmark loader, MeSH assignment, metrics
 tests/                   pytest suite
 data/cohen/              benchmark TSV and cached PubMed records
@@ -94,13 +94,19 @@ python -m paper_experiments.mesh_assignment_analysis --email your.address@exampl
 Figures:
 
 ```bash
-python scripts/make_fig1_gap_forest.py       # reads the six summary JSONs
-python make_fig2_design_sensitivity.py       # values hardcoded, see PROVENANCE.md
+python scripts/fig_design_sensitivity.py     # Figure 2; values hardcoded, see PROVENANCE.md
 ```
 
 ---
 
-## Notes
+## Figure 1 (`outputs/fig1_gap_forest.pdf`) is archived rather than regenerable at
+this commit. `scripts/make_paper_artifacts.py` names it but expects per-fold files
+without the seed suffix the multi-seed protocol introduced, so it fails on the
+current tree (`PROVENANCE.md` #43). `scripts/make_fig1_gap_forest.py` runs, but
+writes `fig1_gap_forest_v3.pdf`, which the manuscript does not include. The
+archived per-fold outputs under `outputs/` reproduce every reported value.
+
+Notes
 
 Some modules under `src/` belong to an earlier project from which this pipeline
 derives and are not used by any analysis reported in the manuscript:
