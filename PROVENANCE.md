@@ -295,7 +295,7 @@ supports a claim in the manuscript or records a decision that shaped one.
 | `MANIFEST.md` | Generated inventory |
 | `notebooks/cohen_bert_audit.ipynb` | Colab notebook for the BiomedBERT reproducibility audit |
 | `paper_experiments/README_paper_experiments.md` | Directory guide |
-| `docs/Cohen_BERT_Extension_Results_Consolidation_v4.md` | Consolidated results record. **Carries three defects listed in the addendum section D and must be corrected with the manuscript** |
+| docs/Cohen_BERT_Extension_Results_Consolidation_v4.md (not on the review branch) | Consolidated results record. **Carries three defects listed in the addendum section D and must be corrected with the manuscript** |
 
 ### Figures
 
