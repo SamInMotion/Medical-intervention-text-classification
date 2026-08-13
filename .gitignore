@@ -70,3 +70,7 @@ NEJLT_HANDOVER.md
 Context_Update_*.md
 archive/Main Classify Abstracts Code.ipynb
 archive/Ontology Preferred Label Groupings.ipynb
+scripts/step*.sh
+scripts/fix_*.py
+scripts/apply_v7_7_repo.sh
+scripts/verify_v7_7.sh
