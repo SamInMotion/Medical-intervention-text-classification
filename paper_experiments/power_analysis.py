@@ -1,24 +1,49 @@
 """Power analysis for the topic-stratified BoW gap.
 
-Uses observed per-fold variance from the canonical single-run 5-fold BoW
-analysis to compute the minimum detectable effect (MDE) at each topic size,
-at that design's fold count.
+Uses observed per-fold variance to compute the minimum detectable effect
+(MDE) at each topic, and reports it at two fold counts.
 
-The fold count here is deliberately not the pooled multi-run count used in
-the paper's main results tables. The question this analysis answers is what
-the canonical Cohen evaluation design could have detected, and that design
-is one 5-fold run. Pooling the seven reruns would answer a different
-question, about a characterisation protocol the screening literature does
-not use. Answers Christer's Q2/Q3 from a complementary angle: even
-without the matched-n subsampling experiment, we can ask whether the
-observed Statins effect size would have been detectable at Opioids/ADHD
-sample sizes if it existed there.
+PART 1, the canonical single-run design (n=5 folds per topic). The question
+this answers is what the canonical Cohen evaluation design could have
+detected, and that design is one 5-fold run. This is the analysis behind the
+paper's power table.
 
-Reads bow_stats_results.json (searched in three likely locations) and
-extracts per-fold expert-vs-auto WSS@95 diffs per topic.
+PART 2, the pooled multi-run fold count (n=35 per topic). The paper's main
+results tables use this fold count, so the same quantity computed there is
+reported for contrast. It assumes the 35 per-fold differences are
+independent, which they are not: folds within a rerun share four fifths of
+their training data and all reruns share the corpus. The two parts bracket
+the answer; neither is the effective sample size.
+
+Part 2 also emits the per-fold mean and standard deviation of the multi-run
+differences, which are the source of the design-sensitivity table's SD
+column.
+
+CHANGES FROM THE PREVIOUS VERSION
+  P1  MDE is now reported from the exact noncentral-t distribution, not the
+      normal approximation. The exact value was already computable here via
+      t_inflation_factor(); it was never applied to the reported number.
+      The normal approximation is retained as a secondary column.
+  P2  Removed "so the values below are conservative". Whether an understated
+      MDE is conservative depends on the claim it supports, and the sentence
+      asserted it unconditionally.
+  P3  t_inflation_factor() silently returned None at some fold counts. The
+      bracket [1e-9, 3*sd] drives the noncentrality past the range where
+      scipy's nct is stable (it failed at n=25 and n=70, worked at n=5 and
+      n=35), and the caller filtered the Nones out without noticing. Replaced
+      with nct.sf and an adaptive bracket, verified at n = 5, 7, 25, 35, 70
+      and 105.
+  P4  The detectability comparison now uses the exact MDE.
+  P5  Part 2 added.
+  P6  Removed a named personal reference and a machine-specific absolute
+      path from the module docstring and search paths. This file ships in the
+      anonymised review repository.
+
+Reads bow_stats_results.json for Part 1 and
+outputs/bow_{topic}_multirun_summary.json for Part 2.
 
 Outputs:
-    paper_experiments/outputs/power_analysis.md  (table + narrative for §4.4 / §5.4)
+    paper_experiments/outputs/power_analysis.md
 
 Usage:
     python paper_experiments/power_analysis.py
@@ -26,6 +51,7 @@ Usage:
 
 import json
 import math
+import os
 import sys
 from pathlib import Path
 
@@ -37,13 +63,19 @@ POWER_TARGET = 0.80
 N_BOOT = 10_000
 SEED = 42
 
+EXPERT_MODE = "title_abstract_mesh"
+AUTO_MODE = "auto_mesh"
+
 
 def find_bow_stats():
-    for candidate in [
+    candidates = [
         Path("bow_stats_results.json"),
         Path("paper_experiments/bow_stats_results.json"),
-        Path("/g/My Drive/cohen_bert_run/bow_stats_results.json"),
-    ]:
+    ]
+    env = os.environ.get("COHEN_BOW_STATS")
+    if env:
+        candidates.append(Path(env))
+    for candidate in candidates:
         if candidate.exists():
             return candidate
     return None
@@ -87,40 +119,31 @@ def per_fold_diffs_for_topic(stats, topic):
     return None
 
 
-def mde_from_diffs(diffs, alpha=ALPHA, power=POWER_TARGET):
-    """Minimum detectable effect for a one-sample t-style test on paired diffs.
+def multirun_diffs_for_topic(topic_slug):
+    """Per-fold expert-minus-auto differences pooled across the multi-run set.
 
-    Approximation: MDE = (z_{1-a/2} + z_{power}) * SD / sqrt(n)
-
-    The normal approximation is close to the t-corrected value only at large
-    n. At small n it understates MDE materially. The size of that shortfall
-    is measured by t_inflation_factor() and reported in the output, rather
-    than assumed.
+    Reads outputs/bow_{slug}_multirun_summary.json, structure
+    d['runs'][i]['modes'][mode] -> list of per-fold WSS@95 values.
     """
-    arr = np.asarray(diffs, dtype=float)
-    n = len(arr)
-    if n < 2:
-        return None
-    sd = float(arr.std(ddof=1))
-    from scipy.stats import norm
-    z_a = norm.ppf(1 - alpha / 2)
-    z_b = norm.ppf(power)
-    mde = (z_a + z_b) * sd / math.sqrt(n)
-    return {
-        "n": n,
-        "mean": float(arr.mean()),
-        "sd": sd,
-        "se": sd / math.sqrt(n),
-        "mde": float(mde),
-    }
+    path = Path(f"outputs/bow_{topic_slug}_multirun_summary.json")
+    if not path.exists():
+        return None, path
+    d = json.loads(path.read_text(encoding="utf-8"))
+    runs = [r["modes"] for r in d["runs"]]
+    if not all(m in runs[0] for m in (EXPERT_MODE, AUTO_MODE)):
+        return None, path
+    diffs = [e - a for m in runs
+             for e, a in zip(m[EXPERT_MODE], m[AUTO_MODE])]
+    return diffs, path
 
 
 def t_inflation_factor(n, alpha=ALPHA, power=POWER_TARGET):
     """Exact noncentral-t MDE divided by the normal-approximation MDE.
 
     Scale-free: depends only on n, alpha and power, not on the observed SD.
-    Lets the report state how far the normal approximation falls short at
-    the fold count actually used. Returns None if it cannot be solved.
+    Uses nct.sf rather than 1 - nct.cdf, and brackets the root by expansion
+    rather than at a fixed multiple of sd, because a fixed bracket pushes the
+    noncentrality into a range where scipy's nct returns NaN at some n.
     """
     df = n - 1
     if df < 1:
@@ -128,21 +151,50 @@ def t_inflation_factor(n, alpha=ALPHA, power=POWER_TARGET):
     from scipy.optimize import brentq
     from scipy.stats import norm, nct, t as student_t
 
-    sd = 1.0
     crit = student_t.ppf(1 - alpha / 2, df)
 
-    def attained_power(delta):
-        ncp = delta * math.sqrt(n) / sd
-        return (1 - nct.cdf(crit, df, ncp)) + nct.cdf(-crit, df, ncp) - power
+    def attained(delta):
+        ncp = delta * math.sqrt(n)
+        return nct.sf(crit, df, ncp) + nct.cdf(-crit, df, ncp)
 
-    try:
-        exact = float(brentq(attained_power, 1e-9, 3 * sd, xtol=1e-10))
-    except ValueError:
+    hi = 0.05
+    while attained(hi) < power and hi < 50:
+        hi *= 1.5
+    if attained(hi) < power:
         return None
-    approx = (norm.ppf(1 - alpha / 2) + norm.ppf(power)) * sd / math.sqrt(n)
+    exact = float(brentq(lambda d: attained(d) - power, 1e-9, hi, xtol=1e-12))
+    approx = (norm.ppf(1 - alpha / 2) + norm.ppf(power)) / math.sqrt(n)
     if approx == 0:
         return None
     return exact / approx
+
+
+def mde_from_diffs(diffs, alpha=ALPHA, power=POWER_TARGET):
+    """MDE for a one-sample t-style test on paired differences.
+
+    Reports the exact noncentral-t value as `mde`, and the normal
+    approximation as `mde_normal` for comparison. The approximation
+    understates the MDE, materially so at small n.
+    """
+    arr = np.asarray(diffs, dtype=float)
+    n = len(arr)
+    if n < 2:
+        return None
+    sd = float(arr.std(ddof=1))
+    from scipy.stats import norm
+    approx = (norm.ppf(1 - alpha / 2) + norm.ppf(power)) * sd / math.sqrt(n)
+    infl = t_inflation_factor(n, alpha, power)
+    if infl is None:
+        return None
+    return {
+        "n": n,
+        "mean": float(arr.mean()),
+        "sd": sd,
+        "se": sd / math.sqrt(n),
+        "mde_normal": float(approx),
+        "mde": float(approx * infl),
+        "inflation": float(infl),
+    }
 
 
 def bootstrap_ci(diffs, n_boot=N_BOOT, alpha=ALPHA, seed=SEED):
@@ -159,141 +211,173 @@ def bootstrap_ci(diffs, n_boot=N_BOOT, alpha=ALPHA, seed=SEED):
     )
 
 
+TOPICS = [
+    ("Statins", "statins", 2744),
+    ("Opiods", "opiods", 1772),
+    ("ADHD", "adhd", 803),
+]
+
+
 def main():
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
     stats_path = find_bow_stats()
     if not stats_path:
         print(
-            "bow_stats_results.json not found in any of the expected locations:\n"
-            "  ./bow_stats_results.json\n"
-            "  ./paper_experiments/bow_stats_results.json\n"
-            "  /g/My Drive/cohen_bert_run/bow_stats_results.json\n"
-            "Copy the file to one of those paths, or modify find_bow_stats().",
+            "bow_stats_results.json not found. Expected at ./ or "
+            "./paper_experiments/, or set COHEN_BOW_STATS.",
             file=sys.stderr,
         )
         sys.exit(1)
 
     stats = json.loads(stats_path.read_text(encoding="utf-8"))
-    print(f"Loaded BoW stats from: {stats_path}")
+    print(f"Loaded single-run BoW stats from: {stats_path}")
 
-    topics = [
-        ("Statins", 2744),
-        ("Opiods", 1772),
-        ("ADHD", 803),
-    ]
+    # ---- Part 1, canonical single-run design -----------------------------
     rows = []
-    for topic, n_total in topics:
+    for topic, _slug, n_total in TOPICS:
         diffs = per_fold_diffs_for_topic(stats, topic)
         if not diffs:
             print(f"[warn] No per-fold diffs found for {topic}", file=sys.stderr)
             continue
         m = mde_from_diffs(diffs)
         if m is None:
+            print(f"[warn] MDE not computable for {topic}", file=sys.stderr)
             continue
         ci_lo, ci_hi = bootstrap_ci(diffs)
-        rows.append({
-            "topic": topic,
-            "n_total": n_total,
-            "n_folds": m["n"],
-            "mean": m["mean"],
-            "sd": m["sd"],
-            "se": m["se"],
-            "ci_lo": ci_lo,
-            "ci_hi": ci_hi,
-            "mde": m["mde"],
-        })
+        rows.append({"topic": topic, "n_total": n_total, "ci_lo": ci_lo,
+                     "ci_hi": ci_hi, **m})
 
     if not rows:
-        print(
-            "No topic data could be extracted. bow_stats_results.json may use "
-            "a schema not handled by per_fold_diffs_for_topic. Inspect it and "
-            "extend the function.",
-            file=sys.stderr,
-        )
+        print("No topic data could be extracted.", file=sys.stderr)
         sys.exit(1)
+
+    # ---- Part 2, pooled multi-run fold count -----------------------------
+    multi = []
+    for topic, slug, n_total in TOPICS:
+        diffs, path = multirun_diffs_for_topic(slug)
+        if diffs is None:
+            print(f"[warn] multi-run summary unusable: {path}", file=sys.stderr)
+            continue
+        m = mde_from_diffs(diffs)
+        if m is None:
+            continue
+        multi.append({"topic": topic, "n_total": n_total, "n_runs": len(diffs) // 5,
+                      **m})
 
     statins_row = next((r for r in rows if r["topic"] == "Statins"), None)
 
     md = []
     md.append("# Power analysis: minimum detectable effect by topic\n")
-    n_values = sorted({r["n_folds"] for r in rows})
-    n_desc = str(n_values[0]) if len(n_values) == 1 else "/".join(map(str, n_values))
-    inflations = [t_inflation_factor(r["n_folds"]) for r in rows]
-    inflations = [x for x in inflations if x is not None]
-    infl_pct = (max(inflations) - 1.0) * 100 if inflations else None
 
+    # Part 1
+    md.append("## Part 1. Canonical single-run design\n")
+    n_values = sorted({r["n"] for r in rows})
+    n_desc = str(n_values[0]) if len(n_values) == 1 else "/".join(map(str, n_values))
     md.append(
         f"Per-fold expert-vs-auto WSS@95 differences from `{stats_path.name}`, "
-        f"the canonical single-run 5-fold analysis, give topic-specific "
-        f"variance estimates. MDE computed at alpha={ALPHA} (two-sided), "
-        f"power={POWER_TARGET:.2f}, normal approximation, on n={n_desc} fold "
-        f"values per topic.\n"
+        f"the canonical single-run 5-fold analysis. MDE computed at "
+        f"alpha={ALPHA} (two-sided), power={POWER_TARGET:.2f}, from the exact "
+        f"noncentral-t distribution, on n={n_desc} fold values per topic.\n"
     )
-    if infl_pct is not None:
-        md.append(
-            f"At n={n_desc} the normal approximation understates MDE by about "
-            f"{infl_pct:.0f}% relative to the exact noncentral-t computation, "
-            f"so the values below are conservative.\n"
-        )
-    md.append("| Topic | n_total | n_folds | Observed mean | 95% CI | SD | SE | MDE (80% power) |")
-    md.append("|---|---|---|---|---|---|---|---|")
+    infl = rows[0]["inflation"]
+    md.append(
+        f"At n={n_desc} the normal approximation understates the MDE by about "
+        f"{(1 - 1 / infl) * 100:.0f}% of the exact value (the exact value is "
+        f"{infl:.3f} times the approximation). The approximation is shown for "
+        f"comparison only.\n"
+    )
+    md.append("| Topic | n_total | n_folds | Observed mean | 95% CI | SD | SE | "
+              "MDE exact (80% power) | MDE normal approx |")
+    md.append("|---|---|---|---|---|---|---|---|---|")
     for r in rows:
         md.append(
-            f"| {r['topic']} | {r['n_total']} | {r['n_folds']} | "
-            f"{r['mean']:+.4f} | [{r['ci_lo']:+.4f}, {r['ci_hi']:+.4f}] | "
-            f"{r['sd']:.4f} | {r['se']:.4f} | {r['mde']:.4f} |"
+            f"| {r['topic']} | {r['n_total']} | {r['n']} | {r['mean']:+.4f} | "
+            f"[{r['ci_lo']:+.4f}, {r['ci_hi']:+.4f}] | {r['sd']:.4f} | "
+            f"{r['se']:.4f} | {r['mde']:.4f} | {r['mde_normal']:.4f} |"
         )
     md.append("")
 
     if statins_row:
-        md.append("## What this answers")
-        md.append("")
+        md.append("### What this answers\n")
         md.append(
-            "The observed Statins effect is "
-            f"**{statins_row['mean']:+.4f}**. Compare this against the MDE at "
-            "each smaller topic:"
+            "The observed Statins effect at this design is "
+            f"**{statins_row['mean']:+.4f}**, against an exact MDE of "
+            f"{statins_row['mde']:.4f}. Compare that effect size against the "
+            "MDE at each smaller topic:\n"
         )
-        md.append("")
         for r in rows:
             if r["topic"] == "Statins":
                 continue
             detectable = statins_row["mean"] >= r["mde"]
-            verdict = "WOULD have been detected" if detectable else "would NOT have been detected"
+            verdict = ("WOULD have been detected" if detectable
+                       else "would NOT have been detected")
             md.append(
-                f"- **{r['topic']}** (MDE = {r['mde']:.4f}): "
-                f"a Statins-sized effect ({statins_row['mean']:+.4f}) "
-                f"{verdict} at this topic's n and variance."
+                f"- **{r['topic']}** (exact MDE = {r['mde']:.4f}): a "
+                f"Statins-sized effect ({statins_row['mean']:+.4f}) {verdict} "
+                f"at this topic's variance and fold count."
             )
         md.append("")
-        md.append("### Reading")
-        md.append("")
         md.append(
-            "If the Statins-sized effect *would* have been detectable at "
-            "Opioids/ADHD given their variance, the absence of a gap at "
-            "those topics is informative — it argues against the pure "
-            "statistical-power explanation. If the MDE is *larger* than "
-            "the Statins effect, we cannot tell from this design alone "
-            "whether the gap is absent or merely undetectable."
+            "If a Statins-sized effect would have been detectable at "
+            "Opioids/ADHD given their variance, the absence of a gap at those "
+            "topics is informative about the effect. If the MDE is larger "
+            "than the Statins effect, this design alone does not distinguish "
+            "an absent gap from an undetected one.\n"
         )
-        md.append("")
+
+    # Part 2
+    if multi:
+        md.append("## Part 2. Pooled multi-run fold count\n")
         md.append(
-            "This analysis is approximate. The matched-n subsampling "
-            "experiment in `parse_bow_experiments.py` gives the direct "
-            "answer for Statins specifically; the power analysis above "
-            "is the complementary cross-topic check."
+            "The same quantity at the fold count used in the main results "
+            "tables. This treats the pooled per-fold differences as "
+            "independent observations, which they are not: folds within a "
+            "rerun share four fifths of their training data and all reruns "
+            "share the corpus. The effective sample size lies between Part 1 "
+            "and Part 2 and is not determined by this design. The mean and SD "
+            "columns are the source of the design-sensitivity table's "
+            "multi-run rows.\n"
+        )
+        md.append("| Topic | n_runs | n_folds | Mean | SD | MDE exact (80% power) |")
+        md.append("|---|---|---|---|---|---|")
+        for r in multi:
+            md.append(
+                f"| {r['topic']} | {r['n_runs']} | {r['n']} | {r['mean']:+.4f} | "
+                f"{r['sd']:.4f} | {r['mde']:.4f} |"
+            )
+        md.append("")
+        s_multi = next((r for r in multi if r["topic"] == "Statins"), None)
+        if s_multi:
+            md.append(
+                f"Statins effect at this fold count: **{s_multi['mean']:+.4f}**. "
+                "Report both parts together; neither on its own bounds the "
+                "cross-topic null.\n"
+            )
+    else:
+        md.append("## Part 2. Pooled multi-run fold count\n")
+        md.append(
+            "Not computed: no readable `outputs/bow_{topic}_multirun_summary.json`.\n"
         )
 
     out_path = OUTPUT_DIR / "power_analysis.md"
     out_path.write_text("\n".join(md) + "\n", encoding="utf-8")
     print(f"Wrote: {out_path}")
     print("")
-    print("Summary:")
+    print("Part 1, single-run design:")
     for r in rows:
         print(
-            f"  {r['topic']:8s}  n_folds={r['n_folds']:3d}  "
-            f"mean={r['mean']:+.4f}  MDE={r['mde']:.4f}"
+            f"  {r['topic']:8s} n={r['n']:3d}  mean={r['mean']:+.4f}  "
+            f"sd={r['sd']:.4f}  MDE exact={r['mde']:.4f}  "
+            f"(normal {r['mde_normal']:.4f})"
         )
+    if multi:
+        print("Part 2, pooled multi-run fold count:")
+        for r in multi:
+            print(
+                f"  {r['topic']:8s} n={r['n']:3d}  mean={r['mean']:+.4f}  "
+                f"sd={r['sd']:.4f}  MDE exact={r['mde']:.4f}"
+            )
 
 
 if __name__ == "__main__":

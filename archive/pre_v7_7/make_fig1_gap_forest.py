@@ -1,6 +1,3 @@
-# NOTE: writes fig1_gap_forest_v3.pdf, which the manuscript does NOT include.
-# The shipped outputs/fig1_gap_forest.pdf comes from scripts/make_paper_artifacts.py.
-# This is NOT the generator behind Figure 1.
 """Forest plot of expert-vs-auto MeSH WSS@95% gap by classifier and topic.
 
 Reads multi-run BoW and multi-seed BERT summary JSONs and renders a forest plot

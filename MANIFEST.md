@@ -7,24 +7,10 @@ from Python imports and from paths cited in the documentation.
 **ORPHAN** means nothing references the file: no import, no paper
 claim, no document. Orphans should be removed or documented.
 
-## 16 orphans
+## 2 orphans
 
-- `Main Classify Abstracts Code.ipynb`
-- `Ontology Preferred Label Groupings.ipynb`
-- `docs/Cohen_BERT_Extension_Results_Consolidation_v4.md`
-- `outputs/archive/fig1_gap_forest_v2.pdf`
-- `outputs/archive/fig1_gap_forest_v2.png`
-- `paper_experiments/commit_and_store.sh`
-- `paper_experiments/outputs/run_statins_10fold_20260630_021311.log`
-- `paper_experiments/outputs/run_statins_10fold_20260630_021648.log`
-- `paper_experiments/outputs/run_statins_10fold_20260630_120657.log`
-- `paper_experiments/outputs/run_statins_10fold_20260630_130904.log`
-- `paper_experiments/outputs/run_statins_subsampling_20260630_021229.log`
-- `paper_experiments/outputs/run_statins_subsampling_20260630_021524.log`
-- `paper_experiments/outputs/run_statins_subsampling_20260630_120632.log`
-- `paper_experiments/outputs/run_statins_subsampling_20260630_122125.log`
-- `paper_experiments/verify_setup.sh`
-- `scripts/run_bow_multirun.sh`
+- `archive/Main Classify Abstracts Code.ipynb`
+- `archive/Ontology Preferred Label Groupings.ipynb`
 
 ## Grouped
 
@@ -39,31 +25,34 @@ claim, no document. Orphans should be removed or documented.
 | `.gitignore` | project file |
 | `LICENSE` | project file |
 | `MANIFEST.md` | cited in PROVENANCE.md |
-| `Main Classify Abstracts Code.ipynb` | **ORPHAN** |
-| `Ontology Preferred Label Groupings.ipynb` | **ORPHAN** |
-| `PROVENANCE.md` | cited in REPRODUCING.md; project file |
-| `README.md` | cited in README.md, data/README.md; project file |
-| `REPRODUCING.md` | cited in README.md, data/README.md; project file |
+| `PROVENANCE.md` | cited in PROVENANCE.md, REPRODUCING.md; project file |
+| `README.md` | cited in PROVENANCE.md, README.md, data/README.md; project file |
+| `REPRODUCING.md` | cited in PROVENANCE.md, README.md, data/README.md; project file |
+| `archive/Main Classify Abstracts Code.ipynb` | **ORPHAN** |
+| `archive/Ontology Preferred Label Groupings.ipynb` | **ORPHAN** |
+| `archive/commit_and_store.sh` | cited in PROVENANCE.md |
+| `archive/fig1_gap_forest_v2.pdf` | cited in PROVENANCE.md |
+| `archive/fig1_gap_forest_v2.png` | cited in PROVENANCE.md; figure, PDF sibling cited |
+| `archive/make_fig1_v2.py` | entry point; cited in PROVENANCE.md, README.md, REPRODUCING.md, data/README.md |
+| `archive/make_fig2_design_sensitivity.py` | entry point; cited in PROVENANCE.md, REPRODUCING.md |
+| `archive/verify_setup.sh` | cited in PROVENANCE.md |
 | `bootstrap_paired_permutation.py` | entry point; cited in PROVENANCE.md, README.md, REPRODUCING.md |
 | `bow_stats_results.json` | cited in PROVENANCE.md, README.md, REPRODUCING.md, data/README.md |
-| `classify_abstracts_new.py` | cited in README.md, data/README.md |
-| `data/README.md` | cited in README.md, data/README.md; project file |
+| `classify_abstracts_new.py` | cited in PROVENANCE.md, README.md, data/README.md |
+| `data/README.md` | cited in PROVENANCE.md, README.md, data/README.md; project file |
 | `data/cohen/epc-ir.clean.tsv` | cited in PROVENANCE.md, REPRODUCING.md; data |
-| `demo_statistical_analysis.py` | entry point; cited in README.md, data/README.md |
-| `docs/Cohen_BERT_Extension_Results_Consolidation_v4.md` | **ORPHAN** |
-| `make_fig2_design_sensitivity.py` | entry point; cited in PROVENANCE.md, REPRODUCING.md |
+| `demo_statistical_analysis.py` | entry point; cited in PROVENANCE.md, README.md, data/README.md |
+| `docs/Cohen_BERT_Extension_Results_Consolidation_v4.md` | cited in PROVENANCE.md |
 | `notebooks/cohen_bert_audit.ipynb` | cited in PROVENANCE.md, README.md, data/README.md |
 | `notebooks/cohen_bert_multiseed.ipynb` | cited in README.md, REPRODUCING.md, data/README.md |
 | `outputs/analysis_results_full_v2.json` | cited in PROVENANCE.md, README.md, data/README.md |
-| `outputs/archive/README.md` | cited in README.md, data/README.md; project file |
+| `outputs/archive/README.md` | cited in PROVENANCE.md, README.md, data/README.md; project file |
 | `outputs/archive/all_workflows_statins.txt` | cited in PROVENANCE.md, README.md, data/README.md |
 | `outputs/archive/analysis_results_full.json` | cited in PROVENANCE.md, README.md, data/README.md |
 | `outputs/archive/bert_val_tuned.txt` | cited in PROVENANCE.md, README.md, REPRODUCING.md, data/README.md |
 | `outputs/archive/bow_statins_smoke.txt` | cited in PROVENANCE.md, README.md, REPRODUCING.md, data/README.md |
 | `outputs/archive/bow_statins_smoke_onednn_off.txt` | cited in PROVENANCE.md, README.md, REPRODUCING.md, data/README.md |
 | `outputs/archive/bow_statins_smoke_rerun2.txt` | cited in PROVENANCE.md, README.md, REPRODUCING.md, data/README.md |
-| `outputs/archive/fig1_gap_forest_v2.pdf` | **ORPHAN** |
-| `outputs/archive/fig1_gap_forest_v2.png` | **ORPHAN** |
 | `outputs/archive/kfold_results.txt` | cited in README.md, data/README.md |
 | `outputs/archive/text_mode_comparison.txt` | cited in PROVENANCE.md, README.md, data/README.md |
 | `outputs/audit_comparison.json` | cited in PROVENANCE.md, README.md, REPRODUCING.md, data/README.md |
@@ -111,7 +100,7 @@ claim, no document. Orphans should be removed or documented.
 | `outputs/bert_statins_title_abstract_mesh_seed7.txt` | cited in PROVENANCE.md, README.md, REPRODUCING.md, data/README.md |
 | `outputs/bert_statins_title_abstract_seed42.json` | cited in README.md, REPRODUCING.md, data/README.md |
 | `outputs/bert_statins_title_abstract_seed42.txt` | cited in PROVENANCE.md, README.md, REPRODUCING.md, data/README.md |
-| `outputs/bow_adhd_multirun_summary.json` | cited in README.md, REPRODUCING.md, data/README.md |
+| `outputs/bow_adhd_multirun_summary.json` | cited in PROVENANCE.md, README.md, REPRODUCING.md, data/README.md |
 | `outputs/bow_adhd_run1.txt` | cited in PROVENANCE.md, README.md, REPRODUCING.md, data/README.md |
 | `outputs/bow_adhd_run2.txt` | cited in PROVENANCE.md, README.md, REPRODUCING.md, data/README.md |
 | `outputs/bow_adhd_run3.txt` | cited in PROVENANCE.md, README.md, REPRODUCING.md, data/README.md |
@@ -120,7 +109,7 @@ claim, no document. Orphans should be removed or documented.
 | `outputs/bow_adhd_run6.txt` | cited in PROVENANCE.md, README.md, REPRODUCING.md, data/README.md |
 | `outputs/bow_adhd_run7.txt` | cited in PROVENANCE.md, README.md, REPRODUCING.md, data/README.md |
 | `outputs/bow_adhd_text_modes.txt` | cited in README.md, REPRODUCING.md, data/README.md |
-| `outputs/bow_opiods_multirun_summary.json` | cited in README.md, REPRODUCING.md, data/README.md |
+| `outputs/bow_opiods_multirun_summary.json` | cited in PROVENANCE.md, README.md, REPRODUCING.md, data/README.md |
 | `outputs/bow_opiods_run1.txt` | cited in PROVENANCE.md, README.md, REPRODUCING.md, data/README.md |
 | `outputs/bow_opiods_run2.txt` | cited in PROVENANCE.md, README.md, REPRODUCING.md, data/README.md |
 | `outputs/bow_opiods_run3.txt` | cited in PROVENANCE.md, README.md, REPRODUCING.md, data/README.md |
@@ -147,9 +136,8 @@ claim, no document. Orphans should be removed or documented.
 | `paper_experiments/README_paper_experiments.md` | cited in PROVENANCE.md |
 | `paper_experiments/audit_bow_bert_data_parity.md` | cited in PROVENANCE.md |
 | `paper_experiments/audit_token_lengths.py` | entry point; cited in PROVENANCE.md |
-| `paper_experiments/commit_and_store.sh` | **ORPHAN** |
 | `paper_experiments/local_inspect.sh` | cited in PROVENANCE.md |
-| `paper_experiments/mesh_assignment_analysis.py` | entry point; cited in REPRODUCING.md |
+| `paper_experiments/mesh_assignment_analysis.py` | entry point; cited in PROVENANCE.md, REPRODUCING.md |
 | `paper_experiments/outputs/audit_token_lengths.json` | cited in PROVENANCE.md, README.md, REPRODUCING.md, data/README.md |
 | `paper_experiments/outputs/audit_token_lengths.md` | cited in PROVENANCE.md |
 | `paper_experiments/outputs/bow_experiments_decision.txt` | cited in PROVENANCE.md, README.md, data/README.md |
@@ -170,47 +158,45 @@ claim, no document. Orphans should be removed or documented.
 | `paper_experiments/outputs/bow_statins_subN803_subseed6_modes.txt` | cited in PROVENANCE.md, README.md, data/README.md |
 | `paper_experiments/outputs/bow_statins_subN803_subseed7_modes.txt` | cited in PROVENANCE.md, README.md, data/README.md |
 | `paper_experiments/outputs/power_analysis.md` | cited in PROVENANCE.md |
-| `paper_experiments/outputs/run_statins_10fold_20260630_021311.log` | **ORPHAN** |
-| `paper_experiments/outputs/run_statins_10fold_20260630_021648.log` | **ORPHAN** |
-| `paper_experiments/outputs/run_statins_10fold_20260630_120657.log` | **ORPHAN** |
-| `paper_experiments/outputs/run_statins_10fold_20260630_130904.log` | **ORPHAN** |
-| `paper_experiments/outputs/run_statins_subsampling_20260630_021229.log` | **ORPHAN** |
-| `paper_experiments/outputs/run_statins_subsampling_20260630_021524.log` | **ORPHAN** |
-| `paper_experiments/outputs/run_statins_subsampling_20260630_120632.log` | **ORPHAN** |
-| `paper_experiments/outputs/run_statins_subsampling_20260630_122125.log` | **ORPHAN** |
+| `paper_experiments/outputs/run_statins_10fold_20260630_021311.log` | cited in PROVENANCE.md |
+| `paper_experiments/outputs/run_statins_10fold_20260630_021648.log` | cited in PROVENANCE.md |
+| `paper_experiments/outputs/run_statins_10fold_20260630_120657.log` | cited in PROVENANCE.md |
+| `paper_experiments/outputs/run_statins_10fold_20260630_130904.log` | cited in PROVENANCE.md |
+| `paper_experiments/outputs/run_statins_subsampling_20260630_021229.log` | cited in PROVENANCE.md |
+| `paper_experiments/outputs/run_statins_subsampling_20260630_021524.log` | cited in PROVENANCE.md |
+| `paper_experiments/outputs/run_statins_subsampling_20260630_120632.log` | cited in PROVENANCE.md |
+| `paper_experiments/outputs/run_statins_subsampling_20260630_122125.log` | cited in PROVENANCE.md |
 | `paper_experiments/outputs/smoke_test.txt` | cited in README.md, data/README.md |
 | `paper_experiments/parse_bow_experiments.py` | entry point; cited in PROVENANCE.md |
 | `paper_experiments/patch_cohen_pipeline.py` | entry point; cited in PROVENANCE.md |
-| `paper_experiments/patch_v5_truncation.py` | entry point |
+| `paper_experiments/patch_v5_truncation.py` | entry point; cited in PROVENANCE.md |
 | `paper_experiments/power_analysis.py` | entry point; cited in PROVENANCE.md |
 | `paper_experiments/run_statins_10fold.sh` | cited in PROVENANCE.md |
 | `paper_experiments/run_statins_subsampling.sh` | cited in PROVENANCE.md |
-| `paper_experiments/verify_setup.sh` | **ORPHAN** |
 | `parse_bow_multirun.py` | entry point; cited in PROVENANCE.md, README.md, data/README.md |
 | `pyproject.toml` | project file |
 | `requirements.txt` | cited in README.md, data/README.md; project file |
-| `scripts/README.md` | cited in README.md, data/README.md; project file |
+| `scripts/README.md` | cited in PROVENANCE.md, README.md, data/README.md; project file |
 | `scripts/build_manifest.py` | entry point; cited in PROVENANCE.md |
 | `scripts/fig_design_sensitivity.py` | cited in PROVENANCE.md, REPRODUCING.md |
 | `scripts/make_fig1_gap_forest.py` | entry point; cited in PROVENANCE.md, REPRODUCING.md |
-| `scripts/make_fig1_v2.py` | entry point; cited in PROVENANCE.md, README.md, REPRODUCING.md, data/README.md |
-| `scripts/make_paper_artifacts.py` | entry point; cited in README.md, REPRODUCING.md, data/README.md |
-| `scripts/run_bow_multirun.sh` | **ORPHAN** |
+| `scripts/make_paper_artifacts.py` | entry point; cited in PROVENANCE.md, README.md, REPRODUCING.md, data/README.md |
+| `scripts/run_bow_multirun.sh` | cited in PROVENANCE.md |
 | `scripts/verify_branch.sh` | cited in PROVENANCE.md |
-| `src/__init__.py` | project file |
-| `src/auto_mesh.py` | imported by mesh_assignment_analysis.py, cohen_bert_pipeline.py, cohen_pipeline.py, +1 more; cited in README.md, REPRODUCING.md, data/README.md |
-| `src/benchmark_loader.py` | imported by audit_token_lengths.py, mesh_assignment_analysis.py, cohen_bert_pipeline.py, +2 more; cited in README.md, REPRODUCING.md, data/README.md |
-| `src/bert_models.py` | imported by cohen_bert_pipeline.py; entry point; cited in README.md, REPRODUCING.md, data/README.md |
-| `src/cohen_bert_pipeline.py` | entry point; cited in README.md, REPRODUCING.md, data/README.md |
+| `src/__init__.py` | cited in PROVENANCE.md; project file |
+| `src/auto_mesh.py` | imported by mesh_assignment_analysis.py, cohen_bert_pipeline.py, cohen_pipeline.py, +1 more; cited in PROVENANCE.md, README.md, REPRODUCING.md, data/README.md |
+| `src/benchmark_loader.py` | imported by audit_token_lengths.py, mesh_assignment_analysis.py, cohen_bert_pipeline.py, +2 more; cited in PROVENANCE.md, README.md, REPRODUCING.md, data/README.md |
+| `src/bert_models.py` | imported by cohen_bert_pipeline.py; entry point; cited in PROVENANCE.md, README.md, REPRODUCING.md, data/README.md |
+| `src/cohen_bert_pipeline.py` | entry point; cited in PROVENANCE.md, README.md, REPRODUCING.md, data/README.md |
 | `src/cohen_pipeline.py` | imported by test_cohen_pipeline.py; entry point; cited in PROVENANCE.md, README.md, REPRODUCING.md, data/README.md |
-| `src/config.py` | imported by cohen_bert_pipeline.py, cohen_pipeline.py, data_loader.py, +3 more |
-| `src/data_loader.py` | imported by pipeline.py |
-| `src/evaluation.py` | imported by cohen_bert_pipeline.py, cohen_pipeline.py, pipeline.py, +1 more; cited in README.md, REPRODUCING.md, data/README.md |
+| `src/config.py` | imported by cohen_bert_pipeline.py, cohen_pipeline.py, data_loader.py, +3 more; cited in PROVENANCE.md |
+| `src/data_loader.py` | imported by pipeline.py; cited in PROVENANCE.md |
+| `src/evaluation.py` | imported by cohen_bert_pipeline.py, cohen_pipeline.py, pipeline.py, +1 more; cited in PROVENANCE.md, README.md, REPRODUCING.md, data/README.md |
 | `src/features.py` | imported by cohen_pipeline.py, pipeline.py; cited in PROVENANCE.md, README.md, REPRODUCING.md, data/README.md |
-| `src/models.py` | imported by cohen_pipeline.py, pipeline.py; cited in README.md, REPRODUCING.md, data/README.md |
+| `src/models.py` | imported by cohen_pipeline.py, pipeline.py; cited in PROVENANCE.md, README.md, REPRODUCING.md, data/README.md |
 | `src/pipeline.py` | entry point; cited in PROVENANCE.md, README.md, REPRODUCING.md, data/README.md |
-| `src/preprocessing.py` | imported by classify_abstracts_new.py, cohen_pipeline.py, features.py, +2 more; cited in REPRODUCING.md |
-| `tests/test_auto_mesh.py` | test |
-| `tests/test_benchmark_loader.py` | test |
-| `tests/test_cohen_pipeline.py` | test |
-| `tests/test_preprocessing.py` | test |
+| `src/preprocessing.py` | imported by classify_abstracts_new.py, cohen_pipeline.py, features.py, +2 more; cited in PROVENANCE.md, REPRODUCING.md |
+| `tests/test_auto_mesh.py` | cited in PROVENANCE.md; test |
+| `tests/test_benchmark_loader.py` | cited in PROVENANCE.md; test |
+| `tests/test_cohen_pipeline.py` | cited in PROVENANCE.md; test |
+| `tests/test_preprocessing.py` | cited in PROVENANCE.md; test |
