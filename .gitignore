@@ -74,3 +74,4 @@ scripts/step*.sh
 scripts/fix_*.py
 scripts/apply_v7_7_repo.sh
 scripts/verify_v7_7.sh
+fix_anon_readme.sh
