@@ -1,0 +1,11 @@
+# Additional dependencies for the BiomedBERT pipeline (src/bert_models.py,
+# src/cohen_bert_pipeline.py). Not included in requirements.txt, which only
+# covers the bag-of-words pipeline and shared utilities.
+#
+# Versions below are unpinned minimums. Confirm and pin to the exact versions
+# used on Colab T4 for the reported runs before treating this as sufficient
+# for exact reproduction; if you have the actual Colab environment's
+# `pip freeze` output, replace this with pinned versions from that.
+torch>=2.0.0
+transformers>=4.30.0
+accelerate>=0.20.0

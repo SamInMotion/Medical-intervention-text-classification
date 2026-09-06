@@ -1,14 +1,15 @@
-# NOTE: writes fig1_gap_forest_v3.pdf, which the manuscript does NOT include.
-# The shipped outputs/fig1_gap_forest.pdf comes from scripts/make_paper_artifacts.py.
-# This is NOT the generator behind Figure 1.
 """Forest plot of expert-vs-auto MeSH WSS@95% gap by classifier and topic.
 
+This is the generator behind the shipped Figure 1 (outputs/fig1_gap_forest.pdf).
 Reads multi-run BoW and multi-seed BERT summary JSONs and renders a forest plot
 with per-topic confidence intervals for each classifier. Replaces the v2 figure
-(fig1_gap_forest_v2) which used single-run BoW values at Opioids and ADHD.
+(fig1_gap_forest_v2) which used single-run BoW values at Opioids and ADHD, and
+no longer carries the v2/v3-era false "Cohen et al. (2006)" annotation on the
+Statins row (that value was an early single run of this project's own pipeline,
+not a published Cohen et al. figure; see PROVENANCE.md #23, #53, #53b).
 
 Usage from repo root:
-    python scripts/make_fig1_gap_forest_v3.py
+    python scripts/make_fig1_gap_forest.py
 
 Inputs (in outputs/):
     bow_statins_multirun_summary.json
@@ -19,8 +20,8 @@ Inputs (in outputs/):
     bert_adhd_multiseed_summary.json
 
 Outputs:
-    outputs/fig1_gap_forest_v3.pdf
-    outputs/fig1_gap_forest_v3.png
+    outputs/fig1_gap_forest.pdf
+    outputs/fig1_gap_forest.png
 
 Dependencies: numpy, matplotlib (both already in the .venv312 environment).
 """
@@ -46,11 +47,7 @@ SEED = 42
 BOW_COLOR = "#4477AA"
 BERT_COLOR = "#EE6677"
 ZERO_COLOR = "#888888"
-PUBLISHED_COLOR = "#333333"
 BG_COLOR = "#FFFFFF"
-
-# Reference values to overlay on the Statins row.
-PUBLISHED_STATINS_GAP = 0.121  # Cohen et al. (2006) BoW single-run reference
 
 # Helpers -------------------------------------------------------------------
 
@@ -172,17 +169,6 @@ def main():
                     color=BERT_COLOR, ecolor=BERT_COLOR, elinewidth=1.4,
                     zorder=3, label=None)
 
-    # Published Cohen et al. reference point on the Statins row only.
-    statins_y = topic_y["Statins"]
-    ax.scatter(PUBLISHED_STATINS_GAP, statins_y + offset, marker="x",
-               s=72, color=PUBLISHED_COLOR, linewidths=1.6, zorder=4)
-    ax.annotate("Cohen et al. (2006)\nBoW single run +0.121",
-                xy=(PUBLISHED_STATINS_GAP, statins_y + offset),
-                xytext=(PUBLISHED_STATINS_GAP + 0.015, statins_y + offset + 0.22),
-                fontsize=8, color=PUBLISHED_COLOR,
-                arrowprops=dict(arrowstyle="->", color=PUBLISHED_COLOR, lw=0.7,
-                                connectionstyle="arc3,rad=0.15"))
-
     # Axis labels and ticks.
     ax.set_yticks(list(topic_y.values()))
     labels = []
@@ -217,8 +203,8 @@ def main():
 
     plt.tight_layout()
     OUTPUTS_DIR.mkdir(parents=True, exist_ok=True)
-    pdf_path = OUTPUTS_DIR / "fig1_gap_forest_v3.pdf"
-    png_path = OUTPUTS_DIR / "fig1_gap_forest_v3.png"
+    pdf_path = OUTPUTS_DIR / "fig1_gap_forest.pdf"
+    png_path = OUTPUTS_DIR / "fig1_gap_forest.png"
     fig.savefig(pdf_path, bbox_inches="tight")
     fig.savefig(png_path, bbox_inches="tight", dpi=200)
     plt.close(fig)
